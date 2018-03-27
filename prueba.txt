@@ -1,6 +1,19 @@
-defino vacio principal()
-  entero z = 1
-  entero m = 2
+global
+  entero m
+  flotante e
+fin
+
+defino entero mam(entero y, flotante x)
+  x = 3
+  regresa x
+fin
+
+principal()
+  entero z
+  z = 1
+  entero m
+  m = 2
+  int[1] e
   si(m < 3)
     imprime("el resultado es:")
     imprime(m)
@@ -12,7 +25,8 @@ defino vacio principal()
   mientras(1,3,1)
     imprime("uno")
   fin
-  entero me = 2
+  entero me 
+  me = 2
   mientrast(me < 3)
     me = me + 1
     imprime("dos")
