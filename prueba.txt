@@ -1,6 +1,5 @@
 global
   entero ed = 1
-  entero [1] ju
 
   defino entero comer(entero x , entero y)
     entero e = 1
@@ -29,3 +28,4 @@ global
       imprime("dos")
     fin
   fin
+  

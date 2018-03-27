@@ -135,7 +135,15 @@ def p_FINAL(p):
     pass
 # listo
 def p_PROGRAMA(p):
-  '''PROGRAMA : PROGRAMAZ FUNCION PRINCIPAL'''
+  '''PROGRAMA : PROGRAMAZ PROGRAMAB PRINCIPAL'''
+# listo
+def p_PROGRAMAB(p):
+  '''PROGRAMAB : PROGRAMAS
+    | FINAL'''
+# listo
+def p_PROGRAMAS(p):
+  '''PROGRAMAS : FUNCION
+    | PROGRAMAB'''
 # listo
 def p_PROGRAMAZ(p):
   '''PROGRAMAZ : FINAL
@@ -238,7 +246,7 @@ def p_CONDICIONP(p):
   | FINAL'''
 # listo
 def p_CONDICIONZ(p):
-  '''CONDICIONZ : BLOQUE
+  '''CONDICIONZ : BLOQUE FINAL
   | CONDICION'''
 # listo
 def p_RELOP(p):
@@ -314,7 +322,7 @@ def p_VAR_FUNP(p):
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
   | FINAL'''
-# listo -- faltan declarar sus tokens
+# listo
 def p_DIBUJA(p):
   '''DIBUJA : DEFINIRPOSICION
   | DEFINIRCOLOR
