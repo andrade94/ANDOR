@@ -63,7 +63,7 @@ Rule 49    RELOP -> NOTEQ
 Rule 50    RELOP -> LESSEQTH
 Rule 51    RELOP -> GREATEREQTH
 Rule 52    EXPRE -> EXT EXPREZ
-Rule 53    EXPREZ -> EQUAL EXPRE
+Rule 53    EXPREZ -> EQUAL EXT
 Rule 54    EXPREZ -> empty
 Rule 55    EXT -> EXP EXT_W_RELOP
 Rule 56    EXT_W_RELOP -> RELOP EXT
@@ -92,7 +92,7 @@ Rule 78    VAR_FUN -> LPAR VAR_FUNP RPAR
 Rule 79    VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ
 Rule 80    VAR_FUNP -> empty
 Rule 81    VAR_FUNZ -> COMMA VAR_FUNP
-Rule 82    VAR_FUNZ -> empty
+Rule 82    VAR_FUNZ -> <empty>
 Rule 83    DIBUJA -> DEFINIRPOSICION
 Rule 84    DIBUJA -> DEFINIRCOLOR
 Rule 85    DIBUJA -> DERECHO
@@ -186,10 +186,10 @@ DATA_TIPOS           : 11 32 76 79
 DIBUJA               : 77
 ESTATUTO             : 20
 EXP                  : 55 59
-EXPRE                : 13 34 41 43 53 67 69 71 73 74 76
+EXPRE                : 13 34 41 43 67 69 71 73 74 76
 EXPREZ               : 52
 EXP_W_SIGN           : 58
-EXT                  : 52 56
+EXT                  : 52 53 56
 EXT_W_RELOP          : 55
 FAC                  : 61
 FACT                 : 72
@@ -216,7 +216,7 @@ VAR_FUN              : 76
 VAR_FUNP             : 78 81
 VAR_FUNZ             : 79
 WHILEF               : 39
-empty                : 4 6 9 21 35 37 45 54 57 60 63 75 80 82
+empty                : 4 6 9 21 35 37 45 54 57 60 63 75 80
 
 Parsing method: LALR
 
@@ -545,8 +545,8 @@ state 29
     ICTE            reduce using rule 11 (VART -> DATA_TIPOS ID .)
     FCTE            reduce using rule 11 (VART -> DATA_TIPOS ID .)
     END             reduce using rule 11 (VART -> DATA_TIPOS ID .)
-    ELSE            reduce using rule 11 (VART -> DATA_TIPOS ID .)
     RETURN          reduce using rule 11 (VART -> DATA_TIPOS ID .)
+    ELSE            reduce using rule 11 (VART -> DATA_TIPOS ID .)
 
 
 state 30
@@ -577,8 +577,8 @@ state 31
     ICTE            reduce using rule 12 (VART -> ARR ID .)
     FCTE            reduce using rule 12 (VART -> ARR ID .)
     END             reduce using rule 12 (VART -> ARR ID .)
-    ELSE            reduce using rule 12 (VART -> ARR ID .)
     RETURN          reduce using rule 12 (VART -> ARR ID .)
+    ELSE            reduce using rule 12 (VART -> ARR ID .)
 
 
 state 32
@@ -890,7 +890,7 @@ state 43
 state 44
 
     (52) EXPRE -> EXT . EXPREZ
-    (53) EXPREZ -> . EQUAL EXPRE
+    (53) EXPREZ -> . EQUAL EXT
     (54) EXPREZ -> . empty
     (1) empty -> .
 
@@ -1285,8 +1285,6 @@ state 57
     LESSEQTH        reduce using rule 64 (VAR_CTE -> ICTE .)
     GREATEREQTH     reduce using rule 64 (VAR_CTE -> ICTE .)
     EQUAL           reduce using rule 64 (VAR_CTE -> ICTE .)
-    RPAR            reduce using rule 64 (VAR_CTE -> ICTE .)
-    END             reduce using rule 64 (VAR_CTE -> ICTE .)
     IF              reduce using rule 64 (VAR_CTE -> ICTE .)
     ID              reduce using rule 64 (VAR_CTE -> ICTE .)
     DRAW            reduce using rule 64 (VAR_CTE -> ICTE .)
@@ -1303,10 +1301,12 @@ state 57
     LBRA            reduce using rule 64 (VAR_CTE -> ICTE .)
     ICTE            reduce using rule 64 (VAR_CTE -> ICTE .)
     FCTE            reduce using rule 64 (VAR_CTE -> ICTE .)
-    COMMA           reduce using rule 64 (VAR_CTE -> ICTE .)
-    ELSE            reduce using rule 64 (VAR_CTE -> ICTE .)
+    END             reduce using rule 64 (VAR_CTE -> ICTE .)
+    RPAR            reduce using rule 64 (VAR_CTE -> ICTE .)
     RETURN          reduce using rule 64 (VAR_CTE -> ICTE .)
+    ELSE            reduce using rule 64 (VAR_CTE -> ICTE .)
     RBRA            reduce using rule 64 (VAR_CTE -> ICTE .)
+    COMMA           reduce using rule 64 (VAR_CTE -> ICTE .)
 
 
 state 58
@@ -1372,10 +1372,10 @@ state 60
     LBRA            reduce using rule 70 (FAC -> VAR_CTE .)
     ICTE            reduce using rule 70 (FAC -> VAR_CTE .)
     FCTE            reduce using rule 70 (FAC -> VAR_CTE .)
-    ELSE            reduce using rule 70 (FAC -> VAR_CTE .)
     END             reduce using rule 70 (FAC -> VAR_CTE .)
     RETURN          reduce using rule 70 (FAC -> VAR_CTE .)
     RPAR            reduce using rule 70 (FAC -> VAR_CTE .)
+    ELSE            reduce using rule 70 (FAC -> VAR_CTE .)
     RBRA            reduce using rule 70 (FAC -> VAR_CTE .)
     COMMA           reduce using rule 70 (FAC -> VAR_CTE .)
 
@@ -1531,8 +1531,6 @@ state 66
     LESSEQTH        reduce using rule 65 (VAR_CTE -> FCTE .)
     GREATEREQTH     reduce using rule 65 (VAR_CTE -> FCTE .)
     EQUAL           reduce using rule 65 (VAR_CTE -> FCTE .)
-    RPAR            reduce using rule 65 (VAR_CTE -> FCTE .)
-    END             reduce using rule 65 (VAR_CTE -> FCTE .)
     IF              reduce using rule 65 (VAR_CTE -> FCTE .)
     ID              reduce using rule 65 (VAR_CTE -> FCTE .)
     DRAW            reduce using rule 65 (VAR_CTE -> FCTE .)
@@ -1549,10 +1547,12 @@ state 66
     LBRA            reduce using rule 65 (VAR_CTE -> FCTE .)
     ICTE            reduce using rule 65 (VAR_CTE -> FCTE .)
     FCTE            reduce using rule 65 (VAR_CTE -> FCTE .)
-    COMMA           reduce using rule 65 (VAR_CTE -> FCTE .)
-    ELSE            reduce using rule 65 (VAR_CTE -> FCTE .)
+    END             reduce using rule 65 (VAR_CTE -> FCTE .)
+    RPAR            reduce using rule 65 (VAR_CTE -> FCTE .)
     RETURN          reduce using rule 65 (VAR_CTE -> FCTE .)
+    ELSE            reduce using rule 65 (VAR_CTE -> FCTE .)
     RBRA            reduce using rule 65 (VAR_CTE -> FCTE .)
+    COMMA           reduce using rule 65 (VAR_CTE -> FCTE .)
 
 
 state 67
@@ -1668,11 +1668,11 @@ state 74
     LBRA            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     ICTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     FCTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    ELSE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     END             reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     RPAR            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    COMMA           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     RETURN          reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    COMMA           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    ELSE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
 
 
 state 75
@@ -1705,8 +1705,7 @@ state 75
 
 state 76
 
-    (53) EXPREZ -> EQUAL . EXPRE
-    (52) EXPRE -> . EXT EXPREZ
+    (53) EXPREZ -> EQUAL . EXT
     (55) EXT -> . EXP EXT_W_RELOP
     (58) EXP -> . TERMINO EXP_W_SIGN
     (61) TERMINO -> . FAC TERMINO_W_SIGN
@@ -1723,9 +1722,8 @@ state 76
     ICTE            shift and go to state 57
     FCTE            shift and go to state 66
 
-    EXPRE                          shift and go to state 114
     VAR_CTE                        shift and go to state 60
-    EXT                            shift and go to state 44
+    EXT                            shift and go to state 114
     TERMINO                        shift and go to state 51
     EXP                            shift and go to state 45
     FAC                            shift and go to state 63
@@ -1810,10 +1808,10 @@ state 81
     ICTE            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
     FCTE            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
     END             reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
-    RPAR            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
     COMMA           reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
-    RETURN          reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
+    RPAR            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
     ELSE            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
+    RETURN          reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
     RBRA            reduce using rule 55 (EXT -> EXP EXT_W_RELOP .)
 
 
@@ -2223,10 +2221,10 @@ state 100
     LBRA            reduce using rule 72 (FAC -> ID FACT .)
     ICTE            reduce using rule 72 (FAC -> ID FACT .)
     FCTE            reduce using rule 72 (FAC -> ID FACT .)
-    ELSE            reduce using rule 72 (FAC -> ID FACT .)
     END             reduce using rule 72 (FAC -> ID FACT .)
     RETURN          reduce using rule 72 (FAC -> ID FACT .)
     RPAR            reduce using rule 72 (FAC -> ID FACT .)
+    ELSE            reduce using rule 72 (FAC -> ID FACT .)
     RBRA            reduce using rule 72 (FAC -> ID FACT .)
     COMMA           reduce using rule 72 (FAC -> ID FACT .)
 
@@ -2406,14 +2404,12 @@ state 108
 
     (79) VAR_FUNP -> DATA_TIPOS ID . VAR_FUNZ
     (81) VAR_FUNZ -> . COMMA VAR_FUNP
-    (82) VAR_FUNZ -> . empty
-    (1) empty -> .
+    (82) VAR_FUNZ -> .
 
-    COMMA           shift and go to state 146
-    RPAR            reduce using rule 1 (empty -> .)
+    COMMA           shift and go to state 145
+    RPAR            reduce using rule 82 (VAR_FUNZ -> .)
 
-    empty                          shift and go to state 147
-    VAR_FUNZ                       shift and go to state 145
+    VAR_FUNZ                       shift and go to state 146
 
 state 109
 
@@ -2458,7 +2454,7 @@ state 110
     ICTE            shift and go to state 57
     FCTE            shift and go to state 66
 
-    EXPRE                          shift and go to state 148
+    EXPRE                          shift and go to state 147
     VAR_CTE                        shift and go to state 60
     EXT                            shift and go to state 44
     TERMINO                        shift and go to state 51
@@ -2469,7 +2465,7 @@ state 111
 
     (10) VART -> DRAW ID EQUAL NEW DRAWI LPAR . RPAR
 
-    RPAR            shift and go to state 149
+    RPAR            shift and go to state 148
 
 
 state 112
@@ -2503,10 +2499,10 @@ state 112
     LBRA            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     ICTE            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     FCTE            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
-    ELSE            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     END             reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     RETURN          reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     RPAR            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
+    ELSE            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     RBRA            reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
     COMMA           reduce using rule 69 (FAC -> LPAR EXPRE RPAR .)
 
@@ -2531,7 +2527,7 @@ state 113
     ICTE            shift and go to state 57
     FCTE            shift and go to state 66
 
-    EXPRE                          shift and go to state 150
+    EXPRE                          shift and go to state 149
     VAR_CTE                        shift and go to state 60
     EXT                            shift and go to state 44
     TERMINO                        shift and go to state 51
@@ -2540,30 +2536,30 @@ state 113
 
 state 114
 
-    (53) EXPREZ -> EQUAL EXPRE .
+    (53) EXPREZ -> EQUAL EXT .
 
-    IF              reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    ID              reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    DRAW            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    PRINT           reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    WHILE           reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    FOR             reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    INT             reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    BOOLEAN         reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    CHAR            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    STRING          reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    FLOAT           reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    VOID            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    LPAR            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    LBRA            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    ICTE            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    FCTE            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    END             reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    RETURN          reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    RPAR            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    ELSE            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    RBRA            reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
-    COMMA           reduce using rule 53 (EXPREZ -> EQUAL EXPRE .)
+    IF              reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    ID              reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    DRAW            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    PRINT           reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    WHILE           reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    FOR             reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    INT             reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    BOOLEAN         reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    CHAR            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    STRING          reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    FLOAT           reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    VOID            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    LPAR            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    LBRA            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    ICTE            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    FCTE            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    END             reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    RETURN          reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    RPAR            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    ELSE            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    RBRA            reduce using rule 53 (EXPREZ -> EQUAL EXT .)
+    COMMA           reduce using rule 53 (EXPREZ -> EQUAL EXT .)
 
 
 state 115
@@ -2606,7 +2602,7 @@ state 117
 
     (66) IMPRIMIR -> PRINT LBRA IMPRIMIRZ . RBRA
 
-    RBRA            shift and go to state 151
+    RBRA            shift and go to state 150
 
 
 state 118
@@ -2647,10 +2643,10 @@ state 119
     LBRA            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     ICTE            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     FCTE            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
-    ELSE            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     END             reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     RETURN          reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     RPAR            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
+    ELSE            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     RBRA            reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
     COMMA           reduce using rule 71 (FAC -> LBRA EXPRE RPAR .)
 
@@ -2659,7 +2655,7 @@ state 120
 
     (42) FORZ -> FOR LPAR ICTE . COMMA ICTE COMMA ICTE RPAR BLOQUE END
 
-    COMMA           shift and go to state 152
+    COMMA           shift and go to state 151
 
 
 state 121
@@ -2706,8 +2702,8 @@ state 122
     (1) empty -> .
 
   ! shift/reduce conflict for RPAR resolved as shift
-    RPAR            shift and go to state 154
-    COMMA           shift and go to state 155
+    RPAR            shift and go to state 153
+    COMMA           shift and go to state 154
     LPAR            reduce using rule 1 (empty -> .)
     LBRA            reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
@@ -2716,14 +2712,14 @@ state 122
 
   ! RPAR            [ reduce using rule 1 (empty -> .) ]
 
-    LLAMADA_FUNCIONZ               shift and go to state 153
-    empty                          shift and go to state 156
+    LLAMADA_FUNCIONZ               shift and go to state 152
+    empty                          shift and go to state 155
 
 state 123
 
     (33) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP . RPAR
 
-    RPAR            shift and go to state 157
+    RPAR            shift and go to state 156
 
 
 state 124
@@ -2737,7 +2733,7 @@ state 125
 
     (73) FACT -> LBRA EXPRE . RBRA
 
-    RBRA            shift and go to state 158
+    RBRA            shift and go to state 157
 
 
 state 126
@@ -2807,7 +2803,7 @@ state 135
 
     (77) ACCION -> ID POINT DIBUJA . LPAR VAR_CTE RPAR
 
-    LPAR            shift and go to state 159
+    LPAR            shift and go to state 158
 
 
 state 136
@@ -2856,7 +2852,7 @@ state 142
 
     (43) CONDICION -> IF LPAR EXPRE . RPAR BLOQUE CONDICIONP END
 
-    RPAR            shift and go to state 160
+    RPAR            shift and go to state 159
 
 
 state 143
@@ -2900,17 +2896,10 @@ state 144
 
     (41) WHILEF -> WHILE LPAR EXPRE . RPAR BLOQUE END
 
-    RPAR            shift and go to state 161
+    RPAR            shift and go to state 160
 
 
 state 145
-
-    (79) VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .
-
-    RPAR            reduce using rule 79 (VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .)
-
-
-state 146
 
     (81) VAR_FUNZ -> COMMA . VAR_FUNP
     (79) VAR_FUNP -> . DATA_TIPOS ID VAR_FUNZ
@@ -2933,23 +2922,23 @@ state 146
 
     empty                          shift and go to state 69
     DATA_TIPOS                     shift and go to state 67
-    VAR_FUNP                       shift and go to state 162
+    VAR_FUNP                       shift and go to state 161
+
+state 146
+
+    (79) VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .
+
+    RPAR            reduce using rule 79 (VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .)
+
 
 state 147
 
-    (82) VAR_FUNZ -> empty .
+    (76) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXPRE . END
 
-    RPAR            reduce using rule 82 (VAR_FUNZ -> empty .)
+    END             shift and go to state 162
 
 
 state 148
-
-    (76) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXPRE . END
-
-    END             shift and go to state 163
-
-
-state 149
 
     (10) VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .
 
@@ -2970,18 +2959,18 @@ state 149
     ICTE            reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
     FCTE            reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
     END             reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
-    ELSE            reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
     RETURN          reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
+    ELSE            reduce using rule 10 (VART -> DRAW ID EQUAL NEW DRAWI LPAR RPAR .)
 
 
-state 150
+state 149
 
     (74) FACT -> LPAR EXPRE . RPAR
 
-    RPAR            shift and go to state 154
+    RPAR            shift and go to state 153
 
 
-state 151
+state 150
 
     (66) IMPRIMIR -> PRINT LBRA IMPRIMIRZ RBRA .
 
@@ -3006,14 +2995,14 @@ state 151
     ELSE            reduce using rule 66 (IMPRIMIR -> PRINT LBRA IMPRIMIRZ RBRA .)
 
 
-state 152
+state 151
 
     (42) FORZ -> FOR LPAR ICTE COMMA . ICTE COMMA ICTE RPAR BLOQUE END
 
-    ICTE            shift and go to state 164
+    ICTE            shift and go to state 163
 
 
-state 153
+state 152
 
     (34) LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ . LLAMADA_FUNCIONP
     (34) LLAMADA_FUNCIONP -> . EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
@@ -3037,8 +3026,8 @@ state 153
     ICTE            shift and go to state 57
     FCTE            shift and go to state 66
 
-    EXPRE                          shift and go to state 165
-    LLAMADA_FUNCIONP               shift and go to state 166
+    EXPRE                          shift and go to state 164
+    LLAMADA_FUNCIONP               shift and go to state 165
     VAR_CTE                        shift and go to state 60
     EXT                            shift and go to state 44
     TERMINO                        shift and go to state 51
@@ -3046,7 +3035,7 @@ state 153
     FAC                            shift and go to state 63
     empty                          shift and go to state 124
 
-state 154
+state 153
 
     (74) FACT -> LPAR EXPRE RPAR .
 
@@ -3085,7 +3074,7 @@ state 154
     COMMA           reduce using rule 74 (FACT -> LPAR EXPRE RPAR .)
 
 
-state 155
+state 154
 
     (36) LLAMADA_FUNCIONZ -> COMMA .
 
@@ -3097,7 +3086,7 @@ state 155
     RPAR            reduce using rule 36 (LLAMADA_FUNCIONZ -> COMMA .)
 
 
-state 156
+state 155
 
     (37) LLAMADA_FUNCIONZ -> empty .
 
@@ -3109,7 +3098,7 @@ state 156
     RPAR            reduce using rule 37 (LLAMADA_FUNCIONZ -> empty .)
 
 
-state 157
+state 156
 
     (33) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .
 
@@ -3134,7 +3123,7 @@ state 157
     ELSE            reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
 
 
-state 158
+state 157
 
     (73) FACT -> LBRA EXPRE RBRA .
 
@@ -3173,7 +3162,7 @@ state 158
     COMMA           reduce using rule 73 (FACT -> LBRA EXPRE RBRA .)
 
 
-state 159
+state 158
 
     (77) ACCION -> ID POINT DIBUJA LPAR . VAR_CTE RPAR
     (64) VAR_CTE -> . ICTE
@@ -3182,9 +3171,9 @@ state 159
     ICTE            shift and go to state 57
     FCTE            shift and go to state 66
 
-    VAR_CTE                        shift and go to state 167
+    VAR_CTE                        shift and go to state 166
 
-state 160
+state 159
 
     (43) CONDICION -> IF LPAR EXPRE RPAR . BLOQUE CONDICIONP END
     (20) BLOQUE -> . ESTATUTO BLOQUE
@@ -3260,12 +3249,12 @@ state 160
     DATA_TIPOS                     shift and go to state 17
     FORZ                           shift and go to state 55
     IMPRIMIR                       shift and go to state 58
-    BLOQUE                         shift and go to state 168
+    BLOQUE                         shift and go to state 167
     ARR                            shift and go to state 18
     ACCION                         shift and go to state 64
     CONDICION                      shift and go to state 56
 
-state 161
+state 160
 
     (41) WHILEF -> WHILE LPAR EXPRE RPAR . BLOQUE END
     (20) BLOQUE -> . ESTATUTO BLOQUE
@@ -3340,19 +3329,19 @@ state 161
     DATA_TIPOS                     shift and go to state 17
     FORZ                           shift and go to state 55
     IMPRIMIR                       shift and go to state 58
-    BLOQUE                         shift and go to state 169
+    BLOQUE                         shift and go to state 168
     ARR                            shift and go to state 18
     ACCION                         shift and go to state 64
     CONDICION                      shift and go to state 56
 
-state 162
+state 161
 
     (81) VAR_FUNZ -> COMMA VAR_FUNP .
 
     RPAR            reduce using rule 81 (VAR_FUNZ -> COMMA VAR_FUNP .)
 
 
-state 163
+state 162
 
     (76) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXPRE END .
 
@@ -3360,21 +3349,21 @@ state 163
     MAIN            reduce using rule 76 (FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXPRE END .)
 
 
-state 164
+state 163
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE . COMMA ICTE RPAR BLOQUE END
 
-    COMMA           shift and go to state 170
+    COMMA           shift and go to state 169
 
 
-state 165
+state 164
 
     (34) LLAMADA_FUNCIONP -> EXPRE . LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
     (36) LLAMADA_FUNCIONZ -> . COMMA
     (37) LLAMADA_FUNCIONZ -> . empty
     (1) empty -> .
 
-    COMMA           shift and go to state 155
+    COMMA           shift and go to state 154
     LPAR            reduce using rule 1 (empty -> .)
     LBRA            reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
@@ -3382,51 +3371,51 @@ state 165
     FCTE            reduce using rule 1 (empty -> .)
     RPAR            reduce using rule 1 (empty -> .)
 
-    LLAMADA_FUNCIONZ               shift and go to state 153
-    empty                          shift and go to state 156
+    LLAMADA_FUNCIONZ               shift and go to state 152
+    empty                          shift and go to state 155
 
-state 166
+state 165
 
     (34) LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP .
 
     RPAR            reduce using rule 34 (LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP .)
 
 
-state 167
+state 166
 
     (77) ACCION -> ID POINT DIBUJA LPAR VAR_CTE . RPAR
 
-    RPAR            shift and go to state 171
+    RPAR            shift and go to state 170
 
 
-state 168
+state 167
 
     (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE . CONDICIONP END
     (44) CONDICIONP -> . ELSE BLOQUE
     (45) CONDICIONP -> . empty
     (1) empty -> .
 
-    ELSE            shift and go to state 173
+    ELSE            shift and go to state 172
     END             reduce using rule 1 (empty -> .)
 
-    CONDICIONP                     shift and go to state 172
-    empty                          shift and go to state 174
+    CONDICIONP                     shift and go to state 171
+    empty                          shift and go to state 173
 
-state 169
+state 168
 
     (41) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE . END
 
-    END             shift and go to state 175
+    END             shift and go to state 174
 
 
-state 170
+state 169
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA . ICTE RPAR BLOQUE END
 
-    ICTE            shift and go to state 176
+    ICTE            shift and go to state 175
 
 
-state 171
+state 170
 
     (77) ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .
 
@@ -3451,14 +3440,14 @@ state 171
     RETURN          reduce using rule 77 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
 
 
-state 172
+state 171
 
     (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP . END
 
-    END             shift and go to state 177
+    END             shift and go to state 176
 
 
-state 173
+state 172
 
     (44) CONDICIONP -> ELSE . BLOQUE
     (20) BLOQUE -> . ESTATUTO BLOQUE
@@ -3533,19 +3522,19 @@ state 173
     DATA_TIPOS                     shift and go to state 17
     FORZ                           shift and go to state 55
     IMPRIMIR                       shift and go to state 58
-    BLOQUE                         shift and go to state 178
+    BLOQUE                         shift and go to state 177
     ARR                            shift and go to state 18
     ACCION                         shift and go to state 64
     CONDICION                      shift and go to state 56
 
-state 174
+state 173
 
     (45) CONDICIONP -> empty .
 
     END             reduce using rule 45 (CONDICIONP -> empty .)
 
 
-state 175
+state 174
 
     (41) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .
 
@@ -3570,14 +3559,14 @@ state 175
     ELSE            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
 
 
-state 176
+state 175
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE . RPAR BLOQUE END
 
-    RPAR            shift and go to state 179
+    RPAR            shift and go to state 178
 
 
-state 177
+state 176
 
     (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .
 
@@ -3602,14 +3591,14 @@ state 177
     ELSE            reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
 
 
-state 178
+state 177
 
     (44) CONDICIONP -> ELSE BLOQUE .
 
     END             reduce using rule 44 (CONDICIONP -> ELSE BLOQUE .)
 
 
-state 179
+state 178
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR . BLOQUE END
     (20) BLOQUE -> . ESTATUTO BLOQUE
@@ -3684,19 +3673,19 @@ state 179
     DATA_TIPOS                     shift and go to state 17
     FORZ                           shift and go to state 55
     IMPRIMIR                       shift and go to state 58
-    BLOQUE                         shift and go to state 180
+    BLOQUE                         shift and go to state 179
     ARR                            shift and go to state 18
     ACCION                         shift and go to state 64
     CONDICION                      shift and go to state 56
 
-state 180
+state 179
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE . END
 
-    END             shift and go to state 181
+    END             shift and go to state 180
 
 
-state 181
+state 180
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .
 

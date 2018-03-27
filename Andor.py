@@ -253,7 +253,7 @@ def p_EXPRE(p):
   '''EXPRE : EXT EXPREZ
   '''
 def p_EXPREZ(p):
-  '''EXPREZ : EQUAL EXPRE
+  '''EXPREZ : EQUAL EXT
             | empty
   '''
 def p_EXT(p):
@@ -352,8 +352,6 @@ def p_DIBUJA(p):
 def p_error(p):
     if p:
         print("Syntax error at '%s'" % p)
-    else:
-        print("Syntax error at EOF")
 
 
 import ply.yacc as yacc
