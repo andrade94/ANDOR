@@ -10,11 +10,8 @@ if sys.version_info[0] >= 3:
 reserved = {
     'global': 'GLOBAL',
   	'principal': 'MAIN',
-  	'programa': 'PROGRAM',
-  	'funcion': 'FUNCTION',
     'si': 'IF',
     'sino': 'ELSE',
-    'var': 'VAR',
     'entero': 'INT',
     'flotante': 'FLOAT',
   	'caracter': 'CHAR',
@@ -148,7 +145,7 @@ def p_GLOBALES(p):
   '''GLOBALES : GLOBAL VART'''
 # listo
 def p_VART(p):
-  '''VART : DRAW ID EQUAL NEW DRAW LPAR RPAR
+  '''VART : DRAW ID EQUAL NEW DRAWI LPAR RPAR
   	| DATA_TIPOS ID VARZ
   		| ARR ID'''
 # listo
@@ -162,7 +159,8 @@ def p_ESTATUTO(p):
   | CICLO
   | ACCION
   | VART
-  | LLAMADA_FUNCION'''
+  | LLAMADA_FUNCION
+  | IMPRIMIR'''
 # listo 
 def p_BLOQUE(p):
   '''BLOQUE : ESTATUTO BLOQUEP'''
@@ -186,9 +184,9 @@ def p_MDOP(p):
   '''MDOP : MULT
   | DIVI'''
 # listo
-def p_LOGOP(p):
-  '''LOGOP : AND
-  | OR'''
+# def p_LOGOP(p):
+#  '''LOGOP : AND
+#  | OR'''
 # listo
 def p_ASIGNACION(p):
   '''ASIGNACION : ID ASIGNACIONP'''
