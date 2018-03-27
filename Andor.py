@@ -130,24 +130,20 @@ lexer.input(file.read())
 start = 'PROGRAMA'
 
 # For using empty
-def p_FINAL(p):
-    '''FINAL :'''
+def p_empty(p):
+    '''empty :'''
     pass
 # listo
 def p_PROGRAMA(p):
   '''PROGRAMA : PROGRAMAZ PROGRAMAB PRINCIPAL'''
 # listo
 def p_PROGRAMAB(p):
-  '''PROGRAMAB : PROGRAMAS
-    | FINAL'''
-# listo
-def p_PROGRAMAS(p):
-  '''PROGRAMAS : FUNCION
-    | PROGRAMAB'''
+  '''PROGRAMAB : FUNCION PROGRAMAB
+    | empty'''
 # listo
 def p_PROGRAMAZ(p):
-  '''PROGRAMAZ : FINAL
-  | GLOBALES'''
+  '''PROGRAMAZ : GLOBALES
+  | empty'''
 # listo
 def p_GLOBALES(p):
   '''GLOBALES : GLOBAL VART'''
@@ -158,7 +154,7 @@ def p_VART(p):
   		| ARR ID'''
 # listo
 def p_VARZ(p):
-  '''VARZ : FINAL
+  '''VARZ : empty
   	| EQUAL EXP'''
 # listo
 def p_ESTATUTO(p):
@@ -175,7 +171,7 @@ def p_BLOQUE(p):
 # listo
 def p_BLOQUEP(p):
   '''BLOQUEP : BLOQUE 
-  | FINAL'''
+  | empty'''
 # listo
 def p_DATA_TIPOS(p):
   '''DATA_TIPOS : INT
@@ -205,25 +201,25 @@ def p_ASIGNACIONP(p):
 # listo
 def p_ASIGNACIONZ(p):
   '''ASIGNACIONZ : COMMA ICTE
-  | FINAL'''
+  | empty'''
 # listo
 def p_ARR(p):
   '''ARR : DATA_TIPOS LBRA ICTE ARRZ RBRA'''
 # listo
 def p_ARRZ(p):
   '''ARRZ : COMMA ICTE
-  | FINAL'''
+  | empty'''
 # listo
 def p_LLAMADA_FUNCION(p):
   '''LLAMADA_FUNCION : ID LPAR LLAMADA_FUNCIONP RPAR'''
 # listo
 def p_LLAMADA_FUNCIONP(p):
   '''LLAMADA_FUNCIONP : EXPRE LLAMADA_FUNCIONZ
-  | FINAL'''
+  | empty'''
 # listo
 def p_LLAMADA_FUNCIONZ(p):
   '''LLAMADA_FUNCIONZ : COMMA LLAMADA_FUNCIONP
-  | FINAL'''
+  | empty'''
 # listo
 def p_PRINCIPAL(p):
   '''PRINCIPAL : DEFINE VOID MAIN LPAR RPAR BLOQUE END'''
@@ -243,10 +239,10 @@ def p_CONDICION(p):
 # listo
 def p_CONDICIONP(p):
   '''CONDICIONP : ELSE CONDICIONZ
-  | FINAL'''
+  | empty'''
 # listo
 def p_CONDICIONZ(p):
-  '''CONDICIONZ : BLOQUE FINAL
+  '''CONDICIONZ : BLOQUE empty
   | CONDICION'''
 # listo
 def p_RELOP(p):
@@ -262,21 +258,21 @@ def p_EXPRE(p):
 # listo
 def p_EXPREZ(p):
   '''EXPREZ : RELOP EXP 
-  | FINAL'''
+  | empty'''
 # listo
 def p_EXP(p):
   '''EXP : TERMINO EXP_W_SIGN'''
 # listo
 def p_EXP_W_SIGN(p):
   '''EXP_W_SIGN : ASOP EXP
-  | FINAL'''
+  | empty'''
 # listo
 def p_TERMINO(p):
   '''TERMINO : FAC TERMINO_W_SIGN'''
 # listo
 def p_TERMINO_W_SIGN(p):
   '''TERMINO_W_SIGN : MDOP TERMINO
-  | FINAL'''
+  | empty'''
 # listo
 def p_VAR_CTE(p):
   '''VAR_CTE : ICTE
@@ -297,15 +293,15 @@ def p_FAC(p):
   #listo
 def p_FACT(p):
   '''FACT : LBRA EXP FACZ RBRA
-  | FINAL'''
+  | empty'''
 # listo
 def p_FACS(p):
   '''FACS : ASOP
-  | FINAL'''
+  | empty'''
 # listo 
 def p_FACZ(p):
   '''FACZ : COMMA EXP
-  | FINAL'''
+  | empty'''
 # listo
 def p_FUNCION(p): 
   '''FUNCION : DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END'''
@@ -321,7 +317,7 @@ def p_VAR_FUNP(p):
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
-  | FINAL'''
+  | empty'''
 # listo
 def p_DIBUJA(p):
   '''DIBUJA : DEFINIRPOSICION
