@@ -1,0 +1,3274 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    PROGRAM
+    DRAWI
+    TRUE
+    FUNCTION
+    VAR
+    FALSE
+    NOT
+
+Grammar
+
+Rule 0     S' -> PROGRAMA
+Rule 1     FINAL -> <empty>
+Rule 2     PROGRAMA -> PROGRAMAZ FUNCION PRINCIPAL
+Rule 3     PROGRAMAZ -> FINAL
+Rule 4     PROGRAMAZ -> GLOBALES
+Rule 5     GLOBALES -> GLOBAL VART
+Rule 6     VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR
+Rule 7     VART -> DATA_TIPOS ID VARZ
+Rule 8     VART -> ARR ID
+Rule 9     VARZ -> FINAL
+Rule 10    VARZ -> EQUAL EXP
+Rule 11    ESTATUTO -> ASIGNACION
+Rule 12    ESTATUTO -> CONDICION
+Rule 13    ESTATUTO -> CICLO
+Rule 14    ESTATUTO -> ACCION
+Rule 15    ESTATUTO -> VART
+Rule 16    ESTATUTO -> LLAMADA_FUNCION
+Rule 17    BLOQUE -> ESTATUTO BLOQUEP
+Rule 18    BLOQUEP -> BLOQUE
+Rule 19    BLOQUEP -> FINAL
+Rule 20    DATA_TIPOS -> INT
+Rule 21    DATA_TIPOS -> BOOLEAN
+Rule 22    DATA_TIPOS -> CHAR
+Rule 23    DATA_TIPOS -> STRING
+Rule 24    DATA_TIPOS -> FLOAT
+Rule 25    ASOP -> PLUS
+Rule 26    ASOP -> MINUS
+Rule 27    MDOP -> MULT
+Rule 28    MDOP -> DIVI
+Rule 29    LOGOP -> AND
+Rule 30    LOGOP -> OR
+Rule 31    ASIGNACION -> ID ASIGNACIONP
+Rule 32    ASIGNACIONP -> EQUAL EXPRE
+Rule 33    ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA
+Rule 34    ASIGNACIONZ -> COMMA ICTE
+Rule 35    ASIGNACIONZ -> FINAL
+Rule 36    ARR -> DATA_TIPOS LBRA ICTE ARRZ RBRA
+Rule 37    ARRZ -> COMMA ICTE
+Rule 38    ARRZ -> FINAL
+Rule 39    LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR
+Rule 40    LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ
+Rule 41    LLAMADA_FUNCIONP -> FINAL
+Rule 42    LLAMADA_FUNCIONZ -> COMMA LLAMADA_FUNCIONP
+Rule 43    LLAMADA_FUNCIONZ -> FINAL
+Rule 44    PRINCIPAL -> DEFINE VOID MAIN LPAR RPAR BLOQUE END
+Rule 45    CICLO -> WHILEF
+Rule 46    CICLO -> FORZ
+Rule 47    WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END
+Rule 48    FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+Rule 49    CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+Rule 50    CONDICIONP -> ELSE CONDICIONZ
+Rule 51    CONDICIONP -> FINAL
+Rule 52    CONDICIONZ -> BLOQUE
+Rule 53    CONDICIONZ -> CONDICION
+Rule 54    RELOP -> LESSTH
+Rule 55    RELOP -> GREATERTH
+Rule 56    RELOP -> SEQUAL
+Rule 57    RELOP -> NOTEQ
+Rule 58    RELOP -> LESSEQTH
+Rule 59    RELOP -> GREATEREQTH
+Rule 60    EXPRE -> EXP EXPREZ
+Rule 61    EXPREZ -> RELOP EXP
+Rule 62    EXPREZ -> FINAL
+Rule 63    EXP -> TERMINO EXP_W_SIGN
+Rule 64    EXP_W_SIGN -> ASOP EXP
+Rule 65    EXP_W_SIGN -> FINAL
+Rule 66    TERMINO -> FAC TERMINO_W_SIGN
+Rule 67    TERMINO_W_SIGN -> MDOP TERMINO
+Rule 68    TERMINO_W_SIGN -> FINAL
+Rule 69    VAR_CTE -> ICTE
+Rule 70    VAR_CTE -> FCTE
+Rule 71    VAR_CTE -> LLAMADA_FUNCION
+Rule 72    IMPRIMIR -> PRINT LBRA IMPRIMIRZ RBRA
+Rule 73    IMPRIMIRZ -> EXPRE
+Rule 74    IMPRIMIRZ -> SCTE
+Rule 75    FAC -> LPAR EXPRE RPAR
+Rule 76    FAC -> FACS VAR_CTE
+Rule 77    FAC -> ID FACT
+Rule 78    FACT -> LBRA EXP FACZ RBRA
+Rule 79    FACT -> FINAL
+Rule 80    FACS -> ASOP
+Rule 81    FACS -> FINAL
+Rule 82    FACZ -> COMMA EXP
+Rule 83    FACZ -> FINAL
+Rule 84    FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END
+Rule 85    ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR
+Rule 86    VAR_FUN -> LPAR VAR_FUNP RPAR
+Rule 87    VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ
+Rule 88    VAR_FUNZ -> COMMA VAR_FUNP
+Rule 89    VAR_FUNZ -> FINAL
+Rule 90    DIBUJA -> DEFINIRPOSICION
+Rule 91    DIBUJA -> DEFINIRCOLOR
+Rule 92    DIBUJA -> DERECHO
+Rule 93    DIBUJA -> REVERSA
+Rule 94    DIBUJA -> IZQUIERDA
+Rule 95    DIBUJA -> DERECHA
+Rule 96    DIBUJA -> VELOCIDAD
+Rule 97    DIBUJA -> BORRAR
+Rule 98    DIBUJA -> MOSTRAR
+Rule 99    DIBUJA -> OCULTAR
+Rule 100   DIBUJA -> CIRCULO
+Rule 101   DIBUJA -> DEFINIRX
+Rule 102   DIBUJA -> DEFINIRY
+Rule 103   DIBUJA -> ARCO
+Rule 104   DIBUJA -> GROSOR
+
+Terminals, with rules where they appear
+
+AND                  : 29
+ARCO                 : 103
+BOOLEAN              : 21
+BORRAR               : 97
+CHAR                 : 22
+CIRCULO              : 100
+COMMA                : 34 37 42 48 48 82 88
+DEFINE               : 44 84
+DEFINIRCOLOR         : 91
+DEFINIRPOSICION      : 90
+DEFINIRX             : 101
+DEFINIRY             : 102
+DERECHA              : 95
+DERECHO              : 92
+DIVI                 : 28
+DRAW                 : 6 6
+DRAWI                : 
+ELSE                 : 50
+END                  : 44 47 48 49 84
+EQUAL                : 6 10 32
+FALSE                : 
+FCTE                 : 70
+FLOAT                : 24
+FOR                  : 48
+FUNCTION             : 
+GLOBAL               : 5
+GREATEREQTH          : 59
+GREATERTH            : 55
+GROSOR               : 104
+ICTE                 : 33 34 36 37 48 48 48 69
+ID                   : 6 7 8 31 39 77 84 85 87
+IF                   : 49
+INT                  : 20
+IZQUIERDA            : 94
+LBRA                 : 33 36 72 78
+LESSEQTH             : 58
+LESSTH               : 54
+LPAR                 : 6 39 44 47 48 49 75 85 86
+MAIN                 : 44
+MINUS                : 26
+MOSTRAR              : 98
+MULT                 : 27
+NEW                  : 6
+NOT                  : 
+NOTEQ                : 57
+OCULTAR              : 99
+OR                   : 30
+PLUS                 : 25
+POINT                : 85
+PRINT                : 72
+PROGRAM              : 
+RBRA                 : 33 36 72 78
+RETURN               : 84
+REVERSA              : 93
+RPAR                 : 6 39 44 47 48 49 75 85 86
+SCTE                 : 74
+SEQUAL               : 56
+STRING               : 23
+TRUE                 : 
+VAR                  : 
+VELOCIDAD            : 96
+VOID                 : 44
+WHILE                : 47
+error                : 
+
+Nonterminals, with rules where they appear
+
+ACCION               : 14
+ARR                  : 8
+ARRZ                 : 36
+ASIGNACION           : 11
+ASIGNACIONP          : 31
+ASIGNACIONZ          : 33
+ASOP                 : 64 80
+BLOQUE               : 18 44 47 48 49 52 84
+BLOQUEP              : 17
+CICLO                : 13
+CONDICION            : 12 53
+CONDICIONP           : 49
+CONDICIONZ           : 50
+DATA_TIPOS           : 7 36 84 87
+DIBUJA               : 85
+ESTATUTO             : 17
+EXP                  : 10 60 61 64 78 82 84
+EXPRE                : 32 40 47 49 73 75
+EXPREZ               : 60
+EXP_W_SIGN           : 63
+FAC                  : 66
+FACS                 : 76
+FACT                 : 77
+FACZ                 : 78
+FINAL                : 3 9 19 35 38 41 43 51 62 65 68 79 81 83 89
+FORZ                 : 46
+FUNCION              : 2
+GLOBALES             : 4
+IMPRIMIR             : 
+IMPRIMIRZ            : 72
+LLAMADA_FUNCION      : 16 71
+LLAMADA_FUNCIONP     : 39 42
+LLAMADA_FUNCIONZ     : 40
+LOGOP                : 
+MDOP                 : 67
+PRINCIPAL            : 2
+PROGRAMA             : 0
+PROGRAMAZ            : 2
+RELOP                : 61
+TERMINO              : 63 67
+TERMINO_W_SIGN       : 66
+VART                 : 5 15
+VARZ                 : 7
+VAR_CTE              : 76 85
+VAR_FUN              : 84
+VAR_FUNP             : 86 88
+VAR_FUNZ             : 87
+WHILEF               : 45
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . PROGRAMA
+    (2) PROGRAMA -> . PROGRAMAZ FUNCION PRINCIPAL
+    (3) PROGRAMAZ -> . FINAL
+    (4) PROGRAMAZ -> . GLOBALES
+    (1) FINAL -> .
+    (5) GLOBALES -> . GLOBAL VART
+
+    DEFINE          reduce using rule 1 (FINAL -> .)
+    GLOBAL          shift and go to state 2
+
+    PROGRAMAZ                      shift and go to state 1
+    GLOBALES                       shift and go to state 3
+    PROGRAMA                       shift and go to state 4
+    FINAL                          shift and go to state 5
+
+state 1
+
+    (2) PROGRAMA -> PROGRAMAZ . FUNCION PRINCIPAL
+    (84) FUNCION -> . DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END
+
+    DEFINE          shift and go to state 7
+
+    FUNCION                        shift and go to state 6
+
+state 2
+
+    (5) GLOBALES -> GLOBAL . VART
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    DRAW            shift and go to state 9
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    VART                           shift and go to state 8
+    ARR                            shift and go to state 15
+    DATA_TIPOS                     shift and go to state 12
+
+state 3
+
+    (4) PROGRAMAZ -> GLOBALES .
+
+    DEFINE          reduce using rule 4 (PROGRAMAZ -> GLOBALES .)
+
+
+state 4
+
+    (0) S' -> PROGRAMA .
+
+
+
+state 5
+
+    (3) PROGRAMAZ -> FINAL .
+
+    DEFINE          reduce using rule 3 (PROGRAMAZ -> FINAL .)
+
+
+state 6
+
+    (2) PROGRAMA -> PROGRAMAZ FUNCION . PRINCIPAL
+    (44) PRINCIPAL -> . DEFINE VOID MAIN LPAR RPAR BLOQUE END
+
+    DEFINE          shift and go to state 18
+
+    PRINCIPAL                      shift and go to state 17
+
+state 7
+
+    (84) FUNCION -> DEFINE . DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    DATA_TIPOS                     shift and go to state 19
+
+state 8
+
+    (5) GLOBALES -> GLOBAL VART .
+
+    DEFINE          reduce using rule 5 (GLOBALES -> GLOBAL VART .)
+
+
+state 9
+
+    (6) VART -> DRAW . ID EQUAL NEW DRAW LPAR RPAR
+
+    ID              shift and go to state 20
+
+
+state 10
+
+    (24) DATA_TIPOS -> FLOAT .
+
+    ID              reduce using rule 24 (DATA_TIPOS -> FLOAT .)
+    LBRA            reduce using rule 24 (DATA_TIPOS -> FLOAT .)
+
+
+state 11
+
+    (23) DATA_TIPOS -> STRING .
+
+    ID              reduce using rule 23 (DATA_TIPOS -> STRING .)
+    LBRA            reduce using rule 23 (DATA_TIPOS -> STRING .)
+
+
+state 12
+
+    (7) VART -> DATA_TIPOS . ID VARZ
+    (36) ARR -> DATA_TIPOS . LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 22
+    LBRA            shift and go to state 21
+
+
+state 13
+
+    (20) DATA_TIPOS -> INT .
+
+    ID              reduce using rule 20 (DATA_TIPOS -> INT .)
+    LBRA            reduce using rule 20 (DATA_TIPOS -> INT .)
+
+
+state 14
+
+    (22) DATA_TIPOS -> CHAR .
+
+    ID              reduce using rule 22 (DATA_TIPOS -> CHAR .)
+    LBRA            reduce using rule 22 (DATA_TIPOS -> CHAR .)
+
+
+state 15
+
+    (8) VART -> ARR . ID
+
+    ID              shift and go to state 23
+
+
+state 16
+
+    (21) DATA_TIPOS -> BOOLEAN .
+
+    ID              reduce using rule 21 (DATA_TIPOS -> BOOLEAN .)
+    LBRA            reduce using rule 21 (DATA_TIPOS -> BOOLEAN .)
+
+
+state 17
+
+    (2) PROGRAMA -> PROGRAMAZ FUNCION PRINCIPAL .
+
+    $end            reduce using rule 2 (PROGRAMA -> PROGRAMAZ FUNCION PRINCIPAL .)
+
+
+state 18
+
+    (44) PRINCIPAL -> DEFINE . VOID MAIN LPAR RPAR BLOQUE END
+
+    VOID            shift and go to state 24
+
+
+state 19
+
+    (84) FUNCION -> DEFINE DATA_TIPOS . ID VAR_FUN BLOQUE RETURN EXP END
+
+    ID              shift and go to state 25
+
+
+state 20
+
+    (6) VART -> DRAW ID . EQUAL NEW DRAW LPAR RPAR
+
+    EQUAL           shift and go to state 26
+
+
+state 21
+
+    (36) ARR -> DATA_TIPOS LBRA . ICTE ARRZ RBRA
+
+    ICTE            shift and go to state 27
+
+
+state 22
+
+    (7) VART -> DATA_TIPOS ID . VARZ
+    (9) VARZ -> . FINAL
+    (10) VARZ -> . EQUAL EXP
+    (1) FINAL -> .
+
+    EQUAL           shift and go to state 28
+    DEFINE          reduce using rule 1 (FINAL -> .)
+    ID              reduce using rule 1 (FINAL -> .)
+    IF              reduce using rule 1 (FINAL -> .)
+    DRAW            reduce using rule 1 (FINAL -> .)
+    WHILE           reduce using rule 1 (FINAL -> .)
+    FOR             reduce using rule 1 (FINAL -> .)
+    INT             reduce using rule 1 (FINAL -> .)
+    BOOLEAN         reduce using rule 1 (FINAL -> .)
+    CHAR            reduce using rule 1 (FINAL -> .)
+    STRING          reduce using rule 1 (FINAL -> .)
+    FLOAT           reduce using rule 1 (FINAL -> .)
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+
+    FINAL                          shift and go to state 30
+    VARZ                           shift and go to state 29
+
+state 23
+
+    (8) VART -> ARR ID .
+
+    ID              reduce using rule 8 (VART -> ARR ID .)
+    IF              reduce using rule 8 (VART -> ARR ID .)
+    DRAW            reduce using rule 8 (VART -> ARR ID .)
+    WHILE           reduce using rule 8 (VART -> ARR ID .)
+    FOR             reduce using rule 8 (VART -> ARR ID .)
+    INT             reduce using rule 8 (VART -> ARR ID .)
+    BOOLEAN         reduce using rule 8 (VART -> ARR ID .)
+    CHAR            reduce using rule 8 (VART -> ARR ID .)
+    STRING          reduce using rule 8 (VART -> ARR ID .)
+    FLOAT           reduce using rule 8 (VART -> ARR ID .)
+    ELSE            reduce using rule 8 (VART -> ARR ID .)
+    END             reduce using rule 8 (VART -> ARR ID .)
+    RETURN          reduce using rule 8 (VART -> ARR ID .)
+    DEFINE          reduce using rule 8 (VART -> ARR ID .)
+
+
+state 24
+
+    (44) PRINCIPAL -> DEFINE VOID . MAIN LPAR RPAR BLOQUE END
+
+    MAIN            shift and go to state 31
+
+
+state 25
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID . VAR_FUN BLOQUE RETURN EXP END
+    (86) VAR_FUN -> . LPAR VAR_FUNP RPAR
+
+    LPAR            shift and go to state 32
+
+    VAR_FUN                        shift and go to state 33
+
+state 26
+
+    (6) VART -> DRAW ID EQUAL . NEW DRAW LPAR RPAR
+
+    NEW             shift and go to state 34
+
+
+state 27
+
+    (36) ARR -> DATA_TIPOS LBRA ICTE . ARRZ RBRA
+    (37) ARRZ -> . COMMA ICTE
+    (38) ARRZ -> . FINAL
+    (1) FINAL -> .
+
+    COMMA           shift and go to state 36
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    ARRZ                           shift and go to state 37
+    FINAL                          shift and go to state 35
+
+state 28
+
+    (10) VARZ -> EQUAL . EXP
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 43
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 29
+
+    (7) VART -> DATA_TIPOS ID VARZ .
+
+    ID              reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    IF              reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    DRAW            reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    WHILE           reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    FOR             reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    INT             reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    BOOLEAN         reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    CHAR            reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    STRING          reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    FLOAT           reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    ELSE            reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    END             reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    RETURN          reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+    DEFINE          reduce using rule 7 (VART -> DATA_TIPOS ID VARZ .)
+
+
+state 30
+
+    (9) VARZ -> FINAL .
+
+    DEFINE          reduce using rule 9 (VARZ -> FINAL .)
+    ID              reduce using rule 9 (VARZ -> FINAL .)
+    IF              reduce using rule 9 (VARZ -> FINAL .)
+    DRAW            reduce using rule 9 (VARZ -> FINAL .)
+    WHILE           reduce using rule 9 (VARZ -> FINAL .)
+    FOR             reduce using rule 9 (VARZ -> FINAL .)
+    INT             reduce using rule 9 (VARZ -> FINAL .)
+    BOOLEAN         reduce using rule 9 (VARZ -> FINAL .)
+    CHAR            reduce using rule 9 (VARZ -> FINAL .)
+    STRING          reduce using rule 9 (VARZ -> FINAL .)
+    FLOAT           reduce using rule 9 (VARZ -> FINAL .)
+    RETURN          reduce using rule 9 (VARZ -> FINAL .)
+    END             reduce using rule 9 (VARZ -> FINAL .)
+    ELSE            reduce using rule 9 (VARZ -> FINAL .)
+
+
+state 31
+
+    (44) PRINCIPAL -> DEFINE VOID MAIN . LPAR RPAR BLOQUE END
+
+    LPAR            shift and go to state 48
+
+
+state 32
+
+    (86) VAR_FUN -> LPAR . VAR_FUNP RPAR
+    (87) VAR_FUNP -> . DATA_TIPOS ID VAR_FUNZ
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    DATA_TIPOS                     shift and go to state 49
+    VAR_FUNP                       shift and go to state 50
+
+state 33
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN . BLOQUE RETURN EXP END
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    VART                           shift and go to state 51
+    CICLO                          shift and go to state 53
+    LLAMADA_FUNCION                shift and go to state 55
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    WHILEF                         shift and go to state 58
+    DATA_TIPOS                     shift and go to state 12
+    FORZ                           shift and go to state 59
+    BLOQUE                         shift and go to state 61
+    ARR                            shift and go to state 15
+    ACCION                         shift and go to state 64
+    CONDICION                      shift and go to state 60
+
+state 34
+
+    (6) VART -> DRAW ID EQUAL NEW . DRAW LPAR RPAR
+
+    DRAW            shift and go to state 65
+
+
+state 35
+
+    (38) ARRZ -> FINAL .
+
+    RBRA            reduce using rule 38 (ARRZ -> FINAL .)
+
+
+state 36
+
+    (37) ARRZ -> COMMA . ICTE
+
+    ICTE            shift and go to state 66
+
+
+state 37
+
+    (36) ARR -> DATA_TIPOS LBRA ICTE ARRZ . RBRA
+
+    RBRA            shift and go to state 67
+
+
+state 38
+
+    (81) FACS -> FINAL .
+
+    ICTE            reduce using rule 81 (FACS -> FINAL .)
+    FCTE            reduce using rule 81 (FACS -> FINAL .)
+    ID              reduce using rule 81 (FACS -> FINAL .)
+
+
+state 39
+
+    (75) FAC -> LPAR . EXPRE RPAR
+    (60) EXPRE -> . EXP EXPREZ
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    EXPRE                          shift and go to state 68
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 40
+
+    (80) FACS -> ASOP .
+
+    ICTE            reduce using rule 80 (FACS -> ASOP .)
+    FCTE            reduce using rule 80 (FACS -> ASOP .)
+    ID              reduce using rule 80 (FACS -> ASOP .)
+
+
+state 41
+
+    (25) ASOP -> PLUS .
+
+    ICTE            reduce using rule 25 (ASOP -> PLUS .)
+    FCTE            reduce using rule 25 (ASOP -> PLUS .)
+    ID              reduce using rule 25 (ASOP -> PLUS .)
+    LPAR            reduce using rule 25 (ASOP -> PLUS .)
+    PLUS            reduce using rule 25 (ASOP -> PLUS .)
+    MINUS           reduce using rule 25 (ASOP -> PLUS .)
+
+
+state 42
+
+    (63) EXP -> TERMINO . EXP_W_SIGN
+    (64) EXP_W_SIGN -> . ASOP EXP
+    (65) EXP_W_SIGN -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    DEFINE          reduce using rule 1 (FINAL -> .)
+    ID              reduce using rule 1 (FINAL -> .)
+    IF              reduce using rule 1 (FINAL -> .)
+    DRAW            reduce using rule 1 (FINAL -> .)
+    WHILE           reduce using rule 1 (FINAL -> .)
+    FOR             reduce using rule 1 (FINAL -> .)
+    INT             reduce using rule 1 (FINAL -> .)
+    BOOLEAN         reduce using rule 1 (FINAL -> .)
+    CHAR            reduce using rule 1 (FINAL -> .)
+    STRING          reduce using rule 1 (FINAL -> .)
+    FLOAT           reduce using rule 1 (FINAL -> .)
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+    LESSTH          reduce using rule 1 (FINAL -> .)
+    GREATERTH       reduce using rule 1 (FINAL -> .)
+    SEQUAL          reduce using rule 1 (FINAL -> .)
+    NOTEQ           reduce using rule 1 (FINAL -> .)
+    LESSEQTH        reduce using rule 1 (FINAL -> .)
+    GREATEREQTH     reduce using rule 1 (FINAL -> .)
+    RPAR            reduce using rule 1 (FINAL -> .)
+    COMMA           reduce using rule 1 (FINAL -> .)
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    ASOP                           shift and go to state 70
+    EXP_W_SIGN                     shift and go to state 71
+    FINAL                          shift and go to state 72
+
+state 43
+
+    (10) VARZ -> EQUAL EXP .
+
+    DEFINE          reduce using rule 10 (VARZ -> EQUAL EXP .)
+    ID              reduce using rule 10 (VARZ -> EQUAL EXP .)
+    IF              reduce using rule 10 (VARZ -> EQUAL EXP .)
+    DRAW            reduce using rule 10 (VARZ -> EQUAL EXP .)
+    WHILE           reduce using rule 10 (VARZ -> EQUAL EXP .)
+    FOR             reduce using rule 10 (VARZ -> EQUAL EXP .)
+    INT             reduce using rule 10 (VARZ -> EQUAL EXP .)
+    BOOLEAN         reduce using rule 10 (VARZ -> EQUAL EXP .)
+    CHAR            reduce using rule 10 (VARZ -> EQUAL EXP .)
+    STRING          reduce using rule 10 (VARZ -> EQUAL EXP .)
+    FLOAT           reduce using rule 10 (VARZ -> EQUAL EXP .)
+    RETURN          reduce using rule 10 (VARZ -> EQUAL EXP .)
+    END             reduce using rule 10 (VARZ -> EQUAL EXP .)
+    ELSE            reduce using rule 10 (VARZ -> EQUAL EXP .)
+
+
+state 44
+
+    (76) FAC -> FACS . VAR_CTE
+    (69) VAR_CTE -> . ICTE
+    (70) VAR_CTE -> . FCTE
+    (71) VAR_CTE -> . LLAMADA_FUNCION
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+
+    ICTE            shift and go to state 76
+    FCTE            shift and go to state 75
+    ID              shift and go to state 77
+
+    LLAMADA_FUNCION                shift and go to state 73
+    VAR_CTE                        shift and go to state 74
+
+state 45
+
+    (66) TERMINO -> FAC . TERMINO_W_SIGN
+    (67) TERMINO_W_SIGN -> . MDOP TERMINO
+    (68) TERMINO_W_SIGN -> . FINAL
+    (27) MDOP -> . MULT
+    (28) MDOP -> . DIVI
+    (1) FINAL -> .
+
+    MULT            shift and go to state 82
+    DIVI            shift and go to state 78
+    PLUS            reduce using rule 1 (FINAL -> .)
+    MINUS           reduce using rule 1 (FINAL -> .)
+    DEFINE          reduce using rule 1 (FINAL -> .)
+    ID              reduce using rule 1 (FINAL -> .)
+    IF              reduce using rule 1 (FINAL -> .)
+    DRAW            reduce using rule 1 (FINAL -> .)
+    WHILE           reduce using rule 1 (FINAL -> .)
+    FOR             reduce using rule 1 (FINAL -> .)
+    INT             reduce using rule 1 (FINAL -> .)
+    BOOLEAN         reduce using rule 1 (FINAL -> .)
+    CHAR            reduce using rule 1 (FINAL -> .)
+    STRING          reduce using rule 1 (FINAL -> .)
+    FLOAT           reduce using rule 1 (FINAL -> .)
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+    LESSTH          reduce using rule 1 (FINAL -> .)
+    GREATERTH       reduce using rule 1 (FINAL -> .)
+    SEQUAL          reduce using rule 1 (FINAL -> .)
+    NOTEQ           reduce using rule 1 (FINAL -> .)
+    LESSEQTH        reduce using rule 1 (FINAL -> .)
+    GREATEREQTH     reduce using rule 1 (FINAL -> .)
+    RPAR            reduce using rule 1 (FINAL -> .)
+    COMMA           reduce using rule 1 (FINAL -> .)
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    FINAL                          shift and go to state 81
+    MDOP                           shift and go to state 79
+    TERMINO_W_SIGN                 shift and go to state 80
+
+state 46
+
+    (26) ASOP -> MINUS .
+
+    ICTE            reduce using rule 26 (ASOP -> MINUS .)
+    FCTE            reduce using rule 26 (ASOP -> MINUS .)
+    ID              reduce using rule 26 (ASOP -> MINUS .)
+    LPAR            reduce using rule 26 (ASOP -> MINUS .)
+    PLUS            reduce using rule 26 (ASOP -> MINUS .)
+    MINUS           reduce using rule 26 (ASOP -> MINUS .)
+
+
+state 47
+
+    (77) FAC -> ID . FACT
+    (78) FACT -> . LBRA EXP FACZ RBRA
+    (79) FACT -> . FINAL
+    (1) FINAL -> .
+
+    LBRA            shift and go to state 84
+    MULT            reduce using rule 1 (FINAL -> .)
+    DIVI            reduce using rule 1 (FINAL -> .)
+    PLUS            reduce using rule 1 (FINAL -> .)
+    MINUS           reduce using rule 1 (FINAL -> .)
+    DEFINE          reduce using rule 1 (FINAL -> .)
+    ID              reduce using rule 1 (FINAL -> .)
+    IF              reduce using rule 1 (FINAL -> .)
+    DRAW            reduce using rule 1 (FINAL -> .)
+    WHILE           reduce using rule 1 (FINAL -> .)
+    FOR             reduce using rule 1 (FINAL -> .)
+    INT             reduce using rule 1 (FINAL -> .)
+    BOOLEAN         reduce using rule 1 (FINAL -> .)
+    CHAR            reduce using rule 1 (FINAL -> .)
+    STRING          reduce using rule 1 (FINAL -> .)
+    FLOAT           reduce using rule 1 (FINAL -> .)
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+    LESSTH          reduce using rule 1 (FINAL -> .)
+    GREATERTH       reduce using rule 1 (FINAL -> .)
+    SEQUAL          reduce using rule 1 (FINAL -> .)
+    NOTEQ           reduce using rule 1 (FINAL -> .)
+    LESSEQTH        reduce using rule 1 (FINAL -> .)
+    GREATEREQTH     reduce using rule 1 (FINAL -> .)
+    RPAR            reduce using rule 1 (FINAL -> .)
+    COMMA           reduce using rule 1 (FINAL -> .)
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    FACT                           shift and go to state 85
+    FINAL                          shift and go to state 83
+
+state 48
+
+    (44) PRINCIPAL -> DEFINE VOID MAIN LPAR . RPAR BLOQUE END
+
+    RPAR            shift and go to state 86
+
+
+state 49
+
+    (87) VAR_FUNP -> DATA_TIPOS . ID VAR_FUNZ
+
+    ID              shift and go to state 87
+
+
+state 50
+
+    (86) VAR_FUN -> LPAR VAR_FUNP . RPAR
+
+    RPAR            shift and go to state 88
+
+
+state 51
+
+    (15) ESTATUTO -> VART .
+
+    ID              reduce using rule 15 (ESTATUTO -> VART .)
+    IF              reduce using rule 15 (ESTATUTO -> VART .)
+    DRAW            reduce using rule 15 (ESTATUTO -> VART .)
+    WHILE           reduce using rule 15 (ESTATUTO -> VART .)
+    FOR             reduce using rule 15 (ESTATUTO -> VART .)
+    INT             reduce using rule 15 (ESTATUTO -> VART .)
+    BOOLEAN         reduce using rule 15 (ESTATUTO -> VART .)
+    CHAR            reduce using rule 15 (ESTATUTO -> VART .)
+    STRING          reduce using rule 15 (ESTATUTO -> VART .)
+    FLOAT           reduce using rule 15 (ESTATUTO -> VART .)
+    ELSE            reduce using rule 15 (ESTATUTO -> VART .)
+    END             reduce using rule 15 (ESTATUTO -> VART .)
+    RETURN          reduce using rule 15 (ESTATUTO -> VART .)
+
+
+state 52
+
+    (17) BLOQUE -> ESTATUTO . BLOQUEP
+    (18) BLOQUEP -> . BLOQUE
+    (19) BLOQUEP -> . FINAL
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (1) FINAL -> .
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    VART                           shift and go to state 51
+    CICLO                          shift and go to state 53
+    FINAL                          shift and go to state 89
+    LLAMADA_FUNCION                shift and go to state 55
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    BLOQUEP                        shift and go to state 90
+    WHILEF                         shift and go to state 58
+    DATA_TIPOS                     shift and go to state 12
+    FORZ                           shift and go to state 59
+    BLOQUE                         shift and go to state 91
+    ARR                            shift and go to state 15
+    ACCION                         shift and go to state 64
+    CONDICION                      shift and go to state 60
+
+state 53
+
+    (13) ESTATUTO -> CICLO .
+
+    ID              reduce using rule 13 (ESTATUTO -> CICLO .)
+    IF              reduce using rule 13 (ESTATUTO -> CICLO .)
+    DRAW            reduce using rule 13 (ESTATUTO -> CICLO .)
+    WHILE           reduce using rule 13 (ESTATUTO -> CICLO .)
+    FOR             reduce using rule 13 (ESTATUTO -> CICLO .)
+    INT             reduce using rule 13 (ESTATUTO -> CICLO .)
+    BOOLEAN         reduce using rule 13 (ESTATUTO -> CICLO .)
+    CHAR            reduce using rule 13 (ESTATUTO -> CICLO .)
+    STRING          reduce using rule 13 (ESTATUTO -> CICLO .)
+    FLOAT           reduce using rule 13 (ESTATUTO -> CICLO .)
+    ELSE            reduce using rule 13 (ESTATUTO -> CICLO .)
+    END             reduce using rule 13 (ESTATUTO -> CICLO .)
+    RETURN          reduce using rule 13 (ESTATUTO -> CICLO .)
+
+
+state 54
+
+    (47) WHILEF -> WHILE . LPAR EXPRE RPAR BLOQUE END
+
+    LPAR            shift and go to state 92
+
+
+state 55
+
+    (16) ESTATUTO -> LLAMADA_FUNCION .
+
+    ID              reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    IF              reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    DRAW            reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    WHILE           reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    FOR             reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    INT             reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    BOOLEAN         reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    CHAR            reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    STRING          reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    FLOAT           reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    ELSE            reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    END             reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+    RETURN          reduce using rule 16 (ESTATUTO -> LLAMADA_FUNCION .)
+
+
+state 56
+
+    (48) FORZ -> FOR . LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+
+    LPAR            shift and go to state 93
+
+
+state 57
+
+    (11) ESTATUTO -> ASIGNACION .
+
+    ID              reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    IF              reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    DRAW            reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    WHILE           reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    FOR             reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    INT             reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    BOOLEAN         reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    CHAR            reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    STRING          reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    FLOAT           reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    ELSE            reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    END             reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+    RETURN          reduce using rule 11 (ESTATUTO -> ASIGNACION .)
+
+
+state 58
+
+    (45) CICLO -> WHILEF .
+
+    ID              reduce using rule 45 (CICLO -> WHILEF .)
+    IF              reduce using rule 45 (CICLO -> WHILEF .)
+    DRAW            reduce using rule 45 (CICLO -> WHILEF .)
+    WHILE           reduce using rule 45 (CICLO -> WHILEF .)
+    FOR             reduce using rule 45 (CICLO -> WHILEF .)
+    INT             reduce using rule 45 (CICLO -> WHILEF .)
+    BOOLEAN         reduce using rule 45 (CICLO -> WHILEF .)
+    CHAR            reduce using rule 45 (CICLO -> WHILEF .)
+    STRING          reduce using rule 45 (CICLO -> WHILEF .)
+    FLOAT           reduce using rule 45 (CICLO -> WHILEF .)
+    END             reduce using rule 45 (CICLO -> WHILEF .)
+    ELSE            reduce using rule 45 (CICLO -> WHILEF .)
+    RETURN          reduce using rule 45 (CICLO -> WHILEF .)
+
+
+state 59
+
+    (46) CICLO -> FORZ .
+
+    ID              reduce using rule 46 (CICLO -> FORZ .)
+    IF              reduce using rule 46 (CICLO -> FORZ .)
+    DRAW            reduce using rule 46 (CICLO -> FORZ .)
+    WHILE           reduce using rule 46 (CICLO -> FORZ .)
+    FOR             reduce using rule 46 (CICLO -> FORZ .)
+    INT             reduce using rule 46 (CICLO -> FORZ .)
+    BOOLEAN         reduce using rule 46 (CICLO -> FORZ .)
+    CHAR            reduce using rule 46 (CICLO -> FORZ .)
+    STRING          reduce using rule 46 (CICLO -> FORZ .)
+    FLOAT           reduce using rule 46 (CICLO -> FORZ .)
+    END             reduce using rule 46 (CICLO -> FORZ .)
+    ELSE            reduce using rule 46 (CICLO -> FORZ .)
+    RETURN          reduce using rule 46 (CICLO -> FORZ .)
+
+
+state 60
+
+    (12) ESTATUTO -> CONDICION .
+
+    ID              reduce using rule 12 (ESTATUTO -> CONDICION .)
+    IF              reduce using rule 12 (ESTATUTO -> CONDICION .)
+    DRAW            reduce using rule 12 (ESTATUTO -> CONDICION .)
+    WHILE           reduce using rule 12 (ESTATUTO -> CONDICION .)
+    FOR             reduce using rule 12 (ESTATUTO -> CONDICION .)
+    INT             reduce using rule 12 (ESTATUTO -> CONDICION .)
+    BOOLEAN         reduce using rule 12 (ESTATUTO -> CONDICION .)
+    CHAR            reduce using rule 12 (ESTATUTO -> CONDICION .)
+    STRING          reduce using rule 12 (ESTATUTO -> CONDICION .)
+    FLOAT           reduce using rule 12 (ESTATUTO -> CONDICION .)
+    ELSE            reduce using rule 12 (ESTATUTO -> CONDICION .)
+    END             reduce using rule 12 (ESTATUTO -> CONDICION .)
+    RETURN          reduce using rule 12 (ESTATUTO -> CONDICION .)
+
+
+state 61
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE . RETURN EXP END
+
+    RETURN          shift and go to state 94
+
+
+state 62
+
+    (31) ASIGNACION -> ID . ASIGNACIONP
+    (85) ACCION -> ID . POINT DIBUJA LPAR VAR_CTE RPAR
+    (39) LLAMADA_FUNCION -> ID . LPAR LLAMADA_FUNCIONP RPAR
+    (32) ASIGNACIONP -> . EQUAL EXPRE
+    (33) ASIGNACIONP -> . LBRA ICTE ASIGNACIONZ RBRA
+
+    POINT           shift and go to state 97
+    LPAR            shift and go to state 95
+    EQUAL           shift and go to state 98
+    LBRA            shift and go to state 96
+
+    ASIGNACIONP                    shift and go to state 99
+
+state 63
+
+    (49) CONDICION -> IF . LPAR EXPRE RPAR BLOQUE CONDICIONP END
+
+    LPAR            shift and go to state 100
+
+
+state 64
+
+    (14) ESTATUTO -> ACCION .
+
+    ID              reduce using rule 14 (ESTATUTO -> ACCION .)
+    IF              reduce using rule 14 (ESTATUTO -> ACCION .)
+    DRAW            reduce using rule 14 (ESTATUTO -> ACCION .)
+    WHILE           reduce using rule 14 (ESTATUTO -> ACCION .)
+    FOR             reduce using rule 14 (ESTATUTO -> ACCION .)
+    INT             reduce using rule 14 (ESTATUTO -> ACCION .)
+    BOOLEAN         reduce using rule 14 (ESTATUTO -> ACCION .)
+    CHAR            reduce using rule 14 (ESTATUTO -> ACCION .)
+    STRING          reduce using rule 14 (ESTATUTO -> ACCION .)
+    FLOAT           reduce using rule 14 (ESTATUTO -> ACCION .)
+    ELSE            reduce using rule 14 (ESTATUTO -> ACCION .)
+    END             reduce using rule 14 (ESTATUTO -> ACCION .)
+    RETURN          reduce using rule 14 (ESTATUTO -> ACCION .)
+
+
+state 65
+
+    (6) VART -> DRAW ID EQUAL NEW DRAW . LPAR RPAR
+
+    LPAR            shift and go to state 101
+
+
+state 66
+
+    (37) ARRZ -> COMMA ICTE .
+
+    RBRA            reduce using rule 37 (ARRZ -> COMMA ICTE .)
+
+
+state 67
+
+    (36) ARR -> DATA_TIPOS LBRA ICTE ARRZ RBRA .
+
+    ID              reduce using rule 36 (ARR -> DATA_TIPOS LBRA ICTE ARRZ RBRA .)
+
+
+state 68
+
+    (75) FAC -> LPAR EXPRE . RPAR
+
+    RPAR            shift and go to state 102
+
+
+state 69
+
+    (60) EXPRE -> EXP . EXPREZ
+    (61) EXPREZ -> . RELOP EXP
+    (62) EXPREZ -> . FINAL
+    (54) RELOP -> . LESSTH
+    (55) RELOP -> . GREATERTH
+    (56) RELOP -> . SEQUAL
+    (57) RELOP -> . NOTEQ
+    (58) RELOP -> . LESSEQTH
+    (59) RELOP -> . GREATEREQTH
+    (1) FINAL -> .
+
+    LESSTH          shift and go to state 109
+    GREATERTH       shift and go to state 108
+    SEQUAL          shift and go to state 105
+    NOTEQ           shift and go to state 106
+    LESSEQTH        shift and go to state 103
+    GREATEREQTH     shift and go to state 107
+    RPAR            reduce using rule 1 (FINAL -> .)
+    COMMA           reduce using rule 1 (FINAL -> .)
+    ID              reduce using rule 1 (FINAL -> .)
+    IF              reduce using rule 1 (FINAL -> .)
+    DRAW            reduce using rule 1 (FINAL -> .)
+    WHILE           reduce using rule 1 (FINAL -> .)
+    FOR             reduce using rule 1 (FINAL -> .)
+    INT             reduce using rule 1 (FINAL -> .)
+    BOOLEAN         reduce using rule 1 (FINAL -> .)
+    CHAR            reduce using rule 1 (FINAL -> .)
+    STRING          reduce using rule 1 (FINAL -> .)
+    FLOAT           reduce using rule 1 (FINAL -> .)
+    RETURN          reduce using rule 1 (FINAL -> .)
+    END             reduce using rule 1 (FINAL -> .)
+    ELSE            reduce using rule 1 (FINAL -> .)
+
+    EXPREZ                         shift and go to state 110
+    RELOP                          shift and go to state 104
+    FINAL                          shift and go to state 111
+
+state 70
+
+    (64) EXP_W_SIGN -> ASOP . EXP
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 112
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 71
+
+    (63) EXP -> TERMINO EXP_W_SIGN .
+
+    LESSTH          reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    GREATERTH       reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    SEQUAL          reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    NOTEQ           reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    LESSEQTH        reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    GREATEREQTH     reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    COMMA           reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    RPAR            reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    DEFINE          reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    ID              reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    IF              reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    DRAW            reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    WHILE           reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    FOR             reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    INT             reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    BOOLEAN         reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    CHAR            reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    STRING          reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    FLOAT           reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    RETURN          reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    END             reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    ELSE            reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+    RBRA            reduce using rule 63 (EXP -> TERMINO EXP_W_SIGN .)
+
+
+state 72
+
+    (65) EXP_W_SIGN -> FINAL .
+
+    DEFINE          reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    ID              reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    IF              reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    DRAW            reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    WHILE           reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    FOR             reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    INT             reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    BOOLEAN         reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    CHAR            reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    STRING          reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    FLOAT           reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    RETURN          reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    END             reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    ELSE            reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    LESSTH          reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    GREATERTH       reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    SEQUAL          reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    NOTEQ           reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    LESSEQTH        reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    GREATEREQTH     reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    RPAR            reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    COMMA           reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+    RBRA            reduce using rule 65 (EXP_W_SIGN -> FINAL .)
+
+
+state 73
+
+    (71) VAR_CTE -> LLAMADA_FUNCION .
+
+    MULT            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    DIVI            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    PLUS            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    MINUS           reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    DEFINE          reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    ID              reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    IF              reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    DRAW            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    WHILE           reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    FOR             reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    INT             reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    BOOLEAN         reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    CHAR            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    STRING          reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    FLOAT           reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    RETURN          reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    END             reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    ELSE            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    LESSTH          reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    GREATERTH       reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    SEQUAL          reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    NOTEQ           reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    LESSEQTH        reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    GREATEREQTH     reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    RPAR            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    COMMA           reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+    RBRA            reduce using rule 71 (VAR_CTE -> LLAMADA_FUNCION .)
+
+
+state 74
+
+    (76) FAC -> FACS VAR_CTE .
+
+    MULT            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    DIVI            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    PLUS            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    MINUS           reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    RPAR            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    COMMA           reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    ID              reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    IF              reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    DRAW            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    WHILE           reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    FOR             reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    INT             reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    BOOLEAN         reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    CHAR            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    STRING          reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    FLOAT           reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    RETURN          reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    END             reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    ELSE            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    DEFINE          reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    LESSTH          reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    GREATERTH       reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    SEQUAL          reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    NOTEQ           reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    LESSEQTH        reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    GREATEREQTH     reduce using rule 76 (FAC -> FACS VAR_CTE .)
+    RBRA            reduce using rule 76 (FAC -> FACS VAR_CTE .)
+
+
+state 75
+
+    (70) VAR_CTE -> FCTE .
+
+    MULT            reduce using rule 70 (VAR_CTE -> FCTE .)
+    DIVI            reduce using rule 70 (VAR_CTE -> FCTE .)
+    PLUS            reduce using rule 70 (VAR_CTE -> FCTE .)
+    MINUS           reduce using rule 70 (VAR_CTE -> FCTE .)
+    DEFINE          reduce using rule 70 (VAR_CTE -> FCTE .)
+    ID              reduce using rule 70 (VAR_CTE -> FCTE .)
+    IF              reduce using rule 70 (VAR_CTE -> FCTE .)
+    DRAW            reduce using rule 70 (VAR_CTE -> FCTE .)
+    WHILE           reduce using rule 70 (VAR_CTE -> FCTE .)
+    FOR             reduce using rule 70 (VAR_CTE -> FCTE .)
+    INT             reduce using rule 70 (VAR_CTE -> FCTE .)
+    BOOLEAN         reduce using rule 70 (VAR_CTE -> FCTE .)
+    CHAR            reduce using rule 70 (VAR_CTE -> FCTE .)
+    STRING          reduce using rule 70 (VAR_CTE -> FCTE .)
+    FLOAT           reduce using rule 70 (VAR_CTE -> FCTE .)
+    RETURN          reduce using rule 70 (VAR_CTE -> FCTE .)
+    END             reduce using rule 70 (VAR_CTE -> FCTE .)
+    ELSE            reduce using rule 70 (VAR_CTE -> FCTE .)
+    LESSTH          reduce using rule 70 (VAR_CTE -> FCTE .)
+    GREATERTH       reduce using rule 70 (VAR_CTE -> FCTE .)
+    SEQUAL          reduce using rule 70 (VAR_CTE -> FCTE .)
+    NOTEQ           reduce using rule 70 (VAR_CTE -> FCTE .)
+    LESSEQTH        reduce using rule 70 (VAR_CTE -> FCTE .)
+    GREATEREQTH     reduce using rule 70 (VAR_CTE -> FCTE .)
+    RPAR            reduce using rule 70 (VAR_CTE -> FCTE .)
+    COMMA           reduce using rule 70 (VAR_CTE -> FCTE .)
+    RBRA            reduce using rule 70 (VAR_CTE -> FCTE .)
+
+
+state 76
+
+    (69) VAR_CTE -> ICTE .
+
+    MULT            reduce using rule 69 (VAR_CTE -> ICTE .)
+    DIVI            reduce using rule 69 (VAR_CTE -> ICTE .)
+    PLUS            reduce using rule 69 (VAR_CTE -> ICTE .)
+    MINUS           reduce using rule 69 (VAR_CTE -> ICTE .)
+    DEFINE          reduce using rule 69 (VAR_CTE -> ICTE .)
+    ID              reduce using rule 69 (VAR_CTE -> ICTE .)
+    IF              reduce using rule 69 (VAR_CTE -> ICTE .)
+    DRAW            reduce using rule 69 (VAR_CTE -> ICTE .)
+    WHILE           reduce using rule 69 (VAR_CTE -> ICTE .)
+    FOR             reduce using rule 69 (VAR_CTE -> ICTE .)
+    INT             reduce using rule 69 (VAR_CTE -> ICTE .)
+    BOOLEAN         reduce using rule 69 (VAR_CTE -> ICTE .)
+    CHAR            reduce using rule 69 (VAR_CTE -> ICTE .)
+    STRING          reduce using rule 69 (VAR_CTE -> ICTE .)
+    FLOAT           reduce using rule 69 (VAR_CTE -> ICTE .)
+    RETURN          reduce using rule 69 (VAR_CTE -> ICTE .)
+    END             reduce using rule 69 (VAR_CTE -> ICTE .)
+    ELSE            reduce using rule 69 (VAR_CTE -> ICTE .)
+    LESSTH          reduce using rule 69 (VAR_CTE -> ICTE .)
+    GREATERTH       reduce using rule 69 (VAR_CTE -> ICTE .)
+    SEQUAL          reduce using rule 69 (VAR_CTE -> ICTE .)
+    NOTEQ           reduce using rule 69 (VAR_CTE -> ICTE .)
+    LESSEQTH        reduce using rule 69 (VAR_CTE -> ICTE .)
+    GREATEREQTH     reduce using rule 69 (VAR_CTE -> ICTE .)
+    RPAR            reduce using rule 69 (VAR_CTE -> ICTE .)
+    COMMA           reduce using rule 69 (VAR_CTE -> ICTE .)
+    RBRA            reduce using rule 69 (VAR_CTE -> ICTE .)
+
+
+state 77
+
+    (39) LLAMADA_FUNCION -> ID . LPAR LLAMADA_FUNCIONP RPAR
+
+    LPAR            shift and go to state 95
+
+
+state 78
+
+    (28) MDOP -> DIVI .
+
+    LPAR            reduce using rule 28 (MDOP -> DIVI .)
+    ID              reduce using rule 28 (MDOP -> DIVI .)
+    PLUS            reduce using rule 28 (MDOP -> DIVI .)
+    MINUS           reduce using rule 28 (MDOP -> DIVI .)
+    ICTE            reduce using rule 28 (MDOP -> DIVI .)
+    FCTE            reduce using rule 28 (MDOP -> DIVI .)
+
+
+state 79
+
+    (67) TERMINO_W_SIGN -> MDOP . TERMINO
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 113
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 80
+
+    (66) TERMINO -> FAC TERMINO_W_SIGN .
+
+    PLUS            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    MINUS           reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    LESSTH          reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    GREATERTH       reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    SEQUAL          reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    NOTEQ           reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    LESSEQTH        reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    GREATEREQTH     reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    RPAR            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    COMMA           reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    END             reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    DEFINE          reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    ID              reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    IF              reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    DRAW            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    WHILE           reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    FOR             reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    INT             reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    BOOLEAN         reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    CHAR            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    STRING          reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    FLOAT           reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    RETURN          reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    ELSE            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+    RBRA            reduce using rule 66 (TERMINO -> FAC TERMINO_W_SIGN .)
+
+
+state 81
+
+    (68) TERMINO_W_SIGN -> FINAL .
+
+    PLUS            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    MINUS           reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    DEFINE          reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    ID              reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    IF              reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    DRAW            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    WHILE           reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    FOR             reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    INT             reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    BOOLEAN         reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    CHAR            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    STRING          reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    FLOAT           reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    RETURN          reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    END             reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    ELSE            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    LESSTH          reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    GREATERTH       reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    SEQUAL          reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    NOTEQ           reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    LESSEQTH        reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    GREATEREQTH     reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    RPAR            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    COMMA           reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+    RBRA            reduce using rule 68 (TERMINO_W_SIGN -> FINAL .)
+
+
+state 82
+
+    (27) MDOP -> MULT .
+
+    LPAR            reduce using rule 27 (MDOP -> MULT .)
+    ID              reduce using rule 27 (MDOP -> MULT .)
+    PLUS            reduce using rule 27 (MDOP -> MULT .)
+    MINUS           reduce using rule 27 (MDOP -> MULT .)
+    ICTE            reduce using rule 27 (MDOP -> MULT .)
+    FCTE            reduce using rule 27 (MDOP -> MULT .)
+
+
+state 83
+
+    (79) FACT -> FINAL .
+
+    MULT            reduce using rule 79 (FACT -> FINAL .)
+    DIVI            reduce using rule 79 (FACT -> FINAL .)
+    PLUS            reduce using rule 79 (FACT -> FINAL .)
+    MINUS           reduce using rule 79 (FACT -> FINAL .)
+    DEFINE          reduce using rule 79 (FACT -> FINAL .)
+    ID              reduce using rule 79 (FACT -> FINAL .)
+    IF              reduce using rule 79 (FACT -> FINAL .)
+    DRAW            reduce using rule 79 (FACT -> FINAL .)
+    WHILE           reduce using rule 79 (FACT -> FINAL .)
+    FOR             reduce using rule 79 (FACT -> FINAL .)
+    INT             reduce using rule 79 (FACT -> FINAL .)
+    BOOLEAN         reduce using rule 79 (FACT -> FINAL .)
+    CHAR            reduce using rule 79 (FACT -> FINAL .)
+    STRING          reduce using rule 79 (FACT -> FINAL .)
+    FLOAT           reduce using rule 79 (FACT -> FINAL .)
+    RETURN          reduce using rule 79 (FACT -> FINAL .)
+    END             reduce using rule 79 (FACT -> FINAL .)
+    ELSE            reduce using rule 79 (FACT -> FINAL .)
+    LESSTH          reduce using rule 79 (FACT -> FINAL .)
+    GREATERTH       reduce using rule 79 (FACT -> FINAL .)
+    SEQUAL          reduce using rule 79 (FACT -> FINAL .)
+    NOTEQ           reduce using rule 79 (FACT -> FINAL .)
+    LESSEQTH        reduce using rule 79 (FACT -> FINAL .)
+    GREATEREQTH     reduce using rule 79 (FACT -> FINAL .)
+    RPAR            reduce using rule 79 (FACT -> FINAL .)
+    COMMA           reduce using rule 79 (FACT -> FINAL .)
+    RBRA            reduce using rule 79 (FACT -> FINAL .)
+
+
+state 84
+
+    (78) FACT -> LBRA . EXP FACZ RBRA
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 114
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 85
+
+    (77) FAC -> ID FACT .
+
+    MULT            reduce using rule 77 (FAC -> ID FACT .)
+    DIVI            reduce using rule 77 (FAC -> ID FACT .)
+    PLUS            reduce using rule 77 (FAC -> ID FACT .)
+    MINUS           reduce using rule 77 (FAC -> ID FACT .)
+    RPAR            reduce using rule 77 (FAC -> ID FACT .)
+    COMMA           reduce using rule 77 (FAC -> ID FACT .)
+    ID              reduce using rule 77 (FAC -> ID FACT .)
+    IF              reduce using rule 77 (FAC -> ID FACT .)
+    DRAW            reduce using rule 77 (FAC -> ID FACT .)
+    WHILE           reduce using rule 77 (FAC -> ID FACT .)
+    FOR             reduce using rule 77 (FAC -> ID FACT .)
+    INT             reduce using rule 77 (FAC -> ID FACT .)
+    BOOLEAN         reduce using rule 77 (FAC -> ID FACT .)
+    CHAR            reduce using rule 77 (FAC -> ID FACT .)
+    STRING          reduce using rule 77 (FAC -> ID FACT .)
+    FLOAT           reduce using rule 77 (FAC -> ID FACT .)
+    RETURN          reduce using rule 77 (FAC -> ID FACT .)
+    END             reduce using rule 77 (FAC -> ID FACT .)
+    ELSE            reduce using rule 77 (FAC -> ID FACT .)
+    DEFINE          reduce using rule 77 (FAC -> ID FACT .)
+    LESSTH          reduce using rule 77 (FAC -> ID FACT .)
+    GREATERTH       reduce using rule 77 (FAC -> ID FACT .)
+    SEQUAL          reduce using rule 77 (FAC -> ID FACT .)
+    NOTEQ           reduce using rule 77 (FAC -> ID FACT .)
+    LESSEQTH        reduce using rule 77 (FAC -> ID FACT .)
+    GREATEREQTH     reduce using rule 77 (FAC -> ID FACT .)
+    RBRA            reduce using rule 77 (FAC -> ID FACT .)
+
+
+state 86
+
+    (44) PRINCIPAL -> DEFINE VOID MAIN LPAR RPAR . BLOQUE END
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    LLAMADA_FUNCION                shift and go to state 55
+    VART                           shift and go to state 51
+    ARR                            shift and go to state 15
+    CICLO                          shift and go to state 53
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    FORZ                           shift and go to state 59
+    DATA_TIPOS                     shift and go to state 12
+    CONDICION                      shift and go to state 60
+    WHILEF                         shift and go to state 58
+    BLOQUE                         shift and go to state 115
+    ACCION                         shift and go to state 64
+
+state 87
+
+    (87) VAR_FUNP -> DATA_TIPOS ID . VAR_FUNZ
+    (88) VAR_FUNZ -> . COMMA VAR_FUNP
+    (89) VAR_FUNZ -> . FINAL
+    (1) FINAL -> .
+
+    COMMA           shift and go to state 117
+    RPAR            reduce using rule 1 (FINAL -> .)
+
+    FINAL                          shift and go to state 118
+    VAR_FUNZ                       shift and go to state 116
+
+state 88
+
+    (86) VAR_FUN -> LPAR VAR_FUNP RPAR .
+
+    ID              reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    IF              reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    DRAW            reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    WHILE           reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    FOR             reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    INT             reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    BOOLEAN         reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    CHAR            reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    STRING          reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    FLOAT           reduce using rule 86 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+
+
+state 89
+
+    (19) BLOQUEP -> FINAL .
+
+    RETURN          reduce using rule 19 (BLOQUEP -> FINAL .)
+    END             reduce using rule 19 (BLOQUEP -> FINAL .)
+    ELSE            reduce using rule 19 (BLOQUEP -> FINAL .)
+
+
+state 90
+
+    (17) BLOQUE -> ESTATUTO BLOQUEP .
+
+    END             reduce using rule 17 (BLOQUE -> ESTATUTO BLOQUEP .)
+    ELSE            reduce using rule 17 (BLOQUE -> ESTATUTO BLOQUEP .)
+    RETURN          reduce using rule 17 (BLOQUE -> ESTATUTO BLOQUEP .)
+
+
+state 91
+
+    (18) BLOQUEP -> BLOQUE .
+
+    RETURN          reduce using rule 18 (BLOQUEP -> BLOQUE .)
+    END             reduce using rule 18 (BLOQUEP -> BLOQUE .)
+    ELSE            reduce using rule 18 (BLOQUEP -> BLOQUE .)
+
+
+state 92
+
+    (47) WHILEF -> WHILE LPAR . EXPRE RPAR BLOQUE END
+    (60) EXPRE -> . EXP EXPREZ
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    FINAL                          shift and go to state 38
+    EXPRE                          shift and go to state 119
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+
+state 93
+
+    (48) FORZ -> FOR LPAR . ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+
+    ICTE            shift and go to state 120
+
+
+state 94
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN . EXP END
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    FINAL                          shift and go to state 38
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 121
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+
+state 95
+
+    (39) LLAMADA_FUNCION -> ID LPAR . LLAMADA_FUNCIONP RPAR
+    (40) LLAMADA_FUNCIONP -> . EXPRE LLAMADA_FUNCIONZ
+    (41) LLAMADA_FUNCIONP -> . FINAL
+    (60) EXPRE -> . EXP EXPREZ
+    (1) FINAL -> .
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+
+  ! shift/reduce conflict for ID resolved as shift
+    RPAR            reduce using rule 1 (FINAL -> .)
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    EXPRE                          shift and go to state 123
+    LLAMADA_FUNCIONP               shift and go to state 124
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 122
+
+state 96
+
+    (33) ASIGNACIONP -> LBRA . ICTE ASIGNACIONZ RBRA
+
+    ICTE            shift and go to state 125
+
+
+state 97
+
+    (85) ACCION -> ID POINT . DIBUJA LPAR VAR_CTE RPAR
+    (90) DIBUJA -> . DEFINIRPOSICION
+    (91) DIBUJA -> . DEFINIRCOLOR
+    (92) DIBUJA -> . DERECHO
+    (93) DIBUJA -> . REVERSA
+    (94) DIBUJA -> . IZQUIERDA
+    (95) DIBUJA -> . DERECHA
+    (96) DIBUJA -> . VELOCIDAD
+    (97) DIBUJA -> . BORRAR
+    (98) DIBUJA -> . MOSTRAR
+    (99) DIBUJA -> . OCULTAR
+    (100) DIBUJA -> . CIRCULO
+    (101) DIBUJA -> . DEFINIRX
+    (102) DIBUJA -> . DEFINIRY
+    (103) DIBUJA -> . ARCO
+    (104) DIBUJA -> . GROSOR
+
+    DEFINIRPOSICION shift and go to state 132
+    DEFINIRCOLOR    shift and go to state 141
+    DERECHO         shift and go to state 136
+    REVERSA         shift and go to state 130
+    IZQUIERDA       shift and go to state 134
+    DERECHA         shift and go to state 126
+    VELOCIDAD       shift and go to state 129
+    BORRAR          shift and go to state 139
+    MOSTRAR         shift and go to state 133
+    OCULTAR         shift and go to state 131
+    CIRCULO         shift and go to state 128
+    DEFINIRX        shift and go to state 138
+    DEFINIRY        shift and go to state 137
+    ARCO            shift and go to state 127
+    GROSOR          shift and go to state 140
+
+    DIBUJA                         shift and go to state 135
+
+state 98
+
+    (32) ASIGNACIONP -> EQUAL . EXPRE
+    (60) EXPRE -> . EXP EXPREZ
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    EXPRE                          shift and go to state 142
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 99
+
+    (31) ASIGNACION -> ID ASIGNACIONP .
+
+    ID              reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    IF              reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    DRAW            reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    WHILE           reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    FOR             reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    INT             reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    BOOLEAN         reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    CHAR            reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    STRING          reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    FLOAT           reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    END             reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    RETURN          reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+    ELSE            reduce using rule 31 (ASIGNACION -> ID ASIGNACIONP .)
+
+
+state 100
+
+    (49) CONDICION -> IF LPAR . EXPRE RPAR BLOQUE CONDICIONP END
+    (60) EXPRE -> . EXP EXPREZ
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    FINAL                          shift and go to state 38
+    EXPRE                          shift and go to state 143
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+
+state 101
+
+    (6) VART -> DRAW ID EQUAL NEW DRAW LPAR . RPAR
+
+    RPAR            shift and go to state 144
+
+
+state 102
+
+    (75) FAC -> LPAR EXPRE RPAR .
+
+    MULT            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    DIVI            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    PLUS            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    MINUS           reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    RPAR            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    COMMA           reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    ID              reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    IF              reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    DRAW            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    WHILE           reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    FOR             reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    INT             reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    BOOLEAN         reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    CHAR            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    STRING          reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    FLOAT           reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    RETURN          reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    END             reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    ELSE            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    DEFINE          reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    LESSTH          reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    GREATERTH       reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    SEQUAL          reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    NOTEQ           reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    LESSEQTH        reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    GREATEREQTH     reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+    RBRA            reduce using rule 75 (FAC -> LPAR EXPRE RPAR .)
+
+
+state 103
+
+    (58) RELOP -> LESSEQTH .
+
+    LPAR            reduce using rule 58 (RELOP -> LESSEQTH .)
+    ID              reduce using rule 58 (RELOP -> LESSEQTH .)
+    PLUS            reduce using rule 58 (RELOP -> LESSEQTH .)
+    MINUS           reduce using rule 58 (RELOP -> LESSEQTH .)
+    ICTE            reduce using rule 58 (RELOP -> LESSEQTH .)
+    FCTE            reduce using rule 58 (RELOP -> LESSEQTH .)
+
+
+state 104
+
+    (61) EXPREZ -> RELOP . EXP
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 145
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 105
+
+    (56) RELOP -> SEQUAL .
+
+    LPAR            reduce using rule 56 (RELOP -> SEQUAL .)
+    ID              reduce using rule 56 (RELOP -> SEQUAL .)
+    PLUS            reduce using rule 56 (RELOP -> SEQUAL .)
+    MINUS           reduce using rule 56 (RELOP -> SEQUAL .)
+    ICTE            reduce using rule 56 (RELOP -> SEQUAL .)
+    FCTE            reduce using rule 56 (RELOP -> SEQUAL .)
+
+
+state 106
+
+    (57) RELOP -> NOTEQ .
+
+    LPAR            reduce using rule 57 (RELOP -> NOTEQ .)
+    ID              reduce using rule 57 (RELOP -> NOTEQ .)
+    PLUS            reduce using rule 57 (RELOP -> NOTEQ .)
+    MINUS           reduce using rule 57 (RELOP -> NOTEQ .)
+    ICTE            reduce using rule 57 (RELOP -> NOTEQ .)
+    FCTE            reduce using rule 57 (RELOP -> NOTEQ .)
+
+
+state 107
+
+    (59) RELOP -> GREATEREQTH .
+
+    LPAR            reduce using rule 59 (RELOP -> GREATEREQTH .)
+    ID              reduce using rule 59 (RELOP -> GREATEREQTH .)
+    PLUS            reduce using rule 59 (RELOP -> GREATEREQTH .)
+    MINUS           reduce using rule 59 (RELOP -> GREATEREQTH .)
+    ICTE            reduce using rule 59 (RELOP -> GREATEREQTH .)
+    FCTE            reduce using rule 59 (RELOP -> GREATEREQTH .)
+
+
+state 108
+
+    (55) RELOP -> GREATERTH .
+
+    LPAR            reduce using rule 55 (RELOP -> GREATERTH .)
+    ID              reduce using rule 55 (RELOP -> GREATERTH .)
+    PLUS            reduce using rule 55 (RELOP -> GREATERTH .)
+    MINUS           reduce using rule 55 (RELOP -> GREATERTH .)
+    ICTE            reduce using rule 55 (RELOP -> GREATERTH .)
+    FCTE            reduce using rule 55 (RELOP -> GREATERTH .)
+
+
+state 109
+
+    (54) RELOP -> LESSTH .
+
+    LPAR            reduce using rule 54 (RELOP -> LESSTH .)
+    ID              reduce using rule 54 (RELOP -> LESSTH .)
+    PLUS            reduce using rule 54 (RELOP -> LESSTH .)
+    MINUS           reduce using rule 54 (RELOP -> LESSTH .)
+    ICTE            reduce using rule 54 (RELOP -> LESSTH .)
+    FCTE            reduce using rule 54 (RELOP -> LESSTH .)
+
+
+state 110
+
+    (60) EXPRE -> EXP EXPREZ .
+
+    COMMA           reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    RPAR            reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    ID              reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    IF              reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    DRAW            reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    WHILE           reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    FOR             reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    INT             reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    BOOLEAN         reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    CHAR            reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    STRING          reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    FLOAT           reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    RETURN          reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    END             reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+    ELSE            reduce using rule 60 (EXPRE -> EXP EXPREZ .)
+
+
+state 111
+
+    (62) EXPREZ -> FINAL .
+
+    RPAR            reduce using rule 62 (EXPREZ -> FINAL .)
+    COMMA           reduce using rule 62 (EXPREZ -> FINAL .)
+    ID              reduce using rule 62 (EXPREZ -> FINAL .)
+    IF              reduce using rule 62 (EXPREZ -> FINAL .)
+    DRAW            reduce using rule 62 (EXPREZ -> FINAL .)
+    WHILE           reduce using rule 62 (EXPREZ -> FINAL .)
+    FOR             reduce using rule 62 (EXPREZ -> FINAL .)
+    INT             reduce using rule 62 (EXPREZ -> FINAL .)
+    BOOLEAN         reduce using rule 62 (EXPREZ -> FINAL .)
+    CHAR            reduce using rule 62 (EXPREZ -> FINAL .)
+    STRING          reduce using rule 62 (EXPREZ -> FINAL .)
+    FLOAT           reduce using rule 62 (EXPREZ -> FINAL .)
+    RETURN          reduce using rule 62 (EXPREZ -> FINAL .)
+    END             reduce using rule 62 (EXPREZ -> FINAL .)
+    ELSE            reduce using rule 62 (EXPREZ -> FINAL .)
+
+
+state 112
+
+    (64) EXP_W_SIGN -> ASOP EXP .
+
+    DEFINE          reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    ID              reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    IF              reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    DRAW            reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    WHILE           reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    FOR             reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    INT             reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    BOOLEAN         reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    CHAR            reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    STRING          reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    FLOAT           reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    RETURN          reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    END             reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    ELSE            reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    LESSTH          reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    GREATERTH       reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    SEQUAL          reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    NOTEQ           reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    LESSEQTH        reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    GREATEREQTH     reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    RPAR            reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    COMMA           reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+    RBRA            reduce using rule 64 (EXP_W_SIGN -> ASOP EXP .)
+
+
+state 113
+
+    (67) TERMINO_W_SIGN -> MDOP TERMINO .
+
+    PLUS            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    MINUS           reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    DEFINE          reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    ID              reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    IF              reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    DRAW            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    WHILE           reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    FOR             reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    INT             reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    BOOLEAN         reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    CHAR            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    STRING          reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    FLOAT           reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    RETURN          reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    END             reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    ELSE            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    LESSTH          reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    GREATERTH       reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    SEQUAL          reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    NOTEQ           reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    LESSEQTH        reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    GREATEREQTH     reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    RPAR            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    COMMA           reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+    RBRA            reduce using rule 67 (TERMINO_W_SIGN -> MDOP TERMINO .)
+
+
+state 114
+
+    (78) FACT -> LBRA EXP . FACZ RBRA
+    (82) FACZ -> . COMMA EXP
+    (83) FACZ -> . FINAL
+    (1) FINAL -> .
+
+    COMMA           shift and go to state 147
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    FACZ                           shift and go to state 146
+    FINAL                          shift and go to state 148
+
+state 115
+
+    (44) PRINCIPAL -> DEFINE VOID MAIN LPAR RPAR BLOQUE . END
+
+    END             shift and go to state 149
+
+
+state 116
+
+    (87) VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .
+
+    RPAR            reduce using rule 87 (VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .)
+
+
+state 117
+
+    (88) VAR_FUNZ -> COMMA . VAR_FUNP
+    (87) VAR_FUNP -> . DATA_TIPOS ID VAR_FUNZ
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    DATA_TIPOS                     shift and go to state 49
+    VAR_FUNP                       shift and go to state 150
+
+state 118
+
+    (89) VAR_FUNZ -> FINAL .
+
+    RPAR            reduce using rule 89 (VAR_FUNZ -> FINAL .)
+
+
+state 119
+
+    (47) WHILEF -> WHILE LPAR EXPRE . RPAR BLOQUE END
+
+    RPAR            shift and go to state 151
+
+
+state 120
+
+    (48) FORZ -> FOR LPAR ICTE . COMMA ICTE COMMA ICTE RPAR BLOQUE END
+
+    COMMA           shift and go to state 152
+
+
+state 121
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP . END
+
+    END             shift and go to state 153
+
+
+state 122
+
+    (41) LLAMADA_FUNCIONP -> FINAL .
+    (81) FACS -> FINAL .
+
+    RPAR            reduce using rule 41 (LLAMADA_FUNCIONP -> FINAL .)
+    ICTE            reduce using rule 81 (FACS -> FINAL .)
+    FCTE            reduce using rule 81 (FACS -> FINAL .)
+    ID              reduce using rule 81 (FACS -> FINAL .)
+
+
+state 123
+
+    (40) LLAMADA_FUNCIONP -> EXPRE . LLAMADA_FUNCIONZ
+    (42) LLAMADA_FUNCIONZ -> . COMMA LLAMADA_FUNCIONP
+    (43) LLAMADA_FUNCIONZ -> . FINAL
+    (1) FINAL -> .
+
+    COMMA           shift and go to state 156
+    RPAR            reduce using rule 1 (FINAL -> .)
+
+    FINAL                          shift and go to state 154
+    LLAMADA_FUNCIONZ               shift and go to state 155
+
+state 124
+
+    (39) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP . RPAR
+
+    RPAR            shift and go to state 157
+
+
+state 125
+
+    (33) ASIGNACIONP -> LBRA ICTE . ASIGNACIONZ RBRA
+    (34) ASIGNACIONZ -> . COMMA ICTE
+    (35) ASIGNACIONZ -> . FINAL
+    (1) FINAL -> .
+
+    COMMA           shift and go to state 158
+    RBRA            reduce using rule 1 (FINAL -> .)
+
+    ASIGNACIONZ                    shift and go to state 159
+    FINAL                          shift and go to state 160
+
+state 126
+
+    (95) DIBUJA -> DERECHA .
+
+    LPAR            reduce using rule 95 (DIBUJA -> DERECHA .)
+
+
+state 127
+
+    (103) DIBUJA -> ARCO .
+
+    LPAR            reduce using rule 103 (DIBUJA -> ARCO .)
+
+
+state 128
+
+    (100) DIBUJA -> CIRCULO .
+
+    LPAR            reduce using rule 100 (DIBUJA -> CIRCULO .)
+
+
+state 129
+
+    (96) DIBUJA -> VELOCIDAD .
+
+    LPAR            reduce using rule 96 (DIBUJA -> VELOCIDAD .)
+
+
+state 130
+
+    (93) DIBUJA -> REVERSA .
+
+    LPAR            reduce using rule 93 (DIBUJA -> REVERSA .)
+
+
+state 131
+
+    (99) DIBUJA -> OCULTAR .
+
+    LPAR            reduce using rule 99 (DIBUJA -> OCULTAR .)
+
+
+state 132
+
+    (90) DIBUJA -> DEFINIRPOSICION .
+
+    LPAR            reduce using rule 90 (DIBUJA -> DEFINIRPOSICION .)
+
+
+state 133
+
+    (98) DIBUJA -> MOSTRAR .
+
+    LPAR            reduce using rule 98 (DIBUJA -> MOSTRAR .)
+
+
+state 134
+
+    (94) DIBUJA -> IZQUIERDA .
+
+    LPAR            reduce using rule 94 (DIBUJA -> IZQUIERDA .)
+
+
+state 135
+
+    (85) ACCION -> ID POINT DIBUJA . LPAR VAR_CTE RPAR
+
+    LPAR            shift and go to state 161
+
+
+state 136
+
+    (92) DIBUJA -> DERECHO .
+
+    LPAR            reduce using rule 92 (DIBUJA -> DERECHO .)
+
+
+state 137
+
+    (102) DIBUJA -> DEFINIRY .
+
+    LPAR            reduce using rule 102 (DIBUJA -> DEFINIRY .)
+
+
+state 138
+
+    (101) DIBUJA -> DEFINIRX .
+
+    LPAR            reduce using rule 101 (DIBUJA -> DEFINIRX .)
+
+
+state 139
+
+    (97) DIBUJA -> BORRAR .
+
+    LPAR            reduce using rule 97 (DIBUJA -> BORRAR .)
+
+
+state 140
+
+    (104) DIBUJA -> GROSOR .
+
+    LPAR            reduce using rule 104 (DIBUJA -> GROSOR .)
+
+
+state 141
+
+    (91) DIBUJA -> DEFINIRCOLOR .
+
+    LPAR            reduce using rule 91 (DIBUJA -> DEFINIRCOLOR .)
+
+
+state 142
+
+    (32) ASIGNACIONP -> EQUAL EXPRE .
+
+    ID              reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    IF              reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    DRAW            reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    WHILE           reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    FOR             reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    INT             reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    BOOLEAN         reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    CHAR            reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    STRING          reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    FLOAT           reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    RETURN          reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    END             reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+    ELSE            reduce using rule 32 (ASIGNACIONP -> EQUAL EXPRE .)
+
+
+state 143
+
+    (49) CONDICION -> IF LPAR EXPRE . RPAR BLOQUE CONDICIONP END
+
+    RPAR            shift and go to state 162
+
+
+state 144
+
+    (6) VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .
+
+    ID              reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    IF              reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    DRAW            reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    WHILE           reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    FOR             reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    INT             reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    BOOLEAN         reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    CHAR            reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    STRING          reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    FLOAT           reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    ELSE            reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    END             reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    RETURN          reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+    DEFINE          reduce using rule 6 (VART -> DRAW ID EQUAL NEW DRAW LPAR RPAR .)
+
+
+state 145
+
+    (61) EXPREZ -> RELOP EXP .
+
+    RPAR            reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    COMMA           reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    ID              reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    IF              reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    DRAW            reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    WHILE           reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    FOR             reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    INT             reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    BOOLEAN         reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    CHAR            reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    STRING          reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    FLOAT           reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    RETURN          reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    END             reduce using rule 61 (EXPREZ -> RELOP EXP .)
+    ELSE            reduce using rule 61 (EXPREZ -> RELOP EXP .)
+
+
+state 146
+
+    (78) FACT -> LBRA EXP FACZ . RBRA
+
+    RBRA            shift and go to state 163
+
+
+state 147
+
+    (82) FACZ -> COMMA . EXP
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+    (1) FINAL -> .
+
+  ! shift/reduce conflict for ID resolved as shift
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 164
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 38
+
+state 148
+
+    (83) FACZ -> FINAL .
+
+    RBRA            reduce using rule 83 (FACZ -> FINAL .)
+
+
+state 149
+
+    (44) PRINCIPAL -> DEFINE VOID MAIN LPAR RPAR BLOQUE END .
+
+    $end            reduce using rule 44 (PRINCIPAL -> DEFINE VOID MAIN LPAR RPAR BLOQUE END .)
+
+
+state 150
+
+    (88) VAR_FUNZ -> COMMA VAR_FUNP .
+
+    RPAR            reduce using rule 88 (VAR_FUNZ -> COMMA VAR_FUNP .)
+
+
+state 151
+
+    (47) WHILEF -> WHILE LPAR EXPRE RPAR . BLOQUE END
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    LLAMADA_FUNCION                shift and go to state 55
+    VART                           shift and go to state 51
+    ARR                            shift and go to state 15
+    CICLO                          shift and go to state 53
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    FORZ                           shift and go to state 59
+    DATA_TIPOS                     shift and go to state 12
+    CONDICION                      shift and go to state 60
+    WHILEF                         shift and go to state 58
+    BLOQUE                         shift and go to state 165
+    ACCION                         shift and go to state 64
+
+state 152
+
+    (48) FORZ -> FOR LPAR ICTE COMMA . ICTE COMMA ICTE RPAR BLOQUE END
+
+    ICTE            shift and go to state 166
+
+
+state 153
+
+    (84) FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END .
+
+    DEFINE          reduce using rule 84 (FUNCION -> DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXP END .)
+
+
+state 154
+
+    (43) LLAMADA_FUNCIONZ -> FINAL .
+
+    RPAR            reduce using rule 43 (LLAMADA_FUNCIONZ -> FINAL .)
+
+
+state 155
+
+    (40) LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ .
+
+    RPAR            reduce using rule 40 (LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ .)
+
+
+state 156
+
+    (42) LLAMADA_FUNCIONZ -> COMMA . LLAMADA_FUNCIONP
+    (40) LLAMADA_FUNCIONP -> . EXPRE LLAMADA_FUNCIONZ
+    (41) LLAMADA_FUNCIONP -> . FINAL
+    (60) EXPRE -> . EXP EXPREZ
+    (1) FINAL -> .
+    (63) EXP -> . TERMINO EXP_W_SIGN
+    (66) TERMINO -> . FAC TERMINO_W_SIGN
+    (75) FAC -> . LPAR EXPRE RPAR
+    (76) FAC -> . FACS VAR_CTE
+    (77) FAC -> . ID FACT
+    (80) FACS -> . ASOP
+    (81) FACS -> . FINAL
+    (25) ASOP -> . PLUS
+    (26) ASOP -> . MINUS
+
+  ! shift/reduce conflict for ID resolved as shift
+    RPAR            reduce using rule 1 (FINAL -> .)
+    ICTE            reduce using rule 1 (FINAL -> .)
+    FCTE            reduce using rule 1 (FINAL -> .)
+    LPAR            shift and go to state 39
+    ID              shift and go to state 47
+    PLUS            shift and go to state 41
+    MINUS           shift and go to state 46
+
+  ! ID              [ reduce using rule 1 (FINAL -> .) ]
+
+    EXPRE                          shift and go to state 123
+    LLAMADA_FUNCIONP               shift and go to state 167
+    ASOP                           shift and go to state 40
+    TERMINO                        shift and go to state 42
+    EXP                            shift and go to state 69
+    FACS                           shift and go to state 44
+    FAC                            shift and go to state 45
+    FINAL                          shift and go to state 122
+
+state 157
+
+    (39) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .
+
+    ID              reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    IF              reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    DRAW            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    WHILE           reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    FOR             reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    INT             reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    BOOLEAN         reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    CHAR            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    STRING          reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    FLOAT           reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    RETURN          reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    END             reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    RPAR            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    ELSE            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    MULT            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    DIVI            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    PLUS            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    MINUS           reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    DEFINE          reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    LESSTH          reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    GREATERTH       reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    SEQUAL          reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    NOTEQ           reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    LESSEQTH        reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    GREATEREQTH     reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    COMMA           reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    RBRA            reduce using rule 39 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+
+
+state 158
+
+    (34) ASIGNACIONZ -> COMMA . ICTE
+
+    ICTE            shift and go to state 168
+
+
+state 159
+
+    (33) ASIGNACIONP -> LBRA ICTE ASIGNACIONZ . RBRA
+
+    RBRA            shift and go to state 169
+
+
+state 160
+
+    (35) ASIGNACIONZ -> FINAL .
+
+    RBRA            reduce using rule 35 (ASIGNACIONZ -> FINAL .)
+
+
+state 161
+
+    (85) ACCION -> ID POINT DIBUJA LPAR . VAR_CTE RPAR
+    (69) VAR_CTE -> . ICTE
+    (70) VAR_CTE -> . FCTE
+    (71) VAR_CTE -> . LLAMADA_FUNCION
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+
+    ICTE            shift and go to state 76
+    FCTE            shift and go to state 75
+    ID              shift and go to state 77
+
+    LLAMADA_FUNCION                shift and go to state 73
+    VAR_CTE                        shift and go to state 170
+
+state 162
+
+    (49) CONDICION -> IF LPAR EXPRE RPAR . BLOQUE CONDICIONP END
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    LLAMADA_FUNCION                shift and go to state 55
+    VART                           shift and go to state 51
+    ARR                            shift and go to state 15
+    CICLO                          shift and go to state 53
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    FORZ                           shift and go to state 59
+    DATA_TIPOS                     shift and go to state 12
+    CONDICION                      shift and go to state 60
+    WHILEF                         shift and go to state 58
+    BLOQUE                         shift and go to state 171
+    ACCION                         shift and go to state 64
+
+state 163
+
+    (78) FACT -> LBRA EXP FACZ RBRA .
+
+    MULT            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    DIVI            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    PLUS            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    MINUS           reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    DEFINE          reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    ID              reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    IF              reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    DRAW            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    WHILE           reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    FOR             reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    INT             reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    BOOLEAN         reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    CHAR            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    STRING          reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    FLOAT           reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    RETURN          reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    END             reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    ELSE            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    LESSTH          reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    GREATERTH       reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    SEQUAL          reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    NOTEQ           reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    LESSEQTH        reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    GREATEREQTH     reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    RPAR            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    COMMA           reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+    RBRA            reduce using rule 78 (FACT -> LBRA EXP FACZ RBRA .)
+
+
+state 164
+
+    (82) FACZ -> COMMA EXP .
+
+    RBRA            reduce using rule 82 (FACZ -> COMMA EXP .)
+
+
+state 165
+
+    (47) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE . END
+
+    END             shift and go to state 172
+
+
+state 166
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE . COMMA ICTE RPAR BLOQUE END
+
+    COMMA           shift and go to state 173
+
+
+state 167
+
+    (42) LLAMADA_FUNCIONZ -> COMMA LLAMADA_FUNCIONP .
+
+    RPAR            reduce using rule 42 (LLAMADA_FUNCIONZ -> COMMA LLAMADA_FUNCIONP .)
+
+
+state 168
+
+    (34) ASIGNACIONZ -> COMMA ICTE .
+
+    RBRA            reduce using rule 34 (ASIGNACIONZ -> COMMA ICTE .)
+
+
+state 169
+
+    (33) ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .
+
+    ID              reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    IF              reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    DRAW            reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    WHILE           reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    FOR             reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    INT             reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    BOOLEAN         reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    CHAR            reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    STRING          reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    FLOAT           reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    RETURN          reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    END             reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+    ELSE            reduce using rule 33 (ASIGNACIONP -> LBRA ICTE ASIGNACIONZ RBRA .)
+
+
+state 170
+
+    (85) ACCION -> ID POINT DIBUJA LPAR VAR_CTE . RPAR
+
+    RPAR            shift and go to state 174
+
+
+state 171
+
+    (49) CONDICION -> IF LPAR EXPRE RPAR BLOQUE . CONDICIONP END
+    (50) CONDICIONP -> . ELSE CONDICIONZ
+    (51) CONDICIONP -> . FINAL
+    (1) FINAL -> .
+
+    ELSE            shift and go to state 176
+    END             reduce using rule 1 (FINAL -> .)
+
+    CONDICIONP                     shift and go to state 175
+    FINAL                          shift and go to state 177
+
+state 172
+
+    (47) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .
+
+    ID              reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    IF              reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    DRAW            reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    WHILE           reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    FOR             reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    INT             reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    BOOLEAN         reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    CHAR            reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    STRING          reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    FLOAT           reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    ELSE            reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    END             reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    RETURN          reduce using rule 47 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+
+
+state 173
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA . ICTE RPAR BLOQUE END
+
+    ICTE            shift and go to state 178
+
+
+state 174
+
+    (85) ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .
+
+    ID              reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    IF              reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    DRAW            reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    WHILE           reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    FOR             reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    INT             reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    BOOLEAN         reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    CHAR            reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    STRING          reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    FLOAT           reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    RETURN          reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    END             reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    ELSE            reduce using rule 85 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+
+
+state 175
+
+    (49) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP . END
+
+    END             shift and go to state 179
+
+
+state 176
+
+    (50) CONDICIONP -> ELSE . CONDICIONZ
+    (52) CONDICIONZ -> . BLOQUE
+    (53) CONDICIONZ -> . CONDICION
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    IF              shift and go to state 63
+    ID              shift and go to state 62
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    VART                           shift and go to state 51
+    CICLO                          shift and go to state 53
+    LLAMADA_FUNCION                shift and go to state 55
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    WHILEF                         shift and go to state 58
+    DATA_TIPOS                     shift and go to state 12
+    FORZ                           shift and go to state 59
+    BLOQUE                         shift and go to state 181
+    CONDICIONZ                     shift and go to state 182
+    ARR                            shift and go to state 15
+    ACCION                         shift and go to state 64
+    CONDICION                      shift and go to state 180
+
+state 177
+
+    (51) CONDICIONP -> FINAL .
+
+    END             reduce using rule 51 (CONDICIONP -> FINAL .)
+
+
+state 178
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE . RPAR BLOQUE END
+
+    RPAR            shift and go to state 183
+
+
+state 179
+
+    (49) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .
+
+    ID              reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    IF              reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    DRAW            reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    WHILE           reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    FOR             reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    INT             reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    BOOLEAN         reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    CHAR            reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    STRING          reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    FLOAT           reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    RETURN          reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    END             reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    ELSE            reduce using rule 49 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+
+
+state 180
+
+    (53) CONDICIONZ -> CONDICION .
+    (12) ESTATUTO -> CONDICION .
+
+  ! reduce/reduce conflict for END resolved using rule 12 (ESTATUTO -> CONDICION .)
+    ID              reduce using rule 12 (ESTATUTO -> CONDICION .)
+    IF              reduce using rule 12 (ESTATUTO -> CONDICION .)
+    DRAW            reduce using rule 12 (ESTATUTO -> CONDICION .)
+    WHILE           reduce using rule 12 (ESTATUTO -> CONDICION .)
+    FOR             reduce using rule 12 (ESTATUTO -> CONDICION .)
+    INT             reduce using rule 12 (ESTATUTO -> CONDICION .)
+    BOOLEAN         reduce using rule 12 (ESTATUTO -> CONDICION .)
+    CHAR            reduce using rule 12 (ESTATUTO -> CONDICION .)
+    STRING          reduce using rule 12 (ESTATUTO -> CONDICION .)
+    FLOAT           reduce using rule 12 (ESTATUTO -> CONDICION .)
+    END             reduce using rule 12 (ESTATUTO -> CONDICION .)
+
+  ! END             [ reduce using rule 53 (CONDICIONZ -> CONDICION .) ]
+
+
+state 181
+
+    (52) CONDICIONZ -> BLOQUE .
+
+    END             reduce using rule 52 (CONDICIONZ -> BLOQUE .)
+
+
+state 182
+
+    (50) CONDICIONP -> ELSE CONDICIONZ .
+
+    END             reduce using rule 50 (CONDICIONP -> ELSE CONDICIONZ .)
+
+
+state 183
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR . BLOQUE END
+    (17) BLOQUE -> . ESTATUTO BLOQUEP
+    (11) ESTATUTO -> . ASIGNACION
+    (12) ESTATUTO -> . CONDICION
+    (13) ESTATUTO -> . CICLO
+    (14) ESTATUTO -> . ACCION
+    (15) ESTATUTO -> . VART
+    (16) ESTATUTO -> . LLAMADA_FUNCION
+    (31) ASIGNACION -> . ID ASIGNACIONP
+    (49) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+    (45) CICLO -> . WHILEF
+    (46) CICLO -> . FORZ
+    (85) ACCION -> . ID POINT DIBUJA LPAR VAR_CTE RPAR
+    (6) VART -> . DRAW ID EQUAL NEW DRAW LPAR RPAR
+    (7) VART -> . DATA_TIPOS ID VARZ
+    (8) VART -> . ARR ID
+    (39) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
+    (47) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
+    (48) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+    (20) DATA_TIPOS -> . INT
+    (21) DATA_TIPOS -> . BOOLEAN
+    (22) DATA_TIPOS -> . CHAR
+    (23) DATA_TIPOS -> . STRING
+    (24) DATA_TIPOS -> . FLOAT
+    (36) ARR -> . DATA_TIPOS LBRA ICTE ARRZ RBRA
+
+    ID              shift and go to state 62
+    IF              shift and go to state 63
+    DRAW            shift and go to state 9
+    WHILE           shift and go to state 54
+    FOR             shift and go to state 56
+    INT             shift and go to state 13
+    BOOLEAN         shift and go to state 16
+    CHAR            shift and go to state 14
+    STRING          shift and go to state 11
+    FLOAT           shift and go to state 10
+
+    LLAMADA_FUNCION                shift and go to state 55
+    VART                           shift and go to state 51
+    ARR                            shift and go to state 15
+    CICLO                          shift and go to state 53
+    ASIGNACION                     shift and go to state 57
+    ESTATUTO                       shift and go to state 52
+    FORZ                           shift and go to state 59
+    DATA_TIPOS                     shift and go to state 12
+    CONDICION                      shift and go to state 60
+    WHILEF                         shift and go to state 58
+    BLOQUE                         shift and go to state 184
+    ACCION                         shift and go to state 64
+
+state 184
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE . END
+
+    END             shift and go to state 185
+
+
+state 185
+
+    (48) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .
+
+    ID              reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    IF              reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    DRAW            reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    WHILE           reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    FOR             reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    INT             reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    BOOLEAN         reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    CHAR            reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    STRING          reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    FLOAT           reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    END             reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    RETURN          reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    ELSE            reduce using rule 48 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 28 resolved as shift
+WARNING: shift/reduce conflict for ID in state 39 resolved as shift
+WARNING: shift/reduce conflict for ID in state 70 resolved as shift
+WARNING: shift/reduce conflict for ID in state 79 resolved as shift
+WARNING: shift/reduce conflict for ID in state 84 resolved as shift
+WARNING: shift/reduce conflict for ID in state 92 resolved as shift
+WARNING: shift/reduce conflict for ID in state 94 resolved as shift
+WARNING: shift/reduce conflict for ID in state 95 resolved as shift
+WARNING: shift/reduce conflict for ID in state 98 resolved as shift
+WARNING: shift/reduce conflict for ID in state 100 resolved as shift
+WARNING: shift/reduce conflict for ID in state 104 resolved as shift
+WARNING: shift/reduce conflict for ID in state 147 resolved as shift
+WARNING: shift/reduce conflict for ID in state 156 resolved as shift
+WARNING: reduce/reduce conflict in state 180 resolved using rule (ESTATUTO -> CONDICION)
+WARNING: rejected rule (CONDICIONZ -> CONDICION) in state 180
+WARNING: Rule (CONDICIONZ -> CONDICION) is never reduced
