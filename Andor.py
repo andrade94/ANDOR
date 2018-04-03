@@ -402,15 +402,16 @@ def p_addDataType(p):
     global varType
     global nextFuncType
     global funcType
-    if nextFuncType:
-        funcType = typesValues[p[-1]]
-    else:
+    if nextFuncType == False:
         varType = typesValues[p[-1]]
+        funcType = typesValues[p[-1]]
     nextFuncType = False
+    # print(p[-1])
 
 def p_addVariable(p):
     '''addVariable  :   
     '''
+    # print(p[-1])
     global lastVar
     lastVar = p[-1]
     nameVar = lastVar
@@ -427,7 +428,9 @@ def p_saveFunc(p):
     '''saveFunc :   
     '''
     global lastFunc
+    global funcType
     lastFunc = p[-1]
+    print(p[-1])
 
 def p_addArg(p):
     '''addArg   :   
