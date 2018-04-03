@@ -13,10 +13,11 @@ principal()
   z = 1
   entero m
   m = 2
-  int[1] e
+  entero[1] arrE
   si(m < 3)
     imprime("el resultado es:")
     imprime(m)
+  fin
   si (z > 2)
     imprime("es menor")
   sino

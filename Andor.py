@@ -4,6 +4,18 @@
 import ply.lex as lex
 import sys
 
+# ========================  Define global variables ======================
+globalVars = {}
+localVars = {}
+varType = None
+lastVar = None
+scope = 'global'
+funcType = None
+nextFuncType = False
+globalFuncs = {}
+lastFunc = None
+funcArgs = []
+
 if sys.version_info[0] >= 3:
     raw_input = input
 
@@ -159,8 +171,8 @@ def p_GLOBALEZ(p):
 # listo
 def p_VART(p):
   '''VART : DRAW ID EQUAL NEW DRAWI LPAR RPAR
-  	      | DATA_TIPOS ID 
-  		    | ARR ID
+  	      | DATA_TIPOS ID addVariable
+  		  | ARR ID addVariable
   '''
 # listo
 def p_ESTATUTO(p):
@@ -179,12 +191,12 @@ def p_BLOQUE(p):
   '''
 # listo
 def p_DATA_TIPOS(p):
-  '''DATA_TIPOS : INT
-                | BOOLEAN
-                | CHAR
-                | STRING
-                | FLOAT
-                | VOID
+  '''DATA_TIPOS : INT addDataType
+                | BOOLEAN addDataType
+                | CHAR addDataType
+                | STRING addDataType
+                | FLOAT addDataType
+                | VOID addDataType saveVoid
   '''
 # listo 
 def p_ASOP(p):
@@ -216,8 +228,11 @@ def p_LLAMADA_FUNCIONZ(p):
   '''
 # listo
 def p_PRINCIPAL(p):
-  '''PRINCIPAL : MAIN LPAR RPAR BLOQUE END
+  '''PRINCIPAL : MAIN LPAR RPAR changeLocalScope BLOQUE END
   '''
+  print('local vars: %s' % localVars)
+  print('global vars: %s' % globalVars)
+  print('functions: %s' % globalFuncs)
 # listo
 def p_CICLO(p):
   '''CICLO  : WHILEF
@@ -310,8 +325,14 @@ def p_FACT(p):
   '''
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID VAR_FUN BLOQUE RETURN EXPRE END
+  '''FUNCION : changeLocalScope DEFINE DATA_TIPOS ID saveFunc VAR_FUN BLOQUE RETURN EXPRE END changeGlobalScope
   '''
+  global localVars
+  global funcArgs
+  addFunc(lastFunc, funcType, funcArgs)
+  print('local vars function: %s' % localVars)
+  localVars = {}
+  funcArgs = []
 # listo
 def p_ACCION(p): 
   '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
@@ -322,7 +343,7 @@ def p_VAR_FUN(p):
   '''
 # listo
 def p_VAR_FUNP(p): 
-  '''VAR_FUNP : DATA_TIPOS ID VAR_FUNZ
+  '''VAR_FUNP : DATA_TIPOS ID addArg VAR_FUNZ
               | empty
   '''
 # listo
@@ -353,11 +374,98 @@ def p_error(p):
     if p:
         print("Syntax error at '%s'" % p)
 
+# ==================    PUNTOS NEURALES ======================
+typesValues = {
+		'entero':0,
+		'flotante':1,
+		'texto':2,
+		'caracter':3,
+        'booleano':4,
+        'vacio':5,
+}
+
+def p_changeGlobalScope(p):
+    '''changeGlobalScope  :   empty
+    '''
+    global scope
+    scope = 'global'
+
+def p_changeLocalScope(p):
+    '''changeLocalScope  :   empty
+    '''
+    global scope
+    scope = 'local'
+
+def p_addDataType(p):
+    ''' addDataType :   empty
+    '''
+    global varType
+    global nextFuncType
+    global funcType
+    if nextFuncType:
+        funcType = typesValues[p[-1]]
+    else:
+        varType = typesValues[p[-1]]
+    nextFuncType = False
+
+def p_addVariable(p):
+    '''addVariable  :   
+    '''
+    global lastVar
+    lastVar = p[-1]
+    nameVar = lastVar
+    addVarAndType(nameVar, varType)
+
+def p_saveVoid(p):
+    '''saveVoid :   
+    '''
+    global funcType
+    funcType = typesValues['vacio']
+    print('void func saved, func type: %s' % funcType)
+
+def p_saveFunc(p):
+    '''saveFunc :   
+    '''
+    global lastFunc
+    lastFunc = p[-1]
+
+def p_addArg(p):
+    '''addArg   :   
+    '''
+    global lastVar
+    global funcArgs
+    lastVar = p[-1]
+    varName = lastVar
+    addVarAndType(varName, varType)
+    funcArgs.append(localVars[varName])
 
 import ply.yacc as yacc
 parser = yacc.yacc()
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
+
+def addVarAndType(var, vType):
+    global globalVars
+    global localVars
+
+    if scope == 'local':
+        if not var in localVars.keys():
+            localVars[var] = {'name':var, 'type':vType}
+        else:
+            print('Var already declared in local scope!')
+    else:
+        if not var in globalVars.keys():
+            globalVars[var] = {'name':var, 'type':vType}
+        else:
+            print('Var already declared in global scope!')
+
+def addFunc(name, fType, params):
+    global globalFuncs
+    if not name in globalFuncs.keys():
+        globalFuncs[name] = {'name':name, 'type':fType, 'parameters':params}
+        print('Func name: %s and type: %s' % (name, fType))
+    else:
+        print('Function already declared before!')
 
 with open('prueba.txt','r') as f:
          input = f.read()

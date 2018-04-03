@@ -1,0 +1,9 @@
+global
+  entero m
+  flotante e
+  booleano b
+fin
+
+
+principal()
+fin
