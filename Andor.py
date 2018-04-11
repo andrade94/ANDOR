@@ -1,10 +1,16 @@
 # ------------------------------------------------------------
 # andorLex.py
 # ------------------------------------------------------------
-import ply.lex as lex
-import sys
+import ply.yacc as yacc
+# Import tokens from lexer
+from m_lexer import tokens
+# Import lexer to parse.
+from m_lexer import lexer
+# Import utility.
+from m_lexer import find_column
 
 # ========================  Define global variables ======================
+
 globalVars = {}
 localVars = {}
 varType = None
@@ -16,126 +22,7 @@ globalFuncs = {}
 lastFunc = None
 funcArgs = []
 
-if sys.version_info[0] >= 3:
-    raw_input = input
-
-reserved = {
-    'global': 'GLOBAL',
-  	'principal': 'MAIN',
-    'si': 'IF',
-    'sino': 'ELSE',
-    'entero': 'INT',
-    'flotante': 'FLOAT',
-  	'caracter': 'CHAR',
-    'texto': 'STRING',
-    'booleano': 'BOOLEAN',
-    'vacio': 'VOID',
-    'no' : 'NOT',
-  	'fin': 'END',
-    'imprimir' : 'PRINT',
-    'defino' : 'DEFINE',
-    'mientrast' : 'WHILE',
-    'mientras' : 'FOR',
-    'regresa' : 'RETURN',
-    'verdadero' : 'TRUE',
-		'falso' : 'FALSE',
-  	'dibujo' : 'DRAW',
-    'Dibujo' : 'DRAWI',
-  	'nuevo' : 'NEW',
-    'id' : 'ID', 
-  
-  	# Functions
-    'definirPosicion' : 'DEFINIRPOSICION',
-    'definirColor' : 'DEFINIRCOLOR',
-    'derecho' : 'DERECHO',
-		'reversa' : 'REVERSA',
-  	'izquierda': 'IZQUIERDA',
-  	'derecha' : 'DERECHA',
-    'velocidad' : 'VELOCIDAD',
-    'borrar' : 'BORRAR',
-    'mostrar' : 'MOSTRAR',
-		'ocultar' : 'OCULTAR',
-  	'circulo': 'CIRCULO',
-  	'definirX' : 'DEFINIRX',
-    'definirY' : 'DEFINIRY',
-  	'arco': 'ARCO',
-  	'grosor' : 'GROSOR'
-}
-# List of token names.
-tokens = list(reserved.values()) + [
-   'EQUAL',
-   'SEQUAL',
-   'LPAR',
-   'RPAR',
-   'LBRA',
-   'RBRA',
-   'AND',
-   'OR',
-   'LESSTH',
-   'GREATERTH',
-   'NOTEQ',
-   'LESSEQTH',
-   'GREATEREQTH',
-   'PLUS',
-   'MINUS',
-   'MULT',
-   'DIVI',
-   'POINT',
-   'COMMA',
-   'ICTE',
-   'FCTE',
-   'SCTE'
-]
-
-# Regular expressions for each token
-t_PLUS = r'\+'
-t_MINUS = r'\-'
-t_MULT = r'\*'
-t_DIVI = r'/'
-t_LPAR = r'\('
-t_RPAR = r'\)'
-t_LBRA = r'\['
-t_RBRA = r'\]'
-t_OR = r'\|\|'
-t_AND = r'&&'
-t_POINT = r'\.'
-t_COMMA = r'\,'
-t_GREATERTH = r'\>'
-t_LESSTH = r'\<'
-t_GREATEREQTH = r'\>='
-t_LESSEQTH = r'\<='
-t_SEQUAL = r'\=='
-t_NOTEQ = r'\!='
-t_EQUAL = r'\='
-
-t_ignore = " \t"
-
-def  t_ID(t):
-    r'[a-z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value, 'ID')
-    return t
-
-def t_FCTE(t):
-    r'-?[0-9]+\.[0-9][0-9]*'
-    return t
-
-def t_ICTE(t):
-    r'-?[0-9]+'
-    return t
-
-def t_SCTE(t):
-	r'\".*\"'
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
-
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
-
 # Build the lexer
-lexer = lex.lex()
 file = open('prueba.txt','r')
 lexer.input(file.read())
 
@@ -171,8 +58,8 @@ def p_GLOBALEZ(p):
 # listo
 def p_VART(p):
   '''VART : DRAW ID EQUAL NEW DRAWI LPAR RPAR
-  	      | DATA_TIPOS ID addVariable
-  		  | ARR ID addVariable
+          | DATA_TIPOS ID addVariable
+        | ARR ID addVariable
   '''
 # listo
 def p_ESTATUTO(p):
@@ -370,18 +257,21 @@ def p_DIBUJA(p):
             | GROSOR
   '''
 
+# Error rule for syntax errors
 def p_error(p):
-    if p:
-        print("Syntax error at '%s'" % p)
+    if(p):
+        raise NameError("Syntax error at line {0} col {1}, unexpected '{2}'".format(p.lineno, find_column(lexer.lexdata, p), p.value))
+    else:
+        raise NameError("Abrupt file termination")
 
 # ==================    PUNTOS NEURALES ======================
 typesValues = {
-		'entero':0,
-		'flotante':1,
-		'texto':2,
-		'caracter':3,
-        'booleano':4,
-        'vacio':5,
+    'entero':0,
+    'flotante':1,
+    'texto':2,
+    'caracter':3,
+    'booleano':4,
+    'vacio':5,
 }
 
 def p_changeGlobalScope(p):
@@ -442,8 +332,8 @@ def p_addArg(p):
     addVarAndType(varName, varType)
     funcArgs.append(localVars[varName])
 
-import ply.yacc as yacc
 parser = yacc.yacc()
+
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -471,5 +361,5 @@ def addFunc(name, fType, params):
         print('Function already declared before!')
 
 with open('prueba.txt','r') as f:
-         input = f.read()
-         pp.pprint(parser.parse(input))
+        input = f.read()
+        pp.pprint(parser.parse(input))
