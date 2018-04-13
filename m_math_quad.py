@@ -1,0 +1,65 @@
+from m_quad import *
+
+operand_stack = []
+operator_stack = []
+last_operator = None
+temp_counter = 0
+quads = []
+
+def add_operand(id, type):
+  operand_stack.append([id, type])
+
+def add_operator(operator):
+  global last_operator
+  operator_stack.append(operator)
+  if(operator == 'x'):
+    last_operator = None
+  else:
+    last_operator = operator_stack[-1]
+
+def push_expr():
+  global operator_stack, last_operator
+  operator_stack.append('x')
+  last_operator = None
+
+def pop_expr():
+  global operator_stack, last_operator
+  operator_stack.pop()
+  last_operator = None
+
+def generate_quad(level):
+  global last_operator, operand_stack, temp_counter, quads
+  quad = Quad()
+  if(level == 0):
+    pass
+  elif(level == 1):
+    if(last_operator == '*' or last_operator == '/'):
+      quad.operator = operator_stack.pop()
+      quad.operand2 = operand_stack.pop()[0]
+      quad.operand1 = operand_stack.pop()[0]
+      quad.result = 't' + str(temp_counter)
+      operand_stack.append([quad.result, 0])
+      quads.append(quad)
+      if(len(operator_stack) > 0):
+        last_operator = operator_stack[-1]
+      temp_counter += 1
+  elif(level == 2):
+    if(last_operator == '+' or last_operator == '-'):
+      quad.operator = operator_stack.pop()
+      quad.operand2 = operand_stack.pop()[0]
+      quad.operand1 = operand_stack.pop()[0]
+      quad.result = 't' + str(temp_counter)
+      operand_stack.append([quad.result, 0])
+      quads.append(quad)
+      if(len(operator_stack) > 0):
+        last_operator = operator_stack[-1]
+      temp_counter += 1
+  elif(level == 5):
+    if(last_operator == '='):
+      quad.operator = operator_stack.pop()
+      quad.operand1 = operand_stack.pop()[0]
+      quad.result = operand_stack.pop()[0]
+      operand_stack.append([quad.result, 0])
+      quads.append(quad)
+      if(len(operator_stack) > 0):
+        last_operator = operator_stack[-1]

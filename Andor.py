@@ -8,14 +8,14 @@ from m_lexer import tokens
 from m_lexer import lexer
 # Import utility.
 from m_lexer import find_column
-
+import m_semantic as seman
+import m_math_quad as math
 # ========================  Define global variables ======================
 
 globalVars = {}
 localVars = {}
 varType = None
 lastVar = None
-scope = 'global'
 funcType = None
 nextFuncType = False
 globalFuncs = {}
@@ -57,13 +57,13 @@ def p_GLOBALEZ(p):
   '''
 # listo
 def p_VART(p):
-  '''VART : DRAW ID EQUAL NEW DRAWI LPAR RPAR
+  '''VART : DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR
           | DATA_TIPOS ID addVariable
         | ARR ID addVariable
   '''
 # listo
 def p_ESTATUTO(p):
-  '''ESTATUTO : EXPRE
+  '''ESTATUTO : EXPRE genQuad5
               | CONDICION
               | CICLO
               | ACCION
@@ -80,25 +80,28 @@ def p_BLOQUE(p):
 def p_DATA_TIPOS(p):
   '''DATA_TIPOS : INT addDataType
                 | BOOLEAN addDataType
-                | CHAR addDataType
                 | STRING addDataType
                 | FLOAT addDataType
-                | VOID addDataType saveVoid
+                | VOID addDataType
   '''
+  p[0] = p[1]
 # listo 
 def p_ASOP(p):
   '''ASOP : PLUS
           | MINUS
   '''
+  p[0] = p[1]
 # listo
 def p_MDOP(p):
   '''MDOP : MULT
           | DIVI
   '''
+  p[0] = p[1]
 # listo
 def p_ARR(p):
   '''ARR : DATA_TIPOS LBRA ICTE RBRA
   '''
+  p[0] = p[1]
 # listo
 def p_LLAMADA_FUNCION(p):
   '''LLAMADA_FUNCION : ID LPAR LLAMADA_FUNCIONP RPAR
@@ -115,11 +118,9 @@ def p_LLAMADA_FUNCIONZ(p):
   '''
 # listo
 def p_PRINCIPAL(p):
-  '''PRINCIPAL : MAIN LPAR RPAR changeLocalScope BLOQUE END
+  '''PRINCIPAL : MAIN changeScope LPAR RPAR BLOQUE END
   '''
-  print('local vars: %s' % localVars)
-  print('global vars: %s' % globalVars)
-  print('functions: %s' % globalFuncs)
+
 # listo
 def p_CICLO(p):
   '''CICLO  : WHILEF
@@ -155,7 +156,7 @@ def p_EXPRE(p):
   '''EXPRE : EXT EXPREZ
   '''
 def p_EXPREZ(p):
-  '''EXPREZ : EQUAL EXT
+  '''EXPREZ : EQUAL operatorPush EXT
             | empty
   '''
 def p_EXT(p):
@@ -167,20 +168,20 @@ def p_EXT_W_RELOP(p):
   '''
 # listo
 def p_EXP(p):
-  '''EXP : TERMINO EXP_W_SIGN
+  '''EXP : TERMINO genQuad1 EXP_W_SIGN
   '''
 # listo
 def p_EXP_W_SIGN(p):
-  '''EXP_W_SIGN : ASOP EXP
+  '''EXP_W_SIGN : ASOP operatorPush EXP
                 | empty
   '''
 # listo
 def p_TERMINO(p):
-  '''TERMINO : FAC TERMINO_W_SIGN
+  '''TERMINO : FAC genQuad2 TERMINO_W_SIGN
   '''
 # listo
 def p_TERMINO_W_SIGN(p):
-  '''TERMINO_W_SIGN : MDOP TERMINO
+  '''TERMINO_W_SIGN : MDOP operatorPush TERMINO
                     | empty
   '''
 # listo
@@ -188,6 +189,7 @@ def p_VAR_CTE(p):
   '''VAR_CTE  : ICTE
               | FCTE
   '''
+  p[0] = p[1]
 # listo  
 def p_IMPRIMIR(p):
   '''IMPRIMIR : PRINT LBRA IMPRIMIRZ RBRA
@@ -199,10 +201,10 @@ def p_IMPRIMIRZ(p):
   '''
 #listo
 def p_FAC(p):
-  '''FAC  : LPAR EXPRE RPAR
-          | VAR_CTE 
+  '''FAC  : pushExp LPAR EXPRE RPAR popExp
+          | VAR_CTE operandPush
           | LBRA EXPRE RPAR
-          | ID FACT
+          | ID operandPush FACT
   '''
   #listo
 def p_FACT(p):
@@ -212,14 +214,9 @@ def p_FACT(p):
   '''
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : changeLocalScope DEFINE DATA_TIPOS ID saveFunc VAR_FUN BLOQUE RETURN EXPRE END changeGlobalScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END restoreScope
   '''
-  global localVars
-  global funcArgs
-  addFunc(lastFunc, funcType, funcArgs)
-  print('local vars function: %s' % localVars)
-  localVars = {}
-  funcArgs = []
+  # seman.redeclaredFunction(p[3])
 # listo
 def p_ACCION(p): 
   '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
@@ -230,7 +227,7 @@ def p_VAR_FUN(p):
   '''
 # listo
 def p_VAR_FUNP(p): 
-  '''VAR_FUNP : DATA_TIPOS ID addArg VAR_FUNZ
+  '''VAR_FUNP : DATA_TIPOS ID VAR_FUNZ
               | empty
   '''
 # listo
@@ -265,101 +262,98 @@ def p_error(p):
         raise NameError("Abrupt file termination")
 
 # ==================    PUNTOS NEURALES ======================
-typesValues = {
-    'entero':0,
-    'flotante':1,
-    'texto':2,
-    'caracter':3,
-    'booleano':4,
-    'vacio':5,
-}
 
-def p_changeGlobalScope(p):
-    '''changeGlobalScope  :   empty
+def p_restoreScope(p):
+    '''restoreScope  :   empty
     '''
-    global scope
-    scope = 'global'
+    seman.scope = 'global'
 
-def p_changeLocalScope(p):
-    '''changeLocalScope  :   empty
+def p_changeScope(p):
+    '''changeScope  :   empty
     '''
-    global scope
-    scope = 'local'
+    seman.scope = p[-1]
 
 def p_addDataType(p):
-    ''' addDataType :   empty
+    ''' addDataType :  empty
     '''
-    global varType
-    global nextFuncType
-    global funcType
-    if nextFuncType == False:
-        varType = typesValues[p[-1]]
-        funcType = typesValues[p[-1]]
-    nextFuncType = False
-    # print(p[-1])
 
 def p_addVariable(p):
-    '''addVariable  :   
+    '''addVariable  :   empty 
     '''
-    # print(p[-1])
-    global lastVar
-    lastVar = p[-1]
-    nameVar = lastVar
-    addVarAndType(nameVar, varType)
+    seman.fill_typeVariable_table(p[-1],p[-2])
 
-def p_saveVoid(p):
-    '''saveVoid :   
+# Math rules
+def p_operandPush(p):
+    '''operandPush  :   empty   
     '''
-    global funcType
-    funcType = typesValues['vacio']
-    print('void func saved, func type: %s' % funcType)
+    math.add_operand(p[-1], 0)
+    
+def p_operatorPush(p):
+    '''operatorPush   :   empty 
+    '''
+    math.add_operator(p[-1])
+    p[0] = p[-1]
+    
+def p_pushExp(p):
+    '''pushExp   :   empty 
+    '''
+    math.push_expr()
+    
+def p_popExp(p):
+    '''popExp   :    empty 
+    '''
+    math.pop_expr()
+    
+def p_genQuad0(p):
+    '''genQuad0   :    empty 
+    '''
 
-def p_saveFunc(p):
-    '''saveFunc :   
+def p_genQuad1(p):
+    '''genQuad1  :    empty   
     '''
-    global lastFunc
-    global funcType
-    lastFunc = p[-1]
-    print(p[-1])
-
-def p_addArg(p):
-    '''addArg   :   
+    math.generate_quad(1)
+    
+def p_genQuad2(p):
+    '''genQuad2  :    empty 
     '''
-    global lastVar
-    global funcArgs
-    lastVar = p[-1]
-    varName = lastVar
-    addVarAndType(varName, varType)
-    funcArgs.append(localVars[varName])
+    math.generate_quad(2)
+    
+def p_genQuad5(p):
+    '''genQuad5   :    empty 
+    '''
+    math.generate_quad(5)
 
 parser = yacc.yacc()
-
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-def addVarAndType(var, vType):
-    global globalVars
-    global localVars
+# def addVarAndType(var, vType):
+#     global globalVars
+#     global localVars
 
-    if scope == 'local':
-        if not var in localVars.keys():
-            localVars[var] = {'name':var, 'type':vType}
-        else:
-            print('Var already declared in local scope!')
-    else:
-        if not var in globalVars.keys():
-            globalVars[var] = {'name':var, 'type':vType}
-        else:
-            print('Var already declared in global scope!')
+#     if seman.scope == 'local':
+#         if not var in localVars.keys():
+#             localVars[var] = {'name':var, 'type':vType}
+#         else:
+#             print('Var already declared in local scope!')
+#     else:
+#         if not var in globalVars.keys():
+#             globalVars[var] = {'name':var, 'type':vType}
+#         else:
+#             print('Var already declared in global scope!')
 
-def addFunc(name, fType, params):
-    global globalFuncs
-    if not name in globalFuncs.keys():
-        globalFuncs[name] = {'name':name, 'type':fType, 'parameters':params}
-        print('Func name: %s and type: %s' % (name, fType))
-    else:
-        print('Function already declared before!')
+# def addFunc(name, fType, params):
+#     global globalFuncs
+#     if not name in globalFuncs.keys():
+#         globalFuncs[name] = {'name':name, 'type':fType, 'parameters':params}
+#         print('Func name: %s and type: %s' % (name, fType))
+#     else:
+#         print('Function already declared before!')
 
 with open('prueba.txt','r') as f:
         input = f.read()
         pp.pprint(parser.parse(input))
+
+for quad in math.quads:
+  print(quad.operator, quad.operand1, quad.operand2, quad.result)
+print('vars: %s' % seman.var_table)

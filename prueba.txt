@@ -4,14 +4,20 @@ global
 fin
 
 defino entero mam(entero y, flotante x)
-  x = 3
+  entero o
+  flotante m
+  x = x + 2 * 1
   regresa x
+fin
+
+defino flotante yo(entero x, flotante y)
+  entero t
+  regresa y
 fin
 
 principal()
   entero z
   z = 1
-  entero m
   m = 2
   entero[1] arrE
   si(m < 3)
