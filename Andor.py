@@ -10,6 +10,7 @@ from m_lexer import lexer
 from m_lexer import find_column
 import m_semantic as seman
 import m_math_quad as math
+import m_all_quad as quads
 # ========================  Define global variables ======================
 
 globalVars = {}
@@ -168,7 +169,7 @@ def p_EXT_W_RELOP(p):
   '''
 # listo
 def p_EXP(p):
-  '''EXP : TERMINO genQuad1 EXP_W_SIGN
+  '''EXP : TERMINO genQuad2 EXP_W_SIGN
   '''
 # listo
 def p_EXP_W_SIGN(p):
@@ -177,7 +178,7 @@ def p_EXP_W_SIGN(p):
   '''
 # listo
 def p_TERMINO(p):
-  '''TERMINO : FAC genQuad2 TERMINO_W_SIGN
+  '''TERMINO : FAC genQuad1 TERMINO_W_SIGN
   '''
 # listo
 def p_TERMINO_W_SIGN(p):
@@ -354,6 +355,6 @@ with open('prueba.txt','r') as f:
         input = f.read()
         pp.pprint(parser.parse(input))
 
-for quad in math.quads:
-  print(quad.operator, quad.operand1, quad.operand2, quad.result)
+for quad in quads.quad.quads:
+  print(quad[0], quad[1], quad[2], quad[3])
 print('vars: %s' % seman.var_table)
