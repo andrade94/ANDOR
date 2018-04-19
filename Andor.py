@@ -380,8 +380,8 @@ with open('prueba.txt','r') as f:
     var_table = sem.var_table
     for quad in state.quads:
       print(quad.operator, quad.operand1, quad.operand2, quad.result)
-      print "Scope\t|Id\t|Type"
-      print "--------|-------|--------"
+    print "Scope\t|Id\t|Type"
+    print "--------|-------|--------"
     for k in var_table:
         sys.stdout.write(k)
         for k1 in var_table[k]:
