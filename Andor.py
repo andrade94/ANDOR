@@ -2,26 +2,27 @@
 # andorLex.py
 # ------------------------------------------------------------
 import ply.yacc as yacc
+import sys
 # Import tokens from lexer
 from m_lexer import tokens
 # Import lexer to parse.
 from m_lexer import lexer
 # Import utility.
 from m_lexer import find_column
-import m_semantic as seman
-import m_math_quad as math
-import m_all_quad as quads
+import m_semantic as sem
+import m_st as state
+import m_expr as expr
 # ========================  Define global variables ======================
 
-globalVars = {}
-localVars = {}
-varType = None
-lastVar = None
-funcType = None
-nextFuncType = False
-globalFuncs = {}
-lastFunc = None
-funcArgs = []
+# globalVars = {}
+# localVars = {}
+# varType = None
+# lastVar = None
+# funcType = None
+# nextFuncType = False
+# globalFuncs = {}
+# lastFunc = None
+# funcArgs = []
 
 # Build the lexer
 file = open('prueba.txt','r')
@@ -74,7 +75,7 @@ def p_ESTATUTO(p):
   '''
 # listo 
 def p_BLOQUE(p):
-  '''BLOQUE : ESTATUTO BLOQUE
+  '''BLOQUE : ESTATUTO finishBlock BLOQUE
             | empty
   '''
 # listo
@@ -161,10 +162,10 @@ def p_EXPREZ(p):
             | empty
   '''
 def p_EXT(p):
-  '''EXT  : EXP EXT_W_RELOP
+  '''EXT  : EXP genQuad3 EXT_W_RELOP
   '''
 def p_EXT_W_RELOP(p):
-  '''EXT_W_RELOP  : RELOP EXT
+  '''EXT_W_RELOP  : RELOP operatorPush EXT
         | empty
   '''
 # listo
@@ -187,8 +188,8 @@ def p_TERMINO_W_SIGN(p):
   '''
 # listo
 def p_VAR_CTE(p):
-  '''VAR_CTE  : ICTE
-              | FCTE
+  '''VAR_CTE  : ICTE addInt
+              | FCTE addFloat
   '''
   p[0] = p[1]
 # listo  
@@ -203,7 +204,7 @@ def p_IMPRIMIRZ(p):
 #listo
 def p_FAC(p):
   '''FAC  : pushExp LPAR EXPRE RPAR popExp
-          | VAR_CTE operandPush
+          | genQuad0 VAR_CTE operandPush
           | LBRA EXPRE RPAR
           | ID operandPush FACT
   '''
@@ -217,7 +218,7 @@ def p_FACT(p):
 def p_FUNCION(p): 
   '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END restoreScope
   '''
-  # seman.redeclaredFunction(p[3])
+  # sem.redeclaredFunction(p[3])
 # listo
 def p_ACCION(p): 
   '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
@@ -267,12 +268,13 @@ def p_error(p):
 def p_restoreScope(p):
     '''restoreScope  :   empty
     '''
-    seman.scope = 'global'
+    sem.scope = 'global'
 
 def p_changeScope(p):
     '''changeScope  :   empty
     '''
-    seman.scope = p[-1]
+    sem.scope = p[-1]
+    sem.validate_redeclaration_function(p[-1])
 
 def p_addDataType(p):
     ''' addDataType :  empty
@@ -281,29 +283,45 @@ def p_addDataType(p):
 def p_addVariable(p):
     '''addVariable  :   empty 
     '''
-    seman.fill_typeVariable_table(p[-1],p[-2])
+    sem.fill_symbol_table_variable(p[-1],p[-2])
+
+def p_addFloat(p):
+    '''addFloat  :   empty 
+    '''
+    sem.fill_symbol_table_constant(p[-1],"flotante")
+
+def p_addInt(p):
+    '''addInt  :   empty 
+    '''
+    sem.fill_symbol_table_constant(p[-1],"entero")
+
+def p_blockFinish(p):
+    '''finishBlock  :   empty
+    '''
+    expr.clear_stacks()
 
 # Math rules
 def p_operandPush(p):
     '''operandPush  :   empty   
     '''
-    math.add_operand(p[-1], 0)
+    if(sem.is_declared(p[-1])):
+      expr.add_operand(sem.get_variable(p[-1]))
     
 def p_operatorPush(p):
     '''operatorPush   :   empty 
     '''
-    math.add_operator(p[-1])
+    expr.add_operator(p[-1])
     p[0] = p[-1]
     
 def p_pushExp(p):
     '''pushExp   :   empty 
     '''
-    math.push_expr()
+    expr.push_expr()
     
 def p_popExp(p):
     '''popExp   :    empty 
     '''
-    math.pop_expr()
+    expr.pop_expr()
     
 def p_genQuad0(p):
     '''genQuad0   :    empty 
@@ -312,17 +330,22 @@ def p_genQuad0(p):
 def p_genQuad1(p):
     '''genQuad1  :    empty   
     '''
-    math.generate_quad(1)
+    expr.generate_quad(1)
     
 def p_genQuad2(p):
     '''genQuad2  :    empty 
     '''
-    math.generate_quad(2)
+    expr.generate_quad(2)
+
+def p_genQuad3(p):
+    '''genQuad3  :    empty 
+    '''
+    expr.generate_quad(3)
     
 def p_genQuad5(p):
     '''genQuad5   :    empty 
     '''
-    math.generate_quad(5)
+    expr.generate_quad(5)
 
 parser = yacc.yacc()
 import pprint
@@ -332,7 +355,7 @@ pp = pprint.PrettyPrinter(indent=4)
 #     global globalVars
 #     global localVars
 
-#     if seman.scope == 'local':
+#     if sem.scope == 'local':
 #         if not var in localVars.keys():
 #             localVars[var] = {'name':var, 'type':vType}
 #         else:
@@ -352,9 +375,15 @@ pp = pprint.PrettyPrinter(indent=4)
 #         print('Function already declared before!')
 
 with open('prueba.txt','r') as f:
-        input = f.read()
-        pp.pprint(parser.parse(input))
-
-for quad in quads.quad.quads:
-  print(quad[0], quad[1], quad[2], quad[3])
-print('vars: %s' % seman.var_table)
+    input = f.read()
+    pp.pprint(parser.parse(input))
+    var_table = sem.var_table
+    for quad in state.quads:
+      print(quad.operator, quad.operand1, quad.operand2, quad.result)
+      print "Scope\t|Id\t|Type"
+      print "--------|-------|--------"
+    for k in var_table:
+        sys.stdout.write(k)
+        for k1 in var_table[k]:
+            print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
+        print "--------|-------|--------"
