@@ -73,7 +73,7 @@ def p_ESTATUTO(p):
               | VART
               | LLAMADA_FUNCION
               | IMPRIMIR
-              | WRITE
+              | ESCRIBIR
   '''
 # listo 
 def p_BLOQUE(p):
@@ -202,8 +202,8 @@ def p_IMPRIMIR(p):
   '''IMPRIMIR : PRINT LBRA EXT  RBRA
   '''
 #listo
-def p_WRITE(p):
-  '''IMPRIMIR : WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+def p_ESCRIBIR(p):
+  '''ESCRIBIR : WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
   '''
 #listo
 def p_FAC(p):
@@ -284,7 +284,8 @@ def p_changeScope(p):
 def p_generateRead(p):
     '''generateRead  :   empty
     '''
-    rw.read_quad(p[-3], p[-1], sem.scope)
+    # rw.read_quad(p[-3], p[-1], sem.scope)
+    print(p[-3],p[-1])
 
 def p_generatePrint(p):
     '''generatePrint  :   empty

@@ -13,7 +13,9 @@ fin
 principal()
   entero z
   entero x
-  u = "hola"
+  entero p
+  escribir(entero,p)
+  u = "h"
   z = 1
   m = 2
   e = 3.0

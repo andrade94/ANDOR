@@ -28,7 +28,7 @@ Rule 16    ESTATUTO -> ACCION
 Rule 17    ESTATUTO -> VART
 Rule 18    ESTATUTO -> LLAMADA_FUNCION
 Rule 19    ESTATUTO -> IMPRIMIR
-Rule 20    ESTATUTO -> WRITE
+Rule 20    ESTATUTO -> ESCRIBIR
 Rule 21    BLOQUE -> ESTATUTO finishBlock BLOQUE
 Rule 22    BLOQUE -> empty
 Rule 23    DATA_TIPOS -> INT addDataType
@@ -78,7 +78,7 @@ Rule 66    VAR_CTE -> SCTE addString
 Rule 67    VAR_CTE -> TRUE addBooleano
 Rule 68    VAR_CTE -> FALSE addBooleano
 Rule 69    IMPRIMIR -> PRINT LBRA EXT RBRA
-Rule 70    IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+Rule 70    ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
 Rule 71    FAC -> pushExp LPAR EXPRE RPAR popExp
 Rule 72    FAC -> genQuad0 VAR_CTE operandPush
 Rule 73    FAC -> LBRA EXPRE RPAR
@@ -163,10 +163,10 @@ ID                   : 10 11 12 33 70 74 78 79 81
 IF                   : 43
 INT                  : 23
 IZQUIERDA            : 89
-LBRA                 : 32 69 70 73 75
+LBRA                 : 32 69 73 75
 LESSEQTH             : 50
 LESSTH               : 46
-LPAR                 : 10 33 38 41 42 43 71 76 79 80
+LPAR                 : 10 33 38 41 42 43 70 71 76 79 80
 MAIN                 : 38
 MINUS                : 29
 MOSTRAR              : 93
@@ -179,10 +179,10 @@ OR                   :
 PLUS                 : 28
 POINT                : 79
 PRINT                : 69
-RBRA                 : 32 69 70 75
+RBRA                 : 32 69 75
 RETURN               : 78
 REVERSA              : 88
-RPAR                 : 10 33 38 41 42 43 71 73 76 79 80
+RPAR                 : 10 33 38 41 42 43 70 71 73 76 79 80
 SCTE                 : 66
 SEQUAL               : 48
 STRING               : 25
@@ -190,7 +190,7 @@ TRUE                 : 67
 VELOCIDAD            : 91
 VOID                 : 27
 WHILE                : 41
-WRITE                : 20 70
+WRITE                : 70
 error                : 
 
 Nonterminals, with rules where they appear
@@ -204,6 +204,7 @@ CONDICION            : 14
 CONDICIONP           : 43
 DATA_TIPOS           : 11 32 70 78 81
 DIBUJA               : 79
+ESCRIBIR             : 20
 ESTATUTO             : 21
 EXP                  : 55 59
 EXPRE                : 13 34 41 43 71 73 75 76 78
@@ -629,10 +630,10 @@ state 32
     FLOAT           reduce using rule 1 (empty -> .)
     VOID            reduce using rule 1 (empty -> .)
     END             reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     LBRA            reduce using rule 1 (empty -> .)
@@ -661,10 +662,10 @@ state 33
     FLOAT           reduce using rule 1 (empty -> .)
     VOID            reduce using rule 1 (empty -> .)
     END             reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     LBRA            reduce using rule 1 (empty -> .)
@@ -750,10 +751,10 @@ state 41
     FLOAT           reduce using rule 105 (addVariable -> empty .)
     VOID            reduce using rule 105 (addVariable -> empty .)
     END             reduce using rule 105 (addVariable -> empty .)
-    WRITE           reduce using rule 105 (addVariable -> empty .)
     IF              reduce using rule 105 (addVariable -> empty .)
     ID              reduce using rule 105 (addVariable -> empty .)
     PRINT           reduce using rule 105 (addVariable -> empty .)
+    WRITE           reduce using rule 105 (addVariable -> empty .)
     WHILE           reduce using rule 105 (addVariable -> empty .)
     FOR             reduce using rule 105 (addVariable -> empty .)
     LBRA            reduce using rule 105 (addVariable -> empty .)
@@ -779,11 +780,11 @@ state 43
 
     (11) VART -> DATA_TIPOS ID addVariable .
 
-    WRITE           reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     IF              reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     ID              reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     DRAW            reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     PRINT           reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
+    WRITE           reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     WHILE           reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     FOR             reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
     INT             reduce using rule 11 (VART -> DATA_TIPOS ID addVariable .)
@@ -807,11 +808,11 @@ state 44
 
     (12) VART -> ARR ID addVariable .
 
-    WRITE           reduce using rule 12 (VART -> ARR ID addVariable .)
     IF              reduce using rule 12 (VART -> ARR ID addVariable .)
     ID              reduce using rule 12 (VART -> ARR ID addVariable .)
     DRAW            reduce using rule 12 (VART -> ARR ID addVariable .)
     PRINT           reduce using rule 12 (VART -> ARR ID addVariable .)
+    WRITE           reduce using rule 12 (VART -> ARR ID addVariable .)
     WHILE           reduce using rule 12 (VART -> ARR ID addVariable .)
     FOR             reduce using rule 12 (VART -> ARR ID addVariable .)
     INT             reduce using rule 12 (VART -> ARR ID addVariable .)
@@ -873,7 +874,7 @@ state 49
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -885,7 +886,7 @@ state 49
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -904,7 +905,6 @@ state 49
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     END             reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
@@ -912,39 +912,41 @@ state 49
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 72
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 73
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
 state 50
 
@@ -965,9 +967,9 @@ state 50
     VOID            shift and go to state 11
     RPAR            reduce using rule 1 (empty -> .)
 
-    empty                          shift and go to state 80
-    DATA_TIPOS                     shift and go to state 78
-    VAR_FUNP                       shift and go to state 79
+    empty                          shift and go to state 81
+    DATA_TIPOS                     shift and go to state 79
+    VAR_FUNP                       shift and go to state 80
 
 state 51
 
@@ -981,7 +983,7 @@ state 51
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -993,7 +995,7 @@ state 51
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -1012,7 +1014,6 @@ state 51
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     RETURN          reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
@@ -1020,56 +1021,86 @@ state 51
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    BLOQUE                         shift and go to state 81
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    BLOQUE                         shift and go to state 82
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
+    FORZ                           shift and go to state 70
+    CONDICION                      shift and go to state 71
+    IMPRIMIR                       shift and go to state 72
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
+    ACCION                         shift and go to state 77
 
 state 52
 
     (10) VART -> DRAW ID addVariable EQUAL NEW . DRAWI LPAR RPAR
 
-    DRAWI           shift and go to state 82
+    DRAWI           shift and go to state 83
 
 
 state 53
 
+    (20) ESTATUTO -> ESCRIBIR .
+
+    IF              reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    ID              reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    DRAW            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    PRINT           reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    WRITE           reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    WHILE           reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    FOR             reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    INT             reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    BOOLEAN         reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    STRING          reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    FLOAT           reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    VOID            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    LBRA            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    LPAR            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    ICTE            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    FCTE            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    SCTE            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    TRUE            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    FALSE           reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    END             reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    ELSE            reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+    RETURN          reduce using rule 20 (ESTATUTO -> ESCRIBIR .)
+
+
+state 54
+
     (15) ESTATUTO -> CICLO .
 
-    WRITE           reduce using rule 15 (ESTATUTO -> CICLO .)
     IF              reduce using rule 15 (ESTATUTO -> CICLO .)
     ID              reduce using rule 15 (ESTATUTO -> CICLO .)
     DRAW            reduce using rule 15 (ESTATUTO -> CICLO .)
     PRINT           reduce using rule 15 (ESTATUTO -> CICLO .)
+    WRITE           reduce using rule 15 (ESTATUTO -> CICLO .)
     WHILE           reduce using rule 15 (ESTATUTO -> CICLO .)
     FOR             reduce using rule 15 (ESTATUTO -> CICLO .)
     INT             reduce using rule 15 (ESTATUTO -> CICLO .)
@@ -1089,17 +1120,17 @@ state 53
     RETURN          reduce using rule 15 (ESTATUTO -> CICLO .)
 
 
-state 54
+state 55
 
     (13) ESTATUTO -> EXPRE . genQuad5
     (119) genQuad5 -> . empty
     (1) empty -> .
 
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1118,22 +1149,22 @@ state 54
     RETURN          reduce using rule 1 (empty -> .)
     ELSE            reduce using rule 1 (empty -> .)
 
-    genQuad5                       shift and go to state 83
-    empty                          shift and go to state 84
+    genQuad5                       shift and go to state 84
+    empty                          shift and go to state 85
 
-state 55
+state 56
 
     (52) EXPRE -> EXT . EXPREZ
     (53) EXPREZ -> . EQUAL operatorPush EXT
     (54) EXPREZ -> . empty
     (1) empty -> .
 
-    EQUAL           shift and go to state 87
-    WRITE           reduce using rule 1 (empty -> .)
+    EQUAL           shift and go to state 88
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1155,10 +1186,10 @@ state 55
     COMMA           reduce using rule 1 (empty -> .)
     RBRA            reduce using rule 1 (empty -> .)
 
-    EXPREZ                         shift and go to state 85
-    empty                          shift and go to state 86
+    EXPREZ                         shift and go to state 86
+    empty                          shift and go to state 87
 
-state 56
+state 57
 
     (55) EXT -> EXP . genQuad3 EXT_W_RELOP
     (118) genQuad3 -> . empty
@@ -1171,11 +1202,11 @@ state 56
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1197,25 +1228,25 @@ state 56
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    genQuad3                       shift and go to state 88
-    empty                          shift and go to state 89
-
-state 57
-
-    (69) IMPRIMIR -> PRINT . LBRA EXT RBRA
-
-    LBRA            shift and go to state 90
-
+    genQuad3                       shift and go to state 89
+    empty                          shift and go to state 90
 
 state 58
 
+    (69) IMPRIMIR -> PRINT . LBRA EXT RBRA
+
+    LBRA            shift and go to state 91
+
+
+state 59
+
     (18) ESTATUTO -> LLAMADA_FUNCION .
 
-    WRITE           reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     IF              reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     ID              reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     DRAW            reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     PRINT           reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
+    WRITE           reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     WHILE           reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     FOR             reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
     INT             reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
@@ -1235,7 +1266,7 @@ state 58
     RETURN          reduce using rule 18 (ESTATUTO -> LLAMADA_FUNCION .)
 
 
-state 59
+state 60
 
     (73) FAC -> LBRA . EXPRE RPAR
     (52) EXPRE -> . EXT EXPREZ
@@ -1250,8 +1281,8 @@ state 59
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -1259,26 +1290,26 @@ state 59
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 91
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 92
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 60
+state 61
 
     (21) BLOQUE -> ESTATUTO . finishBlock BLOQUE
     (110) finishBlock -> . empty
     (1) empty -> .
 
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1297,10 +1328,10 @@ state 60
     RETURN          reduce using rule 1 (empty -> .)
     ELSE            reduce using rule 1 (empty -> .)
 
-    finishBlock                    shift and go to state 94
-    empty                          shift and go to state 95
+    finishBlock                    shift and go to state 95
+    empty                          shift and go to state 96
 
-state 61
+state 62
 
     (58) EXP -> TERMINO . genQuad2 EXP_W_SIGN
     (117) genQuad2 -> . empty
@@ -1315,11 +1346,11 @@ state 61
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1341,17 +1372,17 @@ state 61
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    genQuad2                       shift and go to state 96
-    empty                          shift and go to state 97
+    genQuad2                       shift and go to state 97
+    empty                          shift and go to state 98
 
-state 62
+state 63
 
     (71) FAC -> pushExp . LPAR EXPRE RPAR popExp
 
-    LPAR            shift and go to state 98
+    LPAR            shift and go to state 99
 
 
-state 63
+state 64
 
     (61) TERMINO -> FAC . genQuad1 TERMINO_W_SIGN
     (116) genQuad1 -> . empty
@@ -1368,11 +1399,11 @@ state 63
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1394,18 +1425,18 @@ state 63
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    genQuad1                       shift and go to state 99
-    empty                          shift and go to state 100
+    genQuad1                       shift and go to state 100
+    empty                          shift and go to state 101
 
-state 64
+state 65
 
     (22) BLOQUE -> empty .
     (113) pushExp -> empty .
     (115) genQuad0 -> empty .
 
     END             reduce using rule 22 (BLOQUE -> empty .)
-    RETURN          reduce using rule 22 (BLOQUE -> empty .)
     ELSE            reduce using rule 22 (BLOQUE -> empty .)
+    RETURN          reduce using rule 22 (BLOQUE -> empty .)
     LPAR            reduce using rule 113 (pushExp -> empty .)
     ICTE            reduce using rule 115 (genQuad0 -> empty .)
     FCTE            reduce using rule 115 (genQuad0 -> empty .)
@@ -1414,15 +1445,15 @@ state 64
     FALSE           reduce using rule 115 (genQuad0 -> empty .)
 
 
-state 65
+state 66
 
     (39) CICLO -> WHILEF .
 
-    WRITE           reduce using rule 39 (CICLO -> WHILEF .)
     IF              reduce using rule 39 (CICLO -> WHILEF .)
     ID              reduce using rule 39 (CICLO -> WHILEF .)
     DRAW            reduce using rule 39 (CICLO -> WHILEF .)
     PRINT           reduce using rule 39 (CICLO -> WHILEF .)
+    WRITE           reduce using rule 39 (CICLO -> WHILEF .)
     WHILE           reduce using rule 39 (CICLO -> WHILEF .)
     FOR             reduce using rule 39 (CICLO -> WHILEF .)
     INT             reduce using rule 39 (CICLO -> WHILEF .)
@@ -1438,11 +1469,11 @@ state 65
     TRUE            reduce using rule 39 (CICLO -> WHILEF .)
     FALSE           reduce using rule 39 (CICLO -> WHILEF .)
     END             reduce using rule 39 (CICLO -> WHILEF .)
-    RETURN          reduce using rule 39 (CICLO -> WHILEF .)
     ELSE            reduce using rule 39 (CICLO -> WHILEF .)
+    RETURN          reduce using rule 39 (CICLO -> WHILEF .)
 
 
-state 66
+state 67
 
     (72) FAC -> genQuad0 . VAR_CTE operandPush
     (64) VAR_CTE -> . ICTE addInt
@@ -1451,30 +1482,30 @@ state 66
     (67) VAR_CTE -> . TRUE addBooleano
     (68) VAR_CTE -> . FALSE addBooleano
 
-    ICTE            shift and go to state 104
-    FCTE            shift and go to state 103
-    SCTE            shift and go to state 105
-    TRUE            shift and go to state 106
-    FALSE           shift and go to state 101
+    ICTE            shift and go to state 105
+    FCTE            shift and go to state 104
+    SCTE            shift and go to state 106
+    TRUE            shift and go to state 107
+    FALSE           shift and go to state 102
 
-    VAR_CTE                        shift and go to state 102
-
-state 67
-
-    (42) FORZ -> FOR . LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
-
-    LPAR            shift and go to state 107
-
+    VAR_CTE                        shift and go to state 103
 
 state 68
 
+    (42) FORZ -> FOR . LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+
+    LPAR            shift and go to state 108
+
+
+state 69
+
     (17) ESTATUTO -> VART .
 
-    WRITE           reduce using rule 17 (ESTATUTO -> VART .)
     IF              reduce using rule 17 (ESTATUTO -> VART .)
     ID              reduce using rule 17 (ESTATUTO -> VART .)
     DRAW            reduce using rule 17 (ESTATUTO -> VART .)
     PRINT           reduce using rule 17 (ESTATUTO -> VART .)
+    WRITE           reduce using rule 17 (ESTATUTO -> VART .)
     WHILE           reduce using rule 17 (ESTATUTO -> VART .)
     FOR             reduce using rule 17 (ESTATUTO -> VART .)
     INT             reduce using rule 17 (ESTATUTO -> VART .)
@@ -1494,15 +1525,15 @@ state 68
     RETURN          reduce using rule 17 (ESTATUTO -> VART .)
 
 
-state 69
+state 70
 
     (40) CICLO -> FORZ .
 
-    WRITE           reduce using rule 40 (CICLO -> FORZ .)
     IF              reduce using rule 40 (CICLO -> FORZ .)
     ID              reduce using rule 40 (CICLO -> FORZ .)
     DRAW            reduce using rule 40 (CICLO -> FORZ .)
     PRINT           reduce using rule 40 (CICLO -> FORZ .)
+    WRITE           reduce using rule 40 (CICLO -> FORZ .)
     WHILE           reduce using rule 40 (CICLO -> FORZ .)
     FOR             reduce using rule 40 (CICLO -> FORZ .)
     INT             reduce using rule 40 (CICLO -> FORZ .)
@@ -1518,19 +1549,19 @@ state 69
     TRUE            reduce using rule 40 (CICLO -> FORZ .)
     FALSE           reduce using rule 40 (CICLO -> FORZ .)
     END             reduce using rule 40 (CICLO -> FORZ .)
-    RETURN          reduce using rule 40 (CICLO -> FORZ .)
     ELSE            reduce using rule 40 (CICLO -> FORZ .)
+    RETURN          reduce using rule 40 (CICLO -> FORZ .)
 
 
-state 70
+state 71
 
     (14) ESTATUTO -> CONDICION .
 
-    WRITE           reduce using rule 14 (ESTATUTO -> CONDICION .)
     IF              reduce using rule 14 (ESTATUTO -> CONDICION .)
     ID              reduce using rule 14 (ESTATUTO -> CONDICION .)
     DRAW            reduce using rule 14 (ESTATUTO -> CONDICION .)
     PRINT           reduce using rule 14 (ESTATUTO -> CONDICION .)
+    WRITE           reduce using rule 14 (ESTATUTO -> CONDICION .)
     WHILE           reduce using rule 14 (ESTATUTO -> CONDICION .)
     FOR             reduce using rule 14 (ESTATUTO -> CONDICION .)
     INT             reduce using rule 14 (ESTATUTO -> CONDICION .)
@@ -1550,15 +1581,15 @@ state 70
     RETURN          reduce using rule 14 (ESTATUTO -> CONDICION .)
 
 
-state 71
+state 72
 
     (19) ESTATUTO -> IMPRIMIR .
 
-    WRITE           reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     IF              reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     ID              reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     DRAW            reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     PRINT           reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
+    WRITE           reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     WHILE           reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     FOR             reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
     INT             reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
@@ -1578,14 +1609,14 @@ state 71
     RETURN          reduce using rule 19 (ESTATUTO -> IMPRIMIR .)
 
 
-state 72
+state 73
 
     (38) PRINCIPAL -> MAIN changeScope LPAR RPAR BLOQUE . END
 
-    END             shift and go to state 108
+    END             shift and go to state 109
 
 
-state 73
+state 74
 
     (79) ACCION -> ID . POINT DIBUJA LPAR VAR_CTE RPAR
     (33) LLAMADA_FUNCION -> ID . LPAR LLAMADA_FUNCIONP RPAR
@@ -1594,8 +1625,8 @@ state 73
     (1) empty -> .
 
   ! shift/reduce conflict for LPAR resolved as shift
-    POINT           shift and go to state 110
-    LPAR            shift and go to state 109
+    POINT           shift and go to state 111
+    LPAR            shift and go to state 110
     LBRA            reduce using rule 1 (empty -> .)
     MULT            reduce using rule 1 (empty -> .)
     DIVI            reduce using rule 1 (empty -> .)
@@ -1608,11 +1639,11 @@ state 73
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1631,57 +1662,32 @@ state 73
 
   ! LPAR            [ reduce using rule 1 (empty -> .) ]
 
-    operandPush                    shift and go to state 111
-    empty                          shift and go to state 112
-
-state 74
-
-    (43) CONDICION -> IF . LPAR EXPRE RPAR BLOQUE CONDICIONP END
-
-    LPAR            shift and go to state 113
-
+    operandPush                    shift and go to state 112
+    empty                          shift and go to state 113
 
 state 75
 
-    (20) ESTATUTO -> WRITE .
-    (70) IMPRIMIR -> WRITE . LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (43) CONDICION -> IF . LPAR EXPRE RPAR BLOQUE CONDICIONP END
 
-  ! shift/reduce conflict for LBRA resolved as shift
-    WRITE           reduce using rule 20 (ESTATUTO -> WRITE .)
-    IF              reduce using rule 20 (ESTATUTO -> WRITE .)
-    ID              reduce using rule 20 (ESTATUTO -> WRITE .)
-    DRAW            reduce using rule 20 (ESTATUTO -> WRITE .)
-    PRINT           reduce using rule 20 (ESTATUTO -> WRITE .)
-    WHILE           reduce using rule 20 (ESTATUTO -> WRITE .)
-    FOR             reduce using rule 20 (ESTATUTO -> WRITE .)
-    INT             reduce using rule 20 (ESTATUTO -> WRITE .)
-    BOOLEAN         reduce using rule 20 (ESTATUTO -> WRITE .)
-    STRING          reduce using rule 20 (ESTATUTO -> WRITE .)
-    FLOAT           reduce using rule 20 (ESTATUTO -> WRITE .)
-    VOID            reduce using rule 20 (ESTATUTO -> WRITE .)
-    LPAR            reduce using rule 20 (ESTATUTO -> WRITE .)
-    ICTE            reduce using rule 20 (ESTATUTO -> WRITE .)
-    FCTE            reduce using rule 20 (ESTATUTO -> WRITE .)
-    SCTE            reduce using rule 20 (ESTATUTO -> WRITE .)
-    TRUE            reduce using rule 20 (ESTATUTO -> WRITE .)
-    FALSE           reduce using rule 20 (ESTATUTO -> WRITE .)
-    END             reduce using rule 20 (ESTATUTO -> WRITE .)
-    ELSE            reduce using rule 20 (ESTATUTO -> WRITE .)
-    RETURN          reduce using rule 20 (ESTATUTO -> WRITE .)
-    LBRA            shift and go to state 114
-
-  ! LBRA            [ reduce using rule 20 (ESTATUTO -> WRITE .) ]
+    LPAR            shift and go to state 114
 
 
 state 76
 
+    (70) ESCRIBIR -> WRITE . LPAR DATA_TIPOS COMMA ID generateRead RPAR
+
+    LPAR            shift and go to state 115
+
+
+state 77
+
     (16) ESTATUTO -> ACCION .
 
-    WRITE           reduce using rule 16 (ESTATUTO -> ACCION .)
     IF              reduce using rule 16 (ESTATUTO -> ACCION .)
     ID              reduce using rule 16 (ESTATUTO -> ACCION .)
     DRAW            reduce using rule 16 (ESTATUTO -> ACCION .)
     PRINT           reduce using rule 16 (ESTATUTO -> ACCION .)
+    WRITE           reduce using rule 16 (ESTATUTO -> ACCION .)
     WHILE           reduce using rule 16 (ESTATUTO -> ACCION .)
     FOR             reduce using rule 16 (ESTATUTO -> ACCION .)
     INT             reduce using rule 16 (ESTATUTO -> ACCION .)
@@ -1701,57 +1707,57 @@ state 76
     RETURN          reduce using rule 16 (ESTATUTO -> ACCION .)
 
 
-state 77
+state 78
 
     (41) WHILEF -> WHILE . LPAR EXPRE RPAR BLOQUE END
 
-    LPAR            shift and go to state 115
-
-
-state 78
-
-    (81) VAR_FUNP -> DATA_TIPOS . ID VAR_FUNZ
-
-    ID              shift and go to state 116
+    LPAR            shift and go to state 116
 
 
 state 79
 
-    (80) VAR_FUN -> LPAR VAR_FUNP . RPAR
+    (81) VAR_FUNP -> DATA_TIPOS . ID VAR_FUNZ
 
-    RPAR            shift and go to state 117
+    ID              shift and go to state 117
 
 
 state 80
+
+    (80) VAR_FUN -> LPAR VAR_FUNP . RPAR
+
+    RPAR            shift and go to state 118
+
+
+state 81
 
     (82) VAR_FUNP -> empty .
 
     RPAR            reduce using rule 82 (VAR_FUNP -> empty .)
 
 
-state 81
+state 82
 
     (78) FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE . RETURN EXPRE END restoreScope
 
-    RETURN          shift and go to state 118
-
-
-state 82
-
-    (10) VART -> DRAW ID addVariable EQUAL NEW DRAWI . LPAR RPAR
-
-    LPAR            shift and go to state 119
+    RETURN          shift and go to state 119
 
 
 state 83
 
+    (10) VART -> DRAW ID addVariable EQUAL NEW DRAWI . LPAR RPAR
+
+    LPAR            shift and go to state 120
+
+
+state 84
+
     (13) ESTATUTO -> EXPRE genQuad5 .
 
-    WRITE           reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     IF              reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     ID              reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     DRAW            reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     PRINT           reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
+    WRITE           reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     WHILE           reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     FOR             reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
     INT             reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
@@ -1771,15 +1777,15 @@ state 83
     RETURN          reduce using rule 13 (ESTATUTO -> EXPRE genQuad5 .)
 
 
-state 84
+state 85
 
     (119) genQuad5 -> empty .
 
-    WRITE           reduce using rule 119 (genQuad5 -> empty .)
     IF              reduce using rule 119 (genQuad5 -> empty .)
     ID              reduce using rule 119 (genQuad5 -> empty .)
     DRAW            reduce using rule 119 (genQuad5 -> empty .)
     PRINT           reduce using rule 119 (genQuad5 -> empty .)
+    WRITE           reduce using rule 119 (genQuad5 -> empty .)
     WHILE           reduce using rule 119 (genQuad5 -> empty .)
     FOR             reduce using rule 119 (genQuad5 -> empty .)
     INT             reduce using rule 119 (genQuad5 -> empty .)
@@ -1799,24 +1805,15 @@ state 84
     ELSE            reduce using rule 119 (genQuad5 -> empty .)
 
 
-state 85
+state 86
 
     (52) EXPRE -> EXT EXPREZ .
 
-    COMMA           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    LBRA            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    ID              reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    LPAR            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    ICTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    FCTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    SCTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    TRUE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    FALSE           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    RPAR            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    WRITE           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     IF              reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    ID              reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     DRAW            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     PRINT           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    WRITE           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     WHILE           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     FOR             reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     INT             reduce using rule 52 (EXPRE -> EXT EXPREZ .)
@@ -1824,21 +1821,30 @@ state 85
     STRING          reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     FLOAT           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     VOID            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    LBRA            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    LPAR            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    ICTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    FCTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    SCTE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    TRUE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    FALSE           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     END             reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    RPAR            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     RBRA            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
-    ELSE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    COMMA           reduce using rule 52 (EXPRE -> EXT EXPREZ .)
     RETURN          reduce using rule 52 (EXPRE -> EXT EXPREZ .)
+    ELSE            reduce using rule 52 (EXPRE -> EXT EXPREZ .)
 
 
-state 86
+state 87
 
     (54) EXPREZ -> empty .
 
-    WRITE           reduce using rule 54 (EXPREZ -> empty .)
     IF              reduce using rule 54 (EXPREZ -> empty .)
     ID              reduce using rule 54 (EXPREZ -> empty .)
     DRAW            reduce using rule 54 (EXPREZ -> empty .)
     PRINT           reduce using rule 54 (EXPREZ -> empty .)
+    WRITE           reduce using rule 54 (EXPREZ -> empty .)
     WHILE           reduce using rule 54 (EXPREZ -> empty .)
     FOR             reduce using rule 54 (EXPREZ -> empty .)
     INT             reduce using rule 54 (EXPREZ -> empty .)
@@ -1861,7 +1867,7 @@ state 86
     RBRA            reduce using rule 54 (EXPREZ -> empty .)
 
 
-state 87
+state 88
 
     (53) EXPREZ -> EQUAL . operatorPush EXT
     (112) operatorPush -> . empty
@@ -1876,10 +1882,10 @@ state 87
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    operatorPush                   shift and go to state 120
-    empty                          shift and go to state 121
+    operatorPush                   shift and go to state 121
+    empty                          shift and go to state 122
 
-state 88
+state 89
 
     (55) EXT -> EXP genQuad3 . EXT_W_RELOP
     (56) EXT_W_RELOP -> . RELOP operatorPush EXT
@@ -1892,18 +1898,18 @@ state 88
     (51) RELOP -> . GREATEREQTH
     (1) empty -> .
 
-    LESSTH          shift and go to state 129
-    GREATERTH       shift and go to state 128
-    SEQUAL          shift and go to state 124
-    NOTEQ           shift and go to state 125
-    LESSEQTH        shift and go to state 122
-    GREATEREQTH     shift and go to state 127
+    LESSTH          shift and go to state 130
+    GREATERTH       shift and go to state 129
+    SEQUAL          shift and go to state 125
+    NOTEQ           shift and go to state 126
+    LESSEQTH        shift and go to state 123
+    GREATEREQTH     shift and go to state 128
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -1925,11 +1931,11 @@ state 88
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    RELOP                          shift and go to state 123
-    EXT_W_RELOP                    shift and go to state 126
-    empty                          shift and go to state 130
+    RELOP                          shift and go to state 124
+    EXT_W_RELOP                    shift and go to state 127
+    empty                          shift and go to state 131
 
-state 89
+state 90
 
     (118) genQuad3 -> empty .
 
@@ -1940,11 +1946,11 @@ state 89
     LESSEQTH        reduce using rule 118 (genQuad3 -> empty .)
     GREATEREQTH     reduce using rule 118 (genQuad3 -> empty .)
     EQUAL           reduce using rule 118 (genQuad3 -> empty .)
-    WRITE           reduce using rule 118 (genQuad3 -> empty .)
     IF              reduce using rule 118 (genQuad3 -> empty .)
     ID              reduce using rule 118 (genQuad3 -> empty .)
     DRAW            reduce using rule 118 (genQuad3 -> empty .)
     PRINT           reduce using rule 118 (genQuad3 -> empty .)
+    WRITE           reduce using rule 118 (genQuad3 -> empty .)
     WHILE           reduce using rule 118 (genQuad3 -> empty .)
     FOR             reduce using rule 118 (genQuad3 -> empty .)
     INT             reduce using rule 118 (genQuad3 -> empty .)
@@ -1967,7 +1973,7 @@ state 89
     COMMA           reduce using rule 118 (genQuad3 -> empty .)
 
 
-state 90
+state 91
 
     (69) IMPRIMIR -> PRINT LBRA . EXT RBRA
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
@@ -1981,8 +1987,8 @@ state 90
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -1990,22 +1996,22 @@ state 90
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 131
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 132
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 91
+state 92
 
     (73) FAC -> LBRA EXPRE . RPAR
 
-    RPAR            shift and go to state 132
+    RPAR            shift and go to state 133
 
 
-state 92
+state 93
 
     (113) pushExp -> empty .
     (115) genQuad0 -> empty .
@@ -2018,7 +2024,7 @@ state 92
     FALSE           reduce using rule 115 (genQuad0 -> empty .)
 
 
-state 93
+state 94
 
     (74) FAC -> ID . operandPush FACT
     (111) operandPush -> . empty
@@ -2047,10 +2053,10 @@ state 93
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
     END             reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2061,10 +2067,10 @@ state 93
     RETURN          reduce using rule 1 (empty -> .)
     ELSE            reduce using rule 1 (empty -> .)
 
-    operandPush                    shift and go to state 111
-    empty                          shift and go to state 112
+    operandPush                    shift and go to state 112
+    empty                          shift and go to state 113
 
-state 94
+state 95
 
     (21) BLOQUE -> ESTATUTO finishBlock . BLOQUE
     (21) BLOQUE -> . ESTATUTO finishBlock BLOQUE
@@ -2076,7 +2082,7 @@ state 94
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -2088,7 +2094,7 @@ state 94
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -2107,7 +2113,6 @@ state 94
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     END             reduce using rule 1 (empty -> .)
     RETURN          reduce using rule 1 (empty -> .)
     ELSE            reduce using rule 1 (empty -> .)
@@ -2117,49 +2122,51 @@ state 94
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 133
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 134
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
-state 95
+state 96
 
     (110) finishBlock -> empty .
 
-    WRITE           reduce using rule 110 (finishBlock -> empty .)
     IF              reduce using rule 110 (finishBlock -> empty .)
     ID              reduce using rule 110 (finishBlock -> empty .)
     DRAW            reduce using rule 110 (finishBlock -> empty .)
     PRINT           reduce using rule 110 (finishBlock -> empty .)
+    WRITE           reduce using rule 110 (finishBlock -> empty .)
     WHILE           reduce using rule 110 (finishBlock -> empty .)
     FOR             reduce using rule 110 (finishBlock -> empty .)
     INT             reduce using rule 110 (finishBlock -> empty .)
@@ -2179,7 +2186,7 @@ state 95
     ELSE            reduce using rule 110 (finishBlock -> empty .)
 
 
-state 96
+state 97
 
     (58) EXP -> TERMINO genQuad2 . EXP_W_SIGN
     (59) EXP_W_SIGN -> . ASOP operatorPush EXP
@@ -2188,8 +2195,8 @@ state 96
     (29) ASOP -> . MINUS
     (1) empty -> .
 
-    PLUS            shift and go to state 136
-    MINUS           shift and go to state 137
+    PLUS            shift and go to state 137
+    MINUS           shift and go to state 138
     LESSTH          reduce using rule 1 (empty -> .)
     GREATERTH       reduce using rule 1 (empty -> .)
     SEQUAL          reduce using rule 1 (empty -> .)
@@ -2197,11 +2204,11 @@ state 96
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2223,11 +2230,11 @@ state 96
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    ASOP                           shift and go to state 134
-    EXP_W_SIGN                     shift and go to state 135
-    empty                          shift and go to state 138
+    ASOP                           shift and go to state 135
+    EXP_W_SIGN                     shift and go to state 136
+    empty                          shift and go to state 139
 
-state 97
+state 98
 
     (117) genQuad2 -> empty .
 
@@ -2240,11 +2247,11 @@ state 97
     LESSEQTH        reduce using rule 117 (genQuad2 -> empty .)
     GREATEREQTH     reduce using rule 117 (genQuad2 -> empty .)
     EQUAL           reduce using rule 117 (genQuad2 -> empty .)
-    WRITE           reduce using rule 117 (genQuad2 -> empty .)
     IF              reduce using rule 117 (genQuad2 -> empty .)
     ID              reduce using rule 117 (genQuad2 -> empty .)
     DRAW            reduce using rule 117 (genQuad2 -> empty .)
     PRINT           reduce using rule 117 (genQuad2 -> empty .)
+    WRITE           reduce using rule 117 (genQuad2 -> empty .)
     WHILE           reduce using rule 117 (genQuad2 -> empty .)
     FOR             reduce using rule 117 (genQuad2 -> empty .)
     INT             reduce using rule 117 (genQuad2 -> empty .)
@@ -2267,7 +2274,7 @@ state 97
     COMMA           reduce using rule 117 (genQuad2 -> empty .)
 
 
-state 98
+state 99
 
     (71) FAC -> pushExp LPAR . EXPRE RPAR popExp
     (52) EXPRE -> . EXT EXPREZ
@@ -2282,8 +2289,8 @@ state 98
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -2291,16 +2298,16 @@ state 98
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 139
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 140
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 99
+state 100
 
     (61) TERMINO -> FAC genQuad1 . TERMINO_W_SIGN
     (62) TERMINO_W_SIGN -> . MDOP operatorPush TERMINO
@@ -2309,8 +2316,8 @@ state 99
     (31) MDOP -> . DIVI
     (1) empty -> .
 
-    MULT            shift and go to state 142
-    DIVI            shift and go to state 140
+    MULT            shift and go to state 143
+    DIVI            shift and go to state 141
     PLUS            reduce using rule 1 (empty -> .)
     MINUS           reduce using rule 1 (empty -> .)
     LESSTH          reduce using rule 1 (empty -> .)
@@ -2320,11 +2327,11 @@ state 99
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2346,11 +2353,11 @@ state 99
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    MDOP                           shift and go to state 141
-    empty                          shift and go to state 143
-    TERMINO_W_SIGN                 shift and go to state 144
+    MDOP                           shift and go to state 142
+    empty                          shift and go to state 144
+    TERMINO_W_SIGN                 shift and go to state 145
 
-state 100
+state 101
 
     (116) genQuad1 -> empty .
 
@@ -2365,11 +2372,11 @@ state 100
     LESSEQTH        reduce using rule 116 (genQuad1 -> empty .)
     GREATEREQTH     reduce using rule 116 (genQuad1 -> empty .)
     EQUAL           reduce using rule 116 (genQuad1 -> empty .)
-    WRITE           reduce using rule 116 (genQuad1 -> empty .)
     IF              reduce using rule 116 (genQuad1 -> empty .)
     ID              reduce using rule 116 (genQuad1 -> empty .)
     DRAW            reduce using rule 116 (genQuad1 -> empty .)
     PRINT           reduce using rule 116 (genQuad1 -> empty .)
+    WRITE           reduce using rule 116 (genQuad1 -> empty .)
     WHILE           reduce using rule 116 (genQuad1 -> empty .)
     FOR             reduce using rule 116 (genQuad1 -> empty .)
     INT             reduce using rule 116 (genQuad1 -> empty .)
@@ -2392,7 +2399,7 @@ state 100
     COMMA           reduce using rule 116 (genQuad1 -> empty .)
 
 
-state 101
+state 102
 
     (68) VAR_CTE -> FALSE . addBooleano
     (109) addBooleano -> . empty
@@ -2409,11 +2416,11 @@ state 101
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2435,10 +2442,10 @@ state 101
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    addBooleano                    shift and go to state 145
-    empty                          shift and go to state 146
+    addBooleano                    shift and go to state 146
+    empty                          shift and go to state 147
 
-state 102
+state 103
 
     (72) FAC -> genQuad0 VAR_CTE . operandPush
     (111) operandPush -> . empty
@@ -2455,11 +2462,11 @@ state 102
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2481,10 +2488,10 @@ state 102
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    operandPush                    shift and go to state 147
-    empty                          shift and go to state 112
+    operandPush                    shift and go to state 148
+    empty                          shift and go to state 113
 
-state 103
+state 104
 
     (65) VAR_CTE -> FCTE . addFloat
     (106) addFloat -> . empty
@@ -2501,11 +2508,11 @@ state 103
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2527,10 +2534,10 @@ state 103
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    addFloat                       shift and go to state 148
-    empty                          shift and go to state 149
+    addFloat                       shift and go to state 149
+    empty                          shift and go to state 150
 
-state 104
+state 105
 
     (64) VAR_CTE -> ICTE . addInt
     (107) addInt -> . empty
@@ -2547,11 +2554,11 @@ state 104
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2573,10 +2580,10 @@ state 104
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    addInt                         shift and go to state 150
-    empty                          shift and go to state 151
+    addInt                         shift and go to state 151
+    empty                          shift and go to state 152
 
-state 105
+state 106
 
     (66) VAR_CTE -> SCTE . addString
     (108) addString -> . empty
@@ -2593,11 +2600,11 @@ state 105
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2619,10 +2626,10 @@ state 105
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    addString                      shift and go to state 152
-    empty                          shift and go to state 153
+    addString                      shift and go to state 153
+    empty                          shift and go to state 154
 
-state 106
+state 107
 
     (67) VAR_CTE -> TRUE . addBooleano
     (109) addBooleano -> . empty
@@ -2639,11 +2646,11 @@ state 106
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2665,24 +2672,24 @@ state 106
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    addBooleano                    shift and go to state 154
-    empty                          shift and go to state 146
+    addBooleano                    shift and go to state 155
+    empty                          shift and go to state 147
 
-state 107
+state 108
 
     (42) FORZ -> FOR LPAR . ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
 
-    ICTE            shift and go to state 155
+    ICTE            shift and go to state 156
 
 
-state 108
+state 109
 
     (38) PRINCIPAL -> MAIN changeScope LPAR RPAR BLOQUE END .
 
     $end            reduce using rule 38 (PRINCIPAL -> MAIN changeScope LPAR RPAR BLOQUE END .)
 
 
-state 109
+state 110
 
     (33) LLAMADA_FUNCION -> ID LPAR . LLAMADA_FUNCIONP RPAR
     (34) LLAMADA_FUNCIONP -> . EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
@@ -2706,20 +2713,20 @@ state 109
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 157
-    LLAMADA_FUNCIONP               shift and go to state 156
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 158
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 158
+    LLAMADA_FUNCIONP               shift and go to state 157
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 159
 
-state 110
+state 111
 
     (79) ACCION -> ID POINT . DIBUJA LPAR VAR_CTE RPAR
     (85) DIBUJA -> . DEFINIRPOSICION
@@ -2738,25 +2745,25 @@ state 110
     (98) DIBUJA -> . ARCO
     (99) DIBUJA -> . GROSOR
 
-    DEFINIRPOSICION shift and go to state 165
-    DEFINIRCOLOR    shift and go to state 174
-    DERECHO         shift and go to state 169
-    REVERSA         shift and go to state 163
-    IZQUIERDA       shift and go to state 167
-    DERECHA         shift and go to state 159
-    VELOCIDAD       shift and go to state 162
-    BORRAR          shift and go to state 172
-    MOSTRAR         shift and go to state 166
-    OCULTAR         shift and go to state 164
-    CIRCULO         shift and go to state 161
-    DEFINIRX        shift and go to state 171
-    DEFINIRY        shift and go to state 170
-    ARCO            shift and go to state 160
-    GROSOR          shift and go to state 173
+    DEFINIRPOSICION shift and go to state 166
+    DEFINIRCOLOR    shift and go to state 175
+    DERECHO         shift and go to state 170
+    REVERSA         shift and go to state 164
+    IZQUIERDA       shift and go to state 168
+    DERECHA         shift and go to state 160
+    VELOCIDAD       shift and go to state 163
+    BORRAR          shift and go to state 173
+    MOSTRAR         shift and go to state 167
+    OCULTAR         shift and go to state 165
+    CIRCULO         shift and go to state 162
+    DEFINIRX        shift and go to state 172
+    DEFINIRY        shift and go to state 171
+    ARCO            shift and go to state 161
+    GROSOR          shift and go to state 174
 
-    DIBUJA                         shift and go to state 168
+    DIBUJA                         shift and go to state 169
 
-state 111
+state 112
 
     (74) FAC -> ID operandPush . FACT
     (75) FACT -> . LBRA EXPRE RBRA
@@ -2766,8 +2773,8 @@ state 111
 
   ! shift/reduce conflict for LBRA resolved as shift
   ! shift/reduce conflict for LPAR resolved as shift
-    LBRA            shift and go to state 176
-    LPAR            shift and go to state 175
+    LBRA            shift and go to state 177
+    LPAR            shift and go to state 176
     MULT            reduce using rule 1 (empty -> .)
     DIVI            reduce using rule 1 (empty -> .)
     PLUS            reduce using rule 1 (empty -> .)
@@ -2779,11 +2786,11 @@ state 111
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -2806,10 +2813,10 @@ state 111
   ! LBRA            [ reduce using rule 1 (empty -> .) ]
   ! LPAR            [ reduce using rule 1 (empty -> .) ]
 
-    empty                          shift and go to state 177
-    FACT                           shift and go to state 178
+    empty                          shift and go to state 178
+    FACT                           shift and go to state 179
 
-state 112
+state 113
 
     (111) operandPush -> empty .
 
@@ -2836,10 +2843,10 @@ state 112
     TRUE            reduce using rule 111 (operandPush -> empty .)
     FALSE           reduce using rule 111 (operandPush -> empty .)
     END             reduce using rule 111 (operandPush -> empty .)
-    WRITE           reduce using rule 111 (operandPush -> empty .)
     IF              reduce using rule 111 (operandPush -> empty .)
     DRAW            reduce using rule 111 (operandPush -> empty .)
     PRINT           reduce using rule 111 (operandPush -> empty .)
+    WRITE           reduce using rule 111 (operandPush -> empty .)
     WHILE           reduce using rule 111 (operandPush -> empty .)
     FOR             reduce using rule 111 (operandPush -> empty .)
     INT             reduce using rule 111 (operandPush -> empty .)
@@ -2851,7 +2858,7 @@ state 112
     ELSE            reduce using rule 111 (operandPush -> empty .)
 
 
-state 113
+state 114
 
     (43) CONDICION -> IF LPAR . EXPRE RPAR BLOQUE CONDICIONP END
     (52) EXPRE -> . EXT EXPREZ
@@ -2866,8 +2873,8 @@ state 113
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -2875,18 +2882,18 @@ state 113
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 179
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 180
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 114
+state 115
 
-    (70) IMPRIMIR -> WRITE LBRA . DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> WRITE LPAR . DATA_TIPOS COMMA ID generateRead RPAR
     (23) DATA_TIPOS -> . INT addDataType
     (24) DATA_TIPOS -> . BOOLEAN addDataType
     (25) DATA_TIPOS -> . STRING addDataType
@@ -2899,9 +2906,9 @@ state 114
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
 
-    DATA_TIPOS                     shift and go to state 180
+    DATA_TIPOS                     shift and go to state 181
 
-state 115
+state 116
 
     (41) WHILEF -> WHILE LPAR . EXPRE RPAR BLOQUE END
     (52) EXPRE -> . EXT EXPREZ
@@ -2916,8 +2923,8 @@ state 115
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -2925,37 +2932,37 @@ state 115
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 181
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 182
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 116
+state 117
 
     (81) VAR_FUNP -> DATA_TIPOS ID . VAR_FUNZ
     (83) VAR_FUNZ -> . COMMA VAR_FUNP
     (84) VAR_FUNZ -> . empty
     (1) empty -> .
 
-    COMMA           shift and go to state 183
+    COMMA           shift and go to state 184
     RPAR            reduce using rule 1 (empty -> .)
 
-    empty                          shift and go to state 184
-    VAR_FUNZ                       shift and go to state 182
+    empty                          shift and go to state 185
+    VAR_FUNZ                       shift and go to state 183
 
-state 117
+state 118
 
     (80) VAR_FUN -> LPAR VAR_FUNP RPAR .
 
-    WRITE           reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     IF              reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     ID              reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     DRAW            reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     PRINT           reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
+    WRITE           reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     WHILE           reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     FOR             reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
     INT             reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
@@ -2973,7 +2980,7 @@ state 117
     FALSE           reduce using rule 80 (VAR_FUN -> LPAR VAR_FUNP RPAR .)
 
 
-state 118
+state 119
 
     (78) FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN . EXPRE END restoreScope
     (52) EXPRE -> . EXT EXPREZ
@@ -2988,8 +2995,8 @@ state 118
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -2997,23 +3004,23 @@ state 118
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    EXPRE                          shift and go to state 185
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    genQuad0                       shift and go to state 66
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 92
+    EXPRE                          shift and go to state 186
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    genQuad0                       shift and go to state 67
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 93
 
-state 119
+state 120
 
     (10) VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR . RPAR
 
-    RPAR            shift and go to state 186
+    RPAR            shift and go to state 187
 
 
-state 120
+state 121
 
     (53) EXPREZ -> EQUAL operatorPush . EXT
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
@@ -3027,8 +3034,8 @@ state 120
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -3036,15 +3043,15 @@ state 120
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    pushExp                        shift and go to state 62
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 187
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
-    genQuad0                       shift and go to state 66
+    pushExp                        shift and go to state 63
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 188
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
+    genQuad0                       shift and go to state 67
 
-state 121
+state 122
 
     (112) operatorPush -> empty .
 
@@ -3058,7 +3065,7 @@ state 121
     FALSE           reduce using rule 112 (operatorPush -> empty .)
 
 
-state 122
+state 123
 
     (50) RELOP -> LESSEQTH .
 
@@ -3072,7 +3079,7 @@ state 122
     FALSE           reduce using rule 50 (RELOP -> LESSEQTH .)
 
 
-state 123
+state 124
 
     (56) EXT_W_RELOP -> RELOP . operatorPush EXT
     (112) operatorPush -> . empty
@@ -3087,10 +3094,10 @@ state 123
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    operatorPush                   shift and go to state 188
-    empty                          shift and go to state 121
+    operatorPush                   shift and go to state 189
+    empty                          shift and go to state 122
 
-state 124
+state 125
 
     (48) RELOP -> SEQUAL .
 
@@ -3104,7 +3111,7 @@ state 124
     FALSE           reduce using rule 48 (RELOP -> SEQUAL .)
 
 
-state 125
+state 126
 
     (49) RELOP -> NOTEQ .
 
@@ -3118,25 +3125,17 @@ state 125
     FALSE           reduce using rule 49 (RELOP -> NOTEQ .)
 
 
-state 126
+state 127
 
     (55) EXT -> EXP genQuad3 EXT_W_RELOP .
 
     EQUAL           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    COMMA           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    LBRA            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    ID              reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    LPAR            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    ICTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    FCTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    SCTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    TRUE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    FALSE           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     RPAR            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    WRITE           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     IF              reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    ID              reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     DRAW            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     PRINT           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    WRITE           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     WHILE           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     FOR             reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     INT             reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
@@ -3144,13 +3143,21 @@ state 126
     STRING          reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     FLOAT           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     VOID            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
-    ELSE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    LBRA            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    LPAR            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    ICTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    FCTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    SCTE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    TRUE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    FALSE           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     END             reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     RETURN          reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
     RBRA            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    ELSE            reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
+    COMMA           reduce using rule 55 (EXT -> EXP genQuad3 EXT_W_RELOP .)
 
 
-state 127
+state 128
 
     (51) RELOP -> GREATEREQTH .
 
@@ -3164,7 +3171,7 @@ state 127
     FALSE           reduce using rule 51 (RELOP -> GREATEREQTH .)
 
 
-state 128
+state 129
 
     (47) RELOP -> GREATERTH .
 
@@ -3178,7 +3185,7 @@ state 128
     FALSE           reduce using rule 47 (RELOP -> GREATERTH .)
 
 
-state 129
+state 130
 
     (46) RELOP -> LESSTH .
 
@@ -3192,16 +3199,16 @@ state 129
     FALSE           reduce using rule 46 (RELOP -> LESSTH .)
 
 
-state 130
+state 131
 
     (57) EXT_W_RELOP -> empty .
 
     EQUAL           reduce using rule 57 (EXT_W_RELOP -> empty .)
-    WRITE           reduce using rule 57 (EXT_W_RELOP -> empty .)
     IF              reduce using rule 57 (EXT_W_RELOP -> empty .)
     ID              reduce using rule 57 (EXT_W_RELOP -> empty .)
     DRAW            reduce using rule 57 (EXT_W_RELOP -> empty .)
     PRINT           reduce using rule 57 (EXT_W_RELOP -> empty .)
+    WRITE           reduce using rule 57 (EXT_W_RELOP -> empty .)
     WHILE           reduce using rule 57 (EXT_W_RELOP -> empty .)
     FOR             reduce using rule 57 (EXT_W_RELOP -> empty .)
     INT             reduce using rule 57 (EXT_W_RELOP -> empty .)
@@ -3224,14 +3231,14 @@ state 130
     COMMA           reduce using rule 57 (EXT_W_RELOP -> empty .)
 
 
-state 131
+state 132
 
     (69) IMPRIMIR -> PRINT LBRA EXT . RBRA
 
-    RBRA            shift and go to state 189
+    RBRA            shift and go to state 190
 
 
-state 132
+state 133
 
     (73) FAC -> LBRA EXPRE RPAR .
 
@@ -3246,13 +3253,11 @@ state 132
     LESSEQTH        reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     GREATEREQTH     reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     EQUAL           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
-    RPAR            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
-    END             reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
-    WRITE           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     IF              reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     ID              reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     DRAW            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     PRINT           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
+    WRITE           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     WHILE           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     FOR             reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     INT             reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
@@ -3267,22 +3272,24 @@ state 132
     SCTE            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     TRUE            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     FALSE           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
+    END             reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     RETURN          reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
-    ELSE            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
+    RPAR            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     RBRA            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
+    ELSE            reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
     COMMA           reduce using rule 73 (FAC -> LBRA EXPRE RPAR .)
 
 
-state 133
+state 134
 
     (21) BLOQUE -> ESTATUTO finishBlock BLOQUE .
 
     END             reduce using rule 21 (BLOQUE -> ESTATUTO finishBlock BLOQUE .)
-    RETURN          reduce using rule 21 (BLOQUE -> ESTATUTO finishBlock BLOQUE .)
     ELSE            reduce using rule 21 (BLOQUE -> ESTATUTO finishBlock BLOQUE .)
+    RETURN          reduce using rule 21 (BLOQUE -> ESTATUTO finishBlock BLOQUE .)
 
 
-state 134
+state 135
 
     (59) EXP_W_SIGN -> ASOP . operatorPush EXP
     (112) operatorPush -> . empty
@@ -3297,10 +3304,10 @@ state 134
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    operatorPush                   shift and go to state 190
-    empty                          shift and go to state 121
+    operatorPush                   shift and go to state 191
+    empty                          shift and go to state 122
 
-state 135
+state 136
 
     (58) EXP -> TERMINO genQuad2 EXP_W_SIGN .
 
@@ -3310,11 +3317,22 @@ state 135
     NOTEQ           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     LESSEQTH        reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     GREATEREQTH     reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    WRITE           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    IF              reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    RBRA            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    EQUAL           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    RPAR            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    COMMA           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    LBRA            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     ID              reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    LPAR            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    ICTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    FCTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    SCTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    TRUE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    FALSE           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    IF              reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     DRAW            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     PRINT           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
+    WRITE           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     WHILE           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     FOR             reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     INT             reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
@@ -3322,23 +3340,12 @@ state 135
     STRING          reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     FLOAT           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     VOID            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    LBRA            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    LPAR            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    ICTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    FCTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    SCTE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    TRUE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    FALSE           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     END             reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     RETURN          reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    RPAR            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
     ELSE            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    COMMA           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    RBRA            reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
-    EQUAL           reduce using rule 58 (EXP -> TERMINO genQuad2 EXP_W_SIGN .)
 
 
-state 136
+state 137
 
     (28) ASOP -> PLUS .
 
@@ -3352,7 +3359,7 @@ state 136
     FALSE           reduce using rule 28 (ASOP -> PLUS .)
 
 
-state 137
+state 138
 
     (29) ASOP -> MINUS .
 
@@ -3366,7 +3373,7 @@ state 137
     FALSE           reduce using rule 29 (ASOP -> MINUS .)
 
 
-state 138
+state 139
 
     (60) EXP_W_SIGN -> empty .
 
@@ -3377,11 +3384,11 @@ state 138
     LESSEQTH        reduce using rule 60 (EXP_W_SIGN -> empty .)
     GREATEREQTH     reduce using rule 60 (EXP_W_SIGN -> empty .)
     EQUAL           reduce using rule 60 (EXP_W_SIGN -> empty .)
-    WRITE           reduce using rule 60 (EXP_W_SIGN -> empty .)
     IF              reduce using rule 60 (EXP_W_SIGN -> empty .)
     ID              reduce using rule 60 (EXP_W_SIGN -> empty .)
     DRAW            reduce using rule 60 (EXP_W_SIGN -> empty .)
     PRINT           reduce using rule 60 (EXP_W_SIGN -> empty .)
+    WRITE           reduce using rule 60 (EXP_W_SIGN -> empty .)
     WHILE           reduce using rule 60 (EXP_W_SIGN -> empty .)
     FOR             reduce using rule 60 (EXP_W_SIGN -> empty .)
     INT             reduce using rule 60 (EXP_W_SIGN -> empty .)
@@ -3404,14 +3411,14 @@ state 138
     COMMA           reduce using rule 60 (EXP_W_SIGN -> empty .)
 
 
-state 139
+state 140
 
     (71) FAC -> pushExp LPAR EXPRE . RPAR popExp
 
-    RPAR            shift and go to state 191
+    RPAR            shift and go to state 192
 
 
-state 140
+state 141
 
     (31) MDOP -> DIVI .
 
@@ -3425,7 +3432,7 @@ state 140
     FALSE           reduce using rule 31 (MDOP -> DIVI .)
 
 
-state 141
+state 142
 
     (62) TERMINO_W_SIGN -> MDOP . operatorPush TERMINO
     (112) operatorPush -> . empty
@@ -3440,10 +3447,10 @@ state 141
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    operatorPush                   shift and go to state 192
-    empty                          shift and go to state 121
+    operatorPush                   shift and go to state 193
+    empty                          shift and go to state 122
 
-state 142
+state 143
 
     (30) MDOP -> MULT .
 
@@ -3457,7 +3464,7 @@ state 142
     FALSE           reduce using rule 30 (MDOP -> MULT .)
 
 
-state 143
+state 144
 
     (63) TERMINO_W_SIGN -> empty .
 
@@ -3470,11 +3477,11 @@ state 143
     LESSEQTH        reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     GREATEREQTH     reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     EQUAL           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
-    WRITE           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     IF              reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     ID              reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     DRAW            reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     PRINT           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
+    WRITE           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     WHILE           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     FOR             reduce using rule 63 (TERMINO_W_SIGN -> empty .)
     INT             reduce using rule 63 (TERMINO_W_SIGN -> empty .)
@@ -3497,7 +3504,7 @@ state 143
     COMMA           reduce using rule 63 (TERMINO_W_SIGN -> empty .)
 
 
-state 144
+state 145
 
     (61) TERMINO -> FAC genQuad1 TERMINO_W_SIGN .
 
@@ -3509,12 +3516,12 @@ state 144
     NOTEQ           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     LESSEQTH        reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     GREATEREQTH     reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
-    EQUAL           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
-    WRITE           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
+    RBRA            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     IF              reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     ID              reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     DRAW            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     PRINT           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
+    WRITE           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     WHILE           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     FOR             reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     INT             reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
@@ -3530,18 +3537,17 @@ state 144
     TRUE            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     FALSE           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     END             reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
-    ELSE            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     RETURN          reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     RPAR            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
-    RBRA            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
+    ELSE            reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
     COMMA           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
+    EQUAL           reduce using rule 61 (TERMINO -> FAC genQuad1 TERMINO_W_SIGN .)
 
 
-state 145
+state 146
 
     (68) VAR_CTE -> FALSE addBooleano .
 
-    RPAR            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     MULT            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     DIVI            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     PLUS            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
@@ -3553,11 +3559,11 @@ state 145
     LESSEQTH        reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     GREATEREQTH     reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     EQUAL           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
-    WRITE           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     IF              reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     ID              reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     DRAW            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     PRINT           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
+    WRITE           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     WHILE           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     FOR             reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     INT             reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
@@ -3574,12 +3580,13 @@ state 145
     FALSE           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     END             reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     RETURN          reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
+    RPAR            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     RBRA            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     ELSE            reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
     COMMA           reduce using rule 68 (VAR_CTE -> FALSE addBooleano .)
 
 
-state 146
+state 147
 
     (109) addBooleano -> empty .
 
@@ -3594,11 +3601,11 @@ state 146
     LESSEQTH        reduce using rule 109 (addBooleano -> empty .)
     GREATEREQTH     reduce using rule 109 (addBooleano -> empty .)
     EQUAL           reduce using rule 109 (addBooleano -> empty .)
-    WRITE           reduce using rule 109 (addBooleano -> empty .)
     IF              reduce using rule 109 (addBooleano -> empty .)
     ID              reduce using rule 109 (addBooleano -> empty .)
     DRAW            reduce using rule 109 (addBooleano -> empty .)
     PRINT           reduce using rule 109 (addBooleano -> empty .)
+    WRITE           reduce using rule 109 (addBooleano -> empty .)
     WHILE           reduce using rule 109 (addBooleano -> empty .)
     FOR             reduce using rule 109 (addBooleano -> empty .)
     INT             reduce using rule 109 (addBooleano -> empty .)
@@ -3621,7 +3628,7 @@ state 146
     COMMA           reduce using rule 109 (addBooleano -> empty .)
 
 
-state 147
+state 148
 
     (72) FAC -> genQuad0 VAR_CTE operandPush .
 
@@ -3636,13 +3643,11 @@ state 147
     LESSEQTH        reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     GREATEREQTH     reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     EQUAL           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
-    RPAR            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
-    END             reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
-    WRITE           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     IF              reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     ID              reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     DRAW            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     PRINT           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
+    WRITE           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     WHILE           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     FOR             reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     INT             reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
@@ -3657,17 +3662,18 @@ state 147
     SCTE            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     TRUE            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     FALSE           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
+    END             reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     RETURN          reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
-    ELSE            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
+    RPAR            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     RBRA            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
+    ELSE            reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
     COMMA           reduce using rule 72 (FAC -> genQuad0 VAR_CTE operandPush .)
 
 
-state 148
+state 149
 
     (65) VAR_CTE -> FCTE addFloat .
 
-    RPAR            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     MULT            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     DIVI            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     PLUS            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
@@ -3679,11 +3685,11 @@ state 148
     LESSEQTH        reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     GREATEREQTH     reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     EQUAL           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
-    WRITE           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     IF              reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     ID              reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     DRAW            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     PRINT           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
+    WRITE           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     WHILE           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     FOR             reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     INT             reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
@@ -3700,12 +3706,13 @@ state 148
     FALSE           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     END             reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     RETURN          reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
+    RPAR            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     RBRA            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     ELSE            reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
     COMMA           reduce using rule 65 (VAR_CTE -> FCTE addFloat .)
 
 
-state 149
+state 150
 
     (106) addFloat -> empty .
 
@@ -3720,11 +3727,11 @@ state 149
     LESSEQTH        reduce using rule 106 (addFloat -> empty .)
     GREATEREQTH     reduce using rule 106 (addFloat -> empty .)
     EQUAL           reduce using rule 106 (addFloat -> empty .)
-    WRITE           reduce using rule 106 (addFloat -> empty .)
     IF              reduce using rule 106 (addFloat -> empty .)
     ID              reduce using rule 106 (addFloat -> empty .)
     DRAW            reduce using rule 106 (addFloat -> empty .)
     PRINT           reduce using rule 106 (addFloat -> empty .)
+    WRITE           reduce using rule 106 (addFloat -> empty .)
     WHILE           reduce using rule 106 (addFloat -> empty .)
     FOR             reduce using rule 106 (addFloat -> empty .)
     INT             reduce using rule 106 (addFloat -> empty .)
@@ -3747,11 +3754,10 @@ state 149
     COMMA           reduce using rule 106 (addFloat -> empty .)
 
 
-state 150
+state 151
 
     (64) VAR_CTE -> ICTE addInt .
 
-    RPAR            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     MULT            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     DIVI            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     PLUS            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
@@ -3763,11 +3769,11 @@ state 150
     LESSEQTH        reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     GREATEREQTH     reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     EQUAL           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
-    WRITE           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     IF              reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     ID              reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     DRAW            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     PRINT           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
+    WRITE           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     WHILE           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     FOR             reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     INT             reduce using rule 64 (VAR_CTE -> ICTE addInt .)
@@ -3784,12 +3790,13 @@ state 150
     FALSE           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     END             reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     RETURN          reduce using rule 64 (VAR_CTE -> ICTE addInt .)
+    RPAR            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     RBRA            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     ELSE            reduce using rule 64 (VAR_CTE -> ICTE addInt .)
     COMMA           reduce using rule 64 (VAR_CTE -> ICTE addInt .)
 
 
-state 151
+state 152
 
     (107) addInt -> empty .
 
@@ -3804,11 +3811,11 @@ state 151
     LESSEQTH        reduce using rule 107 (addInt -> empty .)
     GREATEREQTH     reduce using rule 107 (addInt -> empty .)
     EQUAL           reduce using rule 107 (addInt -> empty .)
-    WRITE           reduce using rule 107 (addInt -> empty .)
     IF              reduce using rule 107 (addInt -> empty .)
     ID              reduce using rule 107 (addInt -> empty .)
     DRAW            reduce using rule 107 (addInt -> empty .)
     PRINT           reduce using rule 107 (addInt -> empty .)
+    WRITE           reduce using rule 107 (addInt -> empty .)
     WHILE           reduce using rule 107 (addInt -> empty .)
     FOR             reduce using rule 107 (addInt -> empty .)
     INT             reduce using rule 107 (addInt -> empty .)
@@ -3831,11 +3838,10 @@ state 151
     COMMA           reduce using rule 107 (addInt -> empty .)
 
 
-state 152
+state 153
 
     (66) VAR_CTE -> SCTE addString .
 
-    RPAR            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     MULT            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     DIVI            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     PLUS            reduce using rule 66 (VAR_CTE -> SCTE addString .)
@@ -3847,11 +3853,11 @@ state 152
     LESSEQTH        reduce using rule 66 (VAR_CTE -> SCTE addString .)
     GREATEREQTH     reduce using rule 66 (VAR_CTE -> SCTE addString .)
     EQUAL           reduce using rule 66 (VAR_CTE -> SCTE addString .)
-    WRITE           reduce using rule 66 (VAR_CTE -> SCTE addString .)
     IF              reduce using rule 66 (VAR_CTE -> SCTE addString .)
     ID              reduce using rule 66 (VAR_CTE -> SCTE addString .)
     DRAW            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     PRINT           reduce using rule 66 (VAR_CTE -> SCTE addString .)
+    WRITE           reduce using rule 66 (VAR_CTE -> SCTE addString .)
     WHILE           reduce using rule 66 (VAR_CTE -> SCTE addString .)
     FOR             reduce using rule 66 (VAR_CTE -> SCTE addString .)
     INT             reduce using rule 66 (VAR_CTE -> SCTE addString .)
@@ -3868,12 +3874,13 @@ state 152
     FALSE           reduce using rule 66 (VAR_CTE -> SCTE addString .)
     END             reduce using rule 66 (VAR_CTE -> SCTE addString .)
     RETURN          reduce using rule 66 (VAR_CTE -> SCTE addString .)
+    RPAR            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     RBRA            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     ELSE            reduce using rule 66 (VAR_CTE -> SCTE addString .)
     COMMA           reduce using rule 66 (VAR_CTE -> SCTE addString .)
 
 
-state 153
+state 154
 
     (108) addString -> empty .
 
@@ -3888,11 +3895,11 @@ state 153
     LESSEQTH        reduce using rule 108 (addString -> empty .)
     GREATEREQTH     reduce using rule 108 (addString -> empty .)
     EQUAL           reduce using rule 108 (addString -> empty .)
-    WRITE           reduce using rule 108 (addString -> empty .)
     IF              reduce using rule 108 (addString -> empty .)
     ID              reduce using rule 108 (addString -> empty .)
     DRAW            reduce using rule 108 (addString -> empty .)
     PRINT           reduce using rule 108 (addString -> empty .)
+    WRITE           reduce using rule 108 (addString -> empty .)
     WHILE           reduce using rule 108 (addString -> empty .)
     FOR             reduce using rule 108 (addString -> empty .)
     INT             reduce using rule 108 (addString -> empty .)
@@ -3915,11 +3922,10 @@ state 153
     COMMA           reduce using rule 108 (addString -> empty .)
 
 
-state 154
+state 155
 
     (67) VAR_CTE -> TRUE addBooleano .
 
-    RPAR            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     MULT            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     DIVI            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     PLUS            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
@@ -3931,11 +3937,11 @@ state 154
     LESSEQTH        reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     GREATEREQTH     reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     EQUAL           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
-    WRITE           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     IF              reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     ID              reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     DRAW            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     PRINT           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
+    WRITE           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     WHILE           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     FOR             reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     INT             reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
@@ -3952,33 +3958,34 @@ state 154
     FALSE           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     END             reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     RETURN          reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
+    RPAR            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     RBRA            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     ELSE            reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
     COMMA           reduce using rule 67 (VAR_CTE -> TRUE addBooleano .)
 
 
-state 155
+state 156
 
     (42) FORZ -> FOR LPAR ICTE . COMMA ICTE COMMA ICTE RPAR BLOQUE END
 
-    COMMA           shift and go to state 193
-
-
-state 156
-
-    (33) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP . RPAR
-
-    RPAR            shift and go to state 194
+    COMMA           shift and go to state 194
 
 
 state 157
+
+    (33) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP . RPAR
+
+    RPAR            shift and go to state 195
+
+
+state 158
 
     (34) LLAMADA_FUNCIONP -> EXPRE . LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
     (36) LLAMADA_FUNCIONZ -> . COMMA
     (37) LLAMADA_FUNCIONZ -> . empty
     (1) empty -> .
 
-    COMMA           shift and go to state 196
+    COMMA           shift and go to state 197
     LBRA            reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
@@ -3989,10 +3996,10 @@ state 157
     FALSE           reduce using rule 1 (empty -> .)
     RPAR            reduce using rule 1 (empty -> .)
 
-    LLAMADA_FUNCIONZ               shift and go to state 195
-    empty                          shift and go to state 197
+    LLAMADA_FUNCIONZ               shift and go to state 196
+    empty                          shift and go to state 198
 
-state 158
+state 159
 
     (35) LLAMADA_FUNCIONP -> empty .
     (113) pushExp -> empty .
@@ -4007,119 +4014,119 @@ state 158
     FALSE           reduce using rule 115 (genQuad0 -> empty .)
 
 
-state 159
+state 160
 
     (90) DIBUJA -> DERECHA .
 
     LPAR            reduce using rule 90 (DIBUJA -> DERECHA .)
 
 
-state 160
+state 161
 
     (98) DIBUJA -> ARCO .
 
     LPAR            reduce using rule 98 (DIBUJA -> ARCO .)
 
 
-state 161
+state 162
 
     (95) DIBUJA -> CIRCULO .
 
     LPAR            reduce using rule 95 (DIBUJA -> CIRCULO .)
 
 
-state 162
+state 163
 
     (91) DIBUJA -> VELOCIDAD .
 
     LPAR            reduce using rule 91 (DIBUJA -> VELOCIDAD .)
 
 
-state 163
+state 164
 
     (88) DIBUJA -> REVERSA .
 
     LPAR            reduce using rule 88 (DIBUJA -> REVERSA .)
 
 
-state 164
+state 165
 
     (94) DIBUJA -> OCULTAR .
 
     LPAR            reduce using rule 94 (DIBUJA -> OCULTAR .)
 
 
-state 165
+state 166
 
     (85) DIBUJA -> DEFINIRPOSICION .
 
     LPAR            reduce using rule 85 (DIBUJA -> DEFINIRPOSICION .)
 
 
-state 166
+state 167
 
     (93) DIBUJA -> MOSTRAR .
 
     LPAR            reduce using rule 93 (DIBUJA -> MOSTRAR .)
 
 
-state 167
+state 168
 
     (89) DIBUJA -> IZQUIERDA .
 
     LPAR            reduce using rule 89 (DIBUJA -> IZQUIERDA .)
 
 
-state 168
+state 169
 
     (79) ACCION -> ID POINT DIBUJA . LPAR VAR_CTE RPAR
 
-    LPAR            shift and go to state 198
+    LPAR            shift and go to state 199
 
 
-state 169
+state 170
 
     (87) DIBUJA -> DERECHO .
 
     LPAR            reduce using rule 87 (DIBUJA -> DERECHO .)
 
 
-state 170
+state 171
 
     (97) DIBUJA -> DEFINIRY .
 
     LPAR            reduce using rule 97 (DIBUJA -> DEFINIRY .)
 
 
-state 171
+state 172
 
     (96) DIBUJA -> DEFINIRX .
 
     LPAR            reduce using rule 96 (DIBUJA -> DEFINIRX .)
 
 
-state 172
+state 173
 
     (92) DIBUJA -> BORRAR .
 
     LPAR            reduce using rule 92 (DIBUJA -> BORRAR .)
 
 
-state 173
+state 174
 
     (99) DIBUJA -> GROSOR .
 
     LPAR            reduce using rule 99 (DIBUJA -> GROSOR .)
 
 
-state 174
+state 175
 
     (86) DIBUJA -> DEFINIRCOLOR .
 
     LPAR            reduce using rule 86 (DIBUJA -> DEFINIRCOLOR .)
 
 
-state 175
+state 176
 
     (76) FACT -> LPAR . EXPRE RPAR
     (52) EXPRE -> . EXT EXPREZ
@@ -4134,8 +4141,8 @@ state 175
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -4143,16 +4150,16 @@ state 175
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 199
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 200
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 176
+state 177
 
     (75) FACT -> LBRA . EXPRE RBRA
     (52) EXPRE -> . EXT EXPREZ
@@ -4167,8 +4174,8 @@ state 176
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -4176,16 +4183,16 @@ state 176
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 200
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 201
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
 
-state 177
+state 178
 
     (77) FACT -> empty .
 
@@ -4200,11 +4207,11 @@ state 177
     LESSEQTH        reduce using rule 77 (FACT -> empty .)
     GREATEREQTH     reduce using rule 77 (FACT -> empty .)
     EQUAL           reduce using rule 77 (FACT -> empty .)
-    WRITE           reduce using rule 77 (FACT -> empty .)
     IF              reduce using rule 77 (FACT -> empty .)
     ID              reduce using rule 77 (FACT -> empty .)
     DRAW            reduce using rule 77 (FACT -> empty .)
     PRINT           reduce using rule 77 (FACT -> empty .)
+    WRITE           reduce using rule 77 (FACT -> empty .)
     WHILE           reduce using rule 77 (FACT -> empty .)
     FOR             reduce using rule 77 (FACT -> empty .)
     INT             reduce using rule 77 (FACT -> empty .)
@@ -4227,7 +4234,7 @@ state 177
     COMMA           reduce using rule 77 (FACT -> empty .)
 
 
-state 178
+state 179
 
     (74) FAC -> ID operandPush FACT .
 
@@ -4242,13 +4249,11 @@ state 178
     LESSEQTH        reduce using rule 74 (FAC -> ID operandPush FACT .)
     GREATEREQTH     reduce using rule 74 (FAC -> ID operandPush FACT .)
     EQUAL           reduce using rule 74 (FAC -> ID operandPush FACT .)
-    RPAR            reduce using rule 74 (FAC -> ID operandPush FACT .)
-    END             reduce using rule 74 (FAC -> ID operandPush FACT .)
-    WRITE           reduce using rule 74 (FAC -> ID operandPush FACT .)
     IF              reduce using rule 74 (FAC -> ID operandPush FACT .)
     ID              reduce using rule 74 (FAC -> ID operandPush FACT .)
     DRAW            reduce using rule 74 (FAC -> ID operandPush FACT .)
     PRINT           reduce using rule 74 (FAC -> ID operandPush FACT .)
+    WRITE           reduce using rule 74 (FAC -> ID operandPush FACT .)
     WHILE           reduce using rule 74 (FAC -> ID operandPush FACT .)
     FOR             reduce using rule 74 (FAC -> ID operandPush FACT .)
     INT             reduce using rule 74 (FAC -> ID operandPush FACT .)
@@ -4263,41 +4268,43 @@ state 178
     SCTE            reduce using rule 74 (FAC -> ID operandPush FACT .)
     TRUE            reduce using rule 74 (FAC -> ID operandPush FACT .)
     FALSE           reduce using rule 74 (FAC -> ID operandPush FACT .)
+    END             reduce using rule 74 (FAC -> ID operandPush FACT .)
     RETURN          reduce using rule 74 (FAC -> ID operandPush FACT .)
-    ELSE            reduce using rule 74 (FAC -> ID operandPush FACT .)
+    RPAR            reduce using rule 74 (FAC -> ID operandPush FACT .)
     RBRA            reduce using rule 74 (FAC -> ID operandPush FACT .)
+    ELSE            reduce using rule 74 (FAC -> ID operandPush FACT .)
     COMMA           reduce using rule 74 (FAC -> ID operandPush FACT .)
-
-
-state 179
-
-    (43) CONDICION -> IF LPAR EXPRE . RPAR BLOQUE CONDICIONP END
-
-    RPAR            shift and go to state 201
 
 
 state 180
 
-    (70) IMPRIMIR -> WRITE LBRA DATA_TIPOS . COMMA ID generateRead RBRA
+    (43) CONDICION -> IF LPAR EXPRE . RPAR BLOQUE CONDICIONP END
 
-    COMMA           shift and go to state 202
+    RPAR            shift and go to state 202
 
 
 state 181
 
-    (41) WHILEF -> WHILE LPAR EXPRE . RPAR BLOQUE END
+    (70) ESCRIBIR -> WRITE LPAR DATA_TIPOS . COMMA ID generateRead RPAR
 
-    RPAR            shift and go to state 203
+    COMMA           shift and go to state 203
 
 
 state 182
+
+    (41) WHILEF -> WHILE LPAR EXPRE . RPAR BLOQUE END
+
+    RPAR            shift and go to state 204
+
+
+state 183
 
     (81) VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .
 
     RPAR            reduce using rule 81 (VAR_FUNP -> DATA_TIPOS ID VAR_FUNZ .)
 
 
-state 183
+state 184
 
     (83) VAR_FUNZ -> COMMA . VAR_FUNP
     (81) VAR_FUNP -> . DATA_TIPOS ID VAR_FUNZ
@@ -4316,33 +4323,33 @@ state 183
     VOID            shift and go to state 11
     RPAR            reduce using rule 1 (empty -> .)
 
-    empty                          shift and go to state 80
-    DATA_TIPOS                     shift and go to state 78
-    VAR_FUNP                       shift and go to state 204
+    empty                          shift and go to state 81
+    DATA_TIPOS                     shift and go to state 79
+    VAR_FUNP                       shift and go to state 205
 
-state 184
+state 185
 
     (84) VAR_FUNZ -> empty .
 
     RPAR            reduce using rule 84 (VAR_FUNZ -> empty .)
 
 
-state 185
+state 186
 
     (78) FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE . END restoreScope
 
-    END             shift and go to state 205
+    END             shift and go to state 206
 
 
-state 186
+state 187
 
     (10) VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .
 
-    WRITE           reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     IF              reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     ID              reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     DRAW            reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     PRINT           reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
+    WRITE           reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     WHILE           reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     FOR             reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
     INT             reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
@@ -4362,15 +4369,15 @@ state 186
     RETURN          reduce using rule 10 (VART -> DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR .)
 
 
-state 187
+state 188
 
     (53) EXPREZ -> EQUAL operatorPush EXT .
 
-    WRITE           reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     IF              reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     ID              reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     DRAW            reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     PRINT           reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
+    WRITE           reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     WHILE           reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     FOR             reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
     INT             reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
@@ -4393,7 +4400,7 @@ state 187
     RBRA            reduce using rule 53 (EXPREZ -> EQUAL operatorPush EXT .)
 
 
-state 188
+state 189
 
     (56) EXT_W_RELOP -> RELOP operatorPush . EXT
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
@@ -4407,8 +4414,8 @@ state 188
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -4416,23 +4423,23 @@ state 188
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    pushExp                        shift and go to state 62
-    empty                          shift and go to state 92
-    EXT                            shift and go to state 206
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
-    genQuad0                       shift and go to state 66
+    pushExp                        shift and go to state 63
+    empty                          shift and go to state 93
+    EXT                            shift and go to state 207
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
+    genQuad0                       shift and go to state 67
 
-state 189
+state 190
 
     (69) IMPRIMIR -> PRINT LBRA EXT RBRA .
 
-    WRITE           reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     IF              reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     ID              reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     DRAW            reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     PRINT           reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
+    WRITE           reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     WHILE           reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     FOR             reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
     INT             reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
@@ -4452,7 +4459,7 @@ state 189
     ELSE            reduce using rule 69 (IMPRIMIR -> PRINT LBRA EXT RBRA .)
 
 
-state 190
+state 191
 
     (59) EXP_W_SIGN -> ASOP operatorPush . EXP
     (58) EXP -> . TERMINO genQuad2 EXP_W_SIGN
@@ -4465,8 +4472,8 @@ state 190
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -4474,14 +4481,14 @@ state 190
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    pushExp                        shift and go to state 62
-    empty                          shift and go to state 92
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 207
-    FAC                            shift and go to state 63
-    genQuad0                       shift and go to state 66
+    pushExp                        shift and go to state 63
+    empty                          shift and go to state 93
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 208
+    FAC                            shift and go to state 64
+    genQuad0                       shift and go to state 67
 
-state 191
+state 192
 
     (71) FAC -> pushExp LPAR EXPRE RPAR . popExp
     (114) popExp -> . empty
@@ -4498,11 +4505,11 @@ state 191
     LESSEQTH        reduce using rule 1 (empty -> .)
     GREATEREQTH     reduce using rule 1 (empty -> .)
     EQUAL           reduce using rule 1 (empty -> .)
-    WRITE           reduce using rule 1 (empty -> .)
     IF              reduce using rule 1 (empty -> .)
     ID              reduce using rule 1 (empty -> .)
     DRAW            reduce using rule 1 (empty -> .)
     PRINT           reduce using rule 1 (empty -> .)
+    WRITE           reduce using rule 1 (empty -> .)
     WHILE           reduce using rule 1 (empty -> .)
     FOR             reduce using rule 1 (empty -> .)
     INT             reduce using rule 1 (empty -> .)
@@ -4524,10 +4531,10 @@ state 191
     ELSE            reduce using rule 1 (empty -> .)
     COMMA           reduce using rule 1 (empty -> .)
 
-    popExp                         shift and go to state 208
-    empty                          shift and go to state 209
+    popExp                         shift and go to state 209
+    empty                          shift and go to state 210
 
-state 192
+state 193
 
     (62) TERMINO_W_SIGN -> MDOP operatorPush . TERMINO
     (61) TERMINO -> . FAC genQuad1 TERMINO_W_SIGN
@@ -4539,8 +4546,8 @@ state 192
     (115) genQuad0 -> . empty
     (1) empty -> .
 
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
     FCTE            reduce using rule 1 (empty -> .)
@@ -4548,28 +4555,28 @@ state 192
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
 
-    empty                          shift and go to state 92
-    TERMINO                        shift and go to state 210
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    genQuad0                       shift and go to state 66
-
-state 193
-
-    (42) FORZ -> FOR LPAR ICTE COMMA . ICTE COMMA ICTE RPAR BLOQUE END
-
-    ICTE            shift and go to state 211
-
+    empty                          shift and go to state 93
+    TERMINO                        shift and go to state 211
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    genQuad0                       shift and go to state 67
 
 state 194
 
+    (42) FORZ -> FOR LPAR ICTE COMMA . ICTE COMMA ICTE RPAR BLOQUE END
+
+    ICTE            shift and go to state 212
+
+
+state 195
+
     (33) LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .
 
-    WRITE           reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     IF              reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     ID              reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     DRAW            reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     PRINT           reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
+    WRITE           reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     WHILE           reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     FOR             reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
     INT             reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
@@ -4589,7 +4596,7 @@ state 194
     ELSE            reduce using rule 33 (LLAMADA_FUNCION -> ID LPAR LLAMADA_FUNCIONP RPAR .)
 
 
-state 195
+state 196
 
     (34) LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ . LLAMADA_FUNCIONP
     (34) LLAMADA_FUNCIONP -> . EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
@@ -4613,20 +4620,20 @@ state 195
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    LBRA            shift and go to state 59
-    ID              shift and go to state 93
+    LBRA            shift and go to state 60
+    ID              shift and go to state 94
 
-    genQuad0                       shift and go to state 66
-    pushExp                        shift and go to state 62
-    EXPRE                          shift and go to state 157
-    LLAMADA_FUNCIONP               shift and go to state 212
-    EXT                            shift and go to state 55
-    TERMINO                        shift and go to state 61
-    EXP                            shift and go to state 56
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 158
+    genQuad0                       shift and go to state 67
+    pushExp                        shift and go to state 63
+    EXPRE                          shift and go to state 158
+    LLAMADA_FUNCIONP               shift and go to state 213
+    EXT                            shift and go to state 56
+    TERMINO                        shift and go to state 62
+    EXP                            shift and go to state 57
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 159
 
-state 196
+state 197
 
     (36) LLAMADA_FUNCIONZ -> COMMA .
 
@@ -4641,7 +4648,7 @@ state 196
     RPAR            reduce using rule 36 (LLAMADA_FUNCIONZ -> COMMA .)
 
 
-state 197
+state 198
 
     (37) LLAMADA_FUNCIONZ -> empty .
 
@@ -4656,7 +4663,7 @@ state 197
     RPAR            reduce using rule 37 (LLAMADA_FUNCIONZ -> empty .)
 
 
-state 198
+state 199
 
     (79) ACCION -> ID POINT DIBUJA LPAR . VAR_CTE RPAR
     (64) VAR_CTE -> . ICTE addInt
@@ -4665,29 +4672,29 @@ state 198
     (67) VAR_CTE -> . TRUE addBooleano
     (68) VAR_CTE -> . FALSE addBooleano
 
-    ICTE            shift and go to state 104
-    FCTE            shift and go to state 103
-    SCTE            shift and go to state 105
-    TRUE            shift and go to state 106
-    FALSE           shift and go to state 101
+    ICTE            shift and go to state 105
+    FCTE            shift and go to state 104
+    SCTE            shift and go to state 106
+    TRUE            shift and go to state 107
+    FALSE           shift and go to state 102
 
-    VAR_CTE                        shift and go to state 213
-
-state 199
-
-    (76) FACT -> LPAR EXPRE . RPAR
-
-    RPAR            shift and go to state 214
-
+    VAR_CTE                        shift and go to state 214
 
 state 200
 
-    (75) FACT -> LBRA EXPRE . RBRA
+    (76) FACT -> LPAR EXPRE . RPAR
 
-    RBRA            shift and go to state 215
+    RPAR            shift and go to state 215
 
 
 state 201
+
+    (75) FACT -> LBRA EXPRE . RBRA
+
+    RBRA            shift and go to state 216
+
+
+state 202
 
     (43) CONDICION -> IF LPAR EXPRE RPAR . BLOQUE CONDICIONP END
     (21) BLOQUE -> . ESTATUTO finishBlock BLOQUE
@@ -4699,7 +4706,7 @@ state 201
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -4711,7 +4718,7 @@ state 201
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -4730,7 +4737,6 @@ state 201
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     ELSE            reduce using rule 1 (empty -> .)
     END             reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
@@ -4739,48 +4745,50 @@ state 201
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 216
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 217
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
-
-state 202
-
-    (70) IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA . ID generateRead RBRA
-
-    ID              shift and go to state 217
-
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
 state 203
+
+    (70) ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA . ID generateRead RPAR
+
+    ID              shift and go to state 218
+
+
+state 204
 
     (41) WHILEF -> WHILE LPAR EXPRE RPAR . BLOQUE END
     (21) BLOQUE -> . ESTATUTO finishBlock BLOQUE
@@ -4792,7 +4800,7 @@ state 203
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -4804,7 +4812,7 @@ state 203
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -4823,7 +4831,6 @@ state 203
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     END             reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
@@ -4831,48 +4838,50 @@ state 203
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 218
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 219
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
-state 204
+state 205
 
     (83) VAR_FUNZ -> COMMA VAR_FUNP .
 
     RPAR            reduce using rule 83 (VAR_FUNZ -> COMMA VAR_FUNP .)
 
 
-state 205
+state 206
 
     (78) FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END . restoreScope
     (100) restoreScope -> . empty
@@ -4881,19 +4890,19 @@ state 205
     DEFINE          reduce using rule 1 (empty -> .)
     MAIN            reduce using rule 1 (empty -> .)
 
-    empty                          shift and go to state 219
-    restoreScope                   shift and go to state 220
+    empty                          shift and go to state 220
+    restoreScope                   shift and go to state 221
 
-state 206
+state 207
 
     (56) EXT_W_RELOP -> RELOP operatorPush EXT .
 
     EQUAL           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
-    WRITE           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     IF              reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     ID              reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     DRAW            reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     PRINT           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
+    WRITE           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     WHILE           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     FOR             reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
     INT             reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
@@ -4916,7 +4925,7 @@ state 206
     COMMA           reduce using rule 56 (EXT_W_RELOP -> RELOP operatorPush EXT .)
 
 
-state 207
+state 208
 
     (59) EXP_W_SIGN -> ASOP operatorPush EXP .
 
@@ -4927,11 +4936,11 @@ state 207
     LESSEQTH        reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     GREATEREQTH     reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     EQUAL           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
-    WRITE           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     IF              reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     ID              reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     DRAW            reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     PRINT           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
+    WRITE           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     WHILE           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     FOR             reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
     INT             reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
@@ -4954,7 +4963,7 @@ state 207
     COMMA           reduce using rule 59 (EXP_W_SIGN -> ASOP operatorPush EXP .)
 
 
-state 208
+state 209
 
     (71) FAC -> pushExp LPAR EXPRE RPAR popExp .
 
@@ -4969,13 +4978,11 @@ state 208
     LESSEQTH        reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     GREATEREQTH     reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     EQUAL           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
-    RPAR            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
-    END             reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
-    WRITE           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     IF              reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     ID              reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     DRAW            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     PRINT           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
+    WRITE           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     WHILE           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     FOR             reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     INT             reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
@@ -4990,13 +4997,15 @@ state 208
     SCTE            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     TRUE            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     FALSE           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
+    END             reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     RETURN          reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
-    ELSE            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
+    RPAR            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     RBRA            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
+    ELSE            reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
     COMMA           reduce using rule 71 (FAC -> pushExp LPAR EXPRE RPAR popExp .)
 
 
-state 209
+state 210
 
     (114) popExp -> empty .
 
@@ -5011,11 +5020,11 @@ state 209
     LESSEQTH        reduce using rule 114 (popExp -> empty .)
     GREATEREQTH     reduce using rule 114 (popExp -> empty .)
     EQUAL           reduce using rule 114 (popExp -> empty .)
-    WRITE           reduce using rule 114 (popExp -> empty .)
     IF              reduce using rule 114 (popExp -> empty .)
     ID              reduce using rule 114 (popExp -> empty .)
     DRAW            reduce using rule 114 (popExp -> empty .)
     PRINT           reduce using rule 114 (popExp -> empty .)
+    WRITE           reduce using rule 114 (popExp -> empty .)
     WHILE           reduce using rule 114 (popExp -> empty .)
     FOR             reduce using rule 114 (popExp -> empty .)
     INT             reduce using rule 114 (popExp -> empty .)
@@ -5038,7 +5047,7 @@ state 209
     COMMA           reduce using rule 114 (popExp -> empty .)
 
 
-state 210
+state 211
 
     (62) TERMINO_W_SIGN -> MDOP operatorPush TERMINO .
 
@@ -5051,11 +5060,11 @@ state 210
     LESSEQTH        reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     GREATEREQTH     reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     EQUAL           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
-    WRITE           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     IF              reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     ID              reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     DRAW            reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     PRINT           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
+    WRITE           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     WHILE           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     FOR             reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
     INT             reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
@@ -5078,28 +5087,28 @@ state 210
     COMMA           reduce using rule 62 (TERMINO_W_SIGN -> MDOP operatorPush TERMINO .)
 
 
-state 211
+state 212
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE . COMMA ICTE RPAR BLOQUE END
 
-    COMMA           shift and go to state 221
+    COMMA           shift and go to state 222
 
 
-state 212
+state 213
 
     (34) LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP .
 
     RPAR            reduce using rule 34 (LLAMADA_FUNCIONP -> EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP .)
 
 
-state 213
+state 214
 
     (79) ACCION -> ID POINT DIBUJA LPAR VAR_CTE . RPAR
 
-    RPAR            shift and go to state 222
+    RPAR            shift and go to state 223
 
 
-state 214
+state 215
 
     (76) FACT -> LPAR EXPRE RPAR .
 
@@ -5114,11 +5123,11 @@ state 214
     LESSEQTH        reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     GREATEREQTH     reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     EQUAL           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
-    WRITE           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     IF              reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     ID              reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     DRAW            reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     PRINT           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
+    WRITE           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     WHILE           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     FOR             reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
     INT             reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
@@ -5141,7 +5150,7 @@ state 214
     COMMA           reduce using rule 76 (FACT -> LPAR EXPRE RPAR .)
 
 
-state 215
+state 216
 
     (75) FACT -> LBRA EXPRE RBRA .
 
@@ -5156,11 +5165,11 @@ state 215
     LESSEQTH        reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     GREATEREQTH     reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     EQUAL           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
-    WRITE           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     IF              reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     ID              reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     DRAW            reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     PRINT           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
+    WRITE           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     WHILE           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     FOR             reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
     INT             reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
@@ -5183,38 +5192,38 @@ state 215
     COMMA           reduce using rule 75 (FACT -> LBRA EXPRE RBRA .)
 
 
-state 216
+state 217
 
     (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE . CONDICIONP END
     (44) CONDICIONP -> . ELSE BLOQUE
     (45) CONDICIONP -> . empty
     (1) empty -> .
 
-    ELSE            shift and go to state 224
+    ELSE            shift and go to state 225
     END             reduce using rule 1 (empty -> .)
 
-    CONDICIONP                     shift and go to state 223
-    empty                          shift and go to state 225
-
-state 217
-
-    (70) IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID . generateRead RBRA
-    (102) generateRead -> . empty
-    (1) empty -> .
-
-    RBRA            reduce using rule 1 (empty -> .)
-
-    empty                          shift and go to state 227
-    generateRead                   shift and go to state 226
+    CONDICIONP                     shift and go to state 224
+    empty                          shift and go to state 226
 
 state 218
 
-    (41) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE . END
+    (70) ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID . generateRead RPAR
+    (102) generateRead -> . empty
+    (1) empty -> .
 
-    END             shift and go to state 228
+    RPAR            reduce using rule 1 (empty -> .)
 
+    empty                          shift and go to state 228
+    generateRead                   shift and go to state 227
 
 state 219
+
+    (41) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE . END
+
+    END             shift and go to state 229
+
+
+state 220
 
     (100) restoreScope -> empty .
 
@@ -5222,7 +5231,7 @@ state 219
     MAIN            reduce using rule 100 (restoreScope -> empty .)
 
 
-state 220
+state 221
 
     (78) FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END restoreScope .
 
@@ -5230,22 +5239,22 @@ state 220
     MAIN            reduce using rule 78 (FUNCION -> DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END restoreScope .)
 
 
-state 221
+state 222
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA . ICTE RPAR BLOQUE END
 
-    ICTE            shift and go to state 229
+    ICTE            shift and go to state 230
 
 
-state 222
+state 223
 
     (79) ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .
 
-    WRITE           reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     IF              reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     ID              reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     DRAW            reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     PRINT           reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    WRITE           reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     WHILE           reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     FOR             reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     INT             reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
@@ -5260,19 +5269,19 @@ state 222
     SCTE            reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     TRUE            reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     FALSE           reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
+    ELSE            reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     END             reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
     RETURN          reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
-    ELSE            reduce using rule 79 (ACCION -> ID POINT DIBUJA LPAR VAR_CTE RPAR .)
-
-
-state 223
-
-    (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP . END
-
-    END             shift and go to state 230
 
 
 state 224
+
+    (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP . END
+
+    END             shift and go to state 231
+
+
+state 225
 
     (44) CONDICIONP -> ELSE . BLOQUE
     (21) BLOQUE -> . ESTATUTO finishBlock BLOQUE
@@ -5284,7 +5293,7 @@ state 224
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -5296,7 +5305,7 @@ state 224
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -5315,7 +5324,6 @@ state 224
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     END             reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
@@ -5323,70 +5331,72 @@ state 224
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 231
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 232
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
-state 225
+state 226
 
     (45) CONDICIONP -> empty .
 
     END             reduce using rule 45 (CONDICIONP -> empty .)
 
 
-state 226
-
-    (70) IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead . RBRA
-
-    RBRA            shift and go to state 232
-
-
 state 227
 
-    (102) generateRead -> empty .
+    (70) ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead . RPAR
 
-    RBRA            reduce using rule 102 (generateRead -> empty .)
+    RPAR            shift and go to state 233
 
 
 state 228
 
+    (102) generateRead -> empty .
+
+    RPAR            reduce using rule 102 (generateRead -> empty .)
+
+
+state 229
+
     (41) WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .
 
-    WRITE           reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     IF              reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     ID              reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     DRAW            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     PRINT           reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
+    WRITE           reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     WHILE           reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     FOR             reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     INT             reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
@@ -5401,27 +5411,27 @@ state 228
     SCTE            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     TRUE            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     FALSE           reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
-    ELSE            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     END             reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
     RETURN          reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
-
-
-state 229
-
-    (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE . RPAR BLOQUE END
-
-    RPAR            shift and go to state 233
+    ELSE            reduce using rule 41 (WHILEF -> WHILE LPAR EXPRE RPAR BLOQUE END .)
 
 
 state 230
 
+    (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE . RPAR BLOQUE END
+
+    RPAR            shift and go to state 234
+
+
+state 231
+
     (43) CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .
 
-    WRITE           reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     IF              reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     ID              reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     DRAW            reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     PRINT           reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
+    WRITE           reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     WHILE           reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     FOR             reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
     INT             reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
@@ -5441,42 +5451,42 @@ state 230
     ELSE            reduce using rule 43 (CONDICION -> IF LPAR EXPRE RPAR BLOQUE CONDICIONP END .)
 
 
-state 231
+state 232
 
     (44) CONDICIONP -> ELSE BLOQUE .
 
     END             reduce using rule 44 (CONDICIONP -> ELSE BLOQUE .)
 
 
-state 232
-
-    (70) IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .
-
-    WRITE           reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    IF              reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    ID              reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    DRAW            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    PRINT           reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    WHILE           reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    FOR             reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    INT             reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    BOOLEAN         reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    STRING          reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    FLOAT           reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    VOID            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    LBRA            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    LPAR            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    ICTE            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    FCTE            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    SCTE            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    TRUE            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    FALSE           reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    END             reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    RETURN          reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-    ELSE            reduce using rule 70 (IMPRIMIR -> WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA .)
-
-
 state 233
+
+    (70) ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .
+
+    IF              reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    ID              reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    DRAW            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    PRINT           reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    WRITE           reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    WHILE           reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    FOR             reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    INT             reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    BOOLEAN         reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    STRING          reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    FLOAT           reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    VOID            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    LBRA            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    LPAR            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    ICTE            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    FCTE            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    SCTE            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    TRUE            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    FALSE           reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    END             reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    RETURN          reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+    ELSE            reduce using rule 70 (ESCRIBIR -> WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR .)
+
+
+state 234
 
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR . BLOQUE END
     (21) BLOQUE -> . ESTATUTO finishBlock BLOQUE
@@ -5488,7 +5498,7 @@ state 233
     (17) ESTATUTO -> . VART
     (18) ESTATUTO -> . LLAMADA_FUNCION
     (19) ESTATUTO -> . IMPRIMIR
-    (20) ESTATUTO -> . WRITE
+    (20) ESTATUTO -> . ESCRIBIR
     (1) empty -> .
     (52) EXPRE -> . EXT EXPREZ
     (43) CONDICION -> . IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
@@ -5500,7 +5510,7 @@ state 233
     (12) VART -> . ARR ID addVariable
     (33) LLAMADA_FUNCION -> . ID LPAR LLAMADA_FUNCIONP RPAR
     (69) IMPRIMIR -> . PRINT LBRA EXT RBRA
-    (70) IMPRIMIR -> . WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
+    (70) ESCRIBIR -> . WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
     (55) EXT -> . EXP genQuad3 EXT_W_RELOP
     (41) WHILEF -> . WHILE LPAR EXPRE RPAR BLOQUE END
     (42) FORZ -> . FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
@@ -5519,7 +5529,6 @@ state 233
     (113) pushExp -> . empty
     (115) genQuad0 -> . empty
 
-    WRITE           shift and go to state 75
     END             reduce using rule 1 (empty -> .)
     LPAR            reduce using rule 1 (empty -> .)
     ICTE            reduce using rule 1 (empty -> .)
@@ -5527,56 +5536,58 @@ state 233
     SCTE            reduce using rule 1 (empty -> .)
     TRUE            reduce using rule 1 (empty -> .)
     FALSE           reduce using rule 1 (empty -> .)
-    IF              shift and go to state 74
-    ID              shift and go to state 73
+    IF              shift and go to state 75
+    ID              shift and go to state 74
     DRAW            shift and go to state 14
-    PRINT           shift and go to state 57
-    WHILE           shift and go to state 77
-    FOR             shift and go to state 67
+    PRINT           shift and go to state 58
+    WRITE           shift and go to state 76
+    WHILE           shift and go to state 78
+    FOR             shift and go to state 68
     INT             shift and go to state 18
     BOOLEAN         shift and go to state 20
     STRING          shift and go to state 15
     FLOAT           shift and go to state 19
     VOID            shift and go to state 11
-    LBRA            shift and go to state 59
+    LBRA            shift and go to state 60
 
-    VART                           shift and go to state 68
-    CICLO                          shift and go to state 53
-    EXPRE                          shift and go to state 54
-    EXT                            shift and go to state 55
-    EXP                            shift and go to state 56
-    LLAMADA_FUNCION                shift and go to state 58
-    genQuad0                       shift and go to state 66
-    ESTATUTO                       shift and go to state 60
-    TERMINO                        shift and go to state 61
-    pushExp                        shift and go to state 62
-    FAC                            shift and go to state 63
-    empty                          shift and go to state 64
-    WHILEF                         shift and go to state 65
+    VART                           shift and go to state 69
+    ESTATUTO                       shift and go to state 61
+    CICLO                          shift and go to state 54
+    EXPRE                          shift and go to state 55
+    EXT                            shift and go to state 56
+    EXP                            shift and go to state 57
+    LLAMADA_FUNCION                shift and go to state 59
+    genQuad0                       shift and go to state 67
+    ESCRIBIR                       shift and go to state 53
+    TERMINO                        shift and go to state 62
+    pushExp                        shift and go to state 63
+    FAC                            shift and go to state 64
+    empty                          shift and go to state 65
+    WHILEF                         shift and go to state 66
     DATA_TIPOS                     shift and go to state 16
-    FORZ                           shift and go to state 69
-    IMPRIMIR                       shift and go to state 71
-    BLOQUE                         shift and go to state 234
+    FORZ                           shift and go to state 70
+    IMPRIMIR                       shift and go to state 72
+    BLOQUE                         shift and go to state 235
     ARR                            shift and go to state 17
-    ACCION                         shift and go to state 76
-    CONDICION                      shift and go to state 70
-
-state 234
-
-    (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE . END
-
-    END             shift and go to state 235
-
+    ACCION                         shift and go to state 77
+    CONDICION                      shift and go to state 71
 
 state 235
 
+    (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE . END
+
+    END             shift and go to state 236
+
+
+state 236
+
     (42) FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .
 
-    WRITE           reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     IF              reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     ID              reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     DRAW            reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     PRINT           reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    WRITE           reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     WHILE           reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     FOR             reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     INT             reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
@@ -5591,14 +5602,13 @@ state 235
     SCTE            reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     TRUE            reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     FALSE           reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
-    END             reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     RETURN          reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
     ELSE            reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
+    END             reduce using rule 42 (FORZ -> FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for LPAR in state 73 resolved as shift
-WARNING: shift/reduce conflict for LBRA in state 75 resolved as shift
-WARNING: shift/reduce conflict for LBRA in state 111 resolved as shift
-WARNING: shift/reduce conflict for LPAR in state 111 resolved as shift
+WARNING: shift/reduce conflict for LPAR in state 74 resolved as shift
+WARNING: shift/reduce conflict for LBRA in state 112 resolved as shift
+WARNING: shift/reduce conflict for LPAR in state 112 resolved as shift

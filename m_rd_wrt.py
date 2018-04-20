@@ -10,7 +10,6 @@ def print_quad(printable):
     state.temp_counter += 1
 
 def read_quad(type, var, scope):
-    print type, var, scope
     if(type == sem.var_table[scope][var][0]):
         qd = quad.Quad()
         qd.set_quad("read", None, "t" + str(state.temp_counter), var)
