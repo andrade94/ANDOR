@@ -12,6 +12,7 @@ from m_lexer import find_column
 import m_semantic as sem
 import m_st as state
 import m_expr as expr
+import m_rd_wrt as rw
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -61,7 +62,7 @@ def p_GLOBALEZ(p):
 def p_VART(p):
   '''VART : DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR
           | DATA_TIPOS ID addVariable
-        | ARR ID addVariable
+          | ARR ID addVariable
   '''
 # listo
 def p_ESTATUTO(p):
@@ -72,6 +73,7 @@ def p_ESTATUTO(p):
               | VART
               | LLAMADA_FUNCION
               | IMPRIMIR
+              | WRITE
   '''
 # listo 
 def p_BLOQUE(p):
@@ -190,16 +192,18 @@ def p_TERMINO_W_SIGN(p):
 def p_VAR_CTE(p):
   '''VAR_CTE  : ICTE addInt
               | FCTE addFloat
+              | SCTE addString
+              | TRUE addBooleano
+              | FALSE addBooleano
   '''
   p[0] = p[1]
 # listo  
 def p_IMPRIMIR(p):
-  '''IMPRIMIR : PRINT LBRA IMPRIMIRZ RBRA
+  '''IMPRIMIR : PRINT LBRA EXT  RBRA
   '''
-# listo
-def p_IMPRIMIRZ(p):
-  '''IMPRIMIRZ  : EXPRE 
-                | SCTE
+#listo
+def p_WRITE(p):
+  '''IMPRIMIR : WRITE LBRA DATA_TIPOS COMMA ID generateRead RBRA
   '''
 #listo
 def p_FAC(p):
@@ -265,6 +269,7 @@ def p_error(p):
 
 # ==================    PUNTOS NEURALES ======================
 
+# Scopes
 def p_restoreScope(p):
     '''restoreScope  :   empty
     '''
@@ -276,6 +281,16 @@ def p_changeScope(p):
     sem.scope = p[-1]
     sem.validate_redeclaration_function(p[-1])
 
+def p_generateRead(p):
+    '''generateRead  :   empty
+    '''
+    rw.read_quad(p[-3], p[-1], sem.scope)
+
+def p_generatePrint(p):
+    '''generatePrint  :   empty
+    '''
+
+# Data types
 def p_addDataType(p):
     ''' addDataType :  empty
     '''
@@ -295,10 +310,21 @@ def p_addInt(p):
     '''
     sem.fill_symbol_table_constant(p[-1],"entero")
 
+def p_addString(p):
+    '''addString  :   empty 
+    '''
+    sem.fill_symbol_table_constant(p[-1],"caracter")
+
+def p_addBooleano(p):
+    '''addBooleano  :   empty 
+    '''
+    sem.fill_symbol_table_constant(p[-1],"booleano")
+
 def p_blockFinish(p):
     '''finishBlock  :   empty
     '''
-    expr.clear_stacks()
+    # expr.clear_stacks()
+    pass
 
 # Math rules
 def p_operandPush(p):

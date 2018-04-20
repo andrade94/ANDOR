@@ -10,9 +10,9 @@ defino entero mam(entero y, flotante x)
   regresa x
 fin
 
-defino flotante yo(entero x, flotante y)
+defino flotante yo()
   entero t
-  regresa y
+  regresa t
 fin
 
 principal()

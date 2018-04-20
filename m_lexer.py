@@ -13,6 +13,7 @@ reserved = {
     'no' : 'NOT',
     'fin': 'END',
     'imprimir' : 'PRINT',
+    'escribir' : 'WRITE',
     'defino' : 'DEFINE',
     'mientrast' : 'WHILE',
     'mientras' : 'FOR',
@@ -112,7 +113,9 @@ def t_ICTE(t):
     return t
 # Regular expression for string.
 def t_SCTE(t):
-  r'\".*\"'
+    r'\".*\"'
+    tokens.append(t)
+    return t
 # Returns a new line.
 def t_newline(t):
     r'\n+'

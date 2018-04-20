@@ -326,8 +326,10 @@ def validate_variable_is_declared(var):
     
 def is_declared(var):
     if(var_table.get(scope) == None):
-        raise NameError("Undeclared variable '{0}'".format(var))
-    elif(var_table[scope].get(var) == None and var_table[global_str].get(var) == None and var_table[constant_str].get(var) == None):
+        raise NameError("Undeclared variable '{0}'".format(var)) 
+    elif(isinstance(var,str)):
+        return True
+    elif(var_table[scope].get(var) == None and var_table[global_str].get(var) == None and var_table[constant_str].get(var) == None ):
         raise NameError("Undeclared variable '{0}'".format(var))
     else:
         return True
@@ -342,8 +344,11 @@ def get_variable(var):
         
 def get_type(op, op1, op2):
     print op, op1, op2
-    type = semantic_cube[op][op1[1][0]][op2[1][0]]
+    if(isinstance(op1,str)):
+        type = semantic_cube[op]["caracter"][op2[1][0]]
+    else:
+        type = semantic_cube[op][op1[1][0]][op2[1][0]]
     if(type != None):
         return type
     else:
-        raise NameError("Incompatible types '{0}' and '{1}'".format(op1[1][0], op2[1][0]))
+        raise NameError("Incompatible types '{0}' and '{1}'".format(op1[1][0], op2[1][0]))  
