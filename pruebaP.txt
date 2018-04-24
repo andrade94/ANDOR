@@ -3,13 +3,6 @@ global
   flotante e
 fin
 
-defino entero mam(entero y, flotante x)
-  entero o
-  flotante x
-  x = x + 2 * 1
-  regresa x
-fin
-
 defino flotante yo()
   entero t
   regresa t

@@ -43,6 +43,7 @@ def p_PROGRAMA(p):
 # listo
 def p_PROGRAMAB(p):
   '''PROGRAMAB  : FUNCION PROGRAMAB
+                | FUNCIONV PROGRAMAB
                 | empty
   '''
 # listo
@@ -60,10 +61,15 @@ def p_GLOBALEZ(p):
   '''
 # listo
 def p_VART(p):
-  '''VART : DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR
-          | DATA_TIPOS ID addVariable
-          | ARR ID addVariable
+  '''VART : DATA_TIPOS ID VARZ addVariable
   '''
+
+def p_VARZ(p):
+  '''VARZ : LBRA ICTE RBRA
+          | empty
+  '''
+  p[0] = p[1]
+  #  DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR
 # listo
 def p_ESTATUTO(p):
   '''ESTATUTO : EXPRE genQuad5
@@ -73,7 +79,7 @@ def p_ESTATUTO(p):
               | VART
               | LLAMADA_FUNCION
               | IMPRIMIR
-              | ESCRIBIR
+              | LEER
   '''
 # listo 
 def p_BLOQUE(p):
@@ -99,11 +105,6 @@ def p_ASOP(p):
 def p_MDOP(p):
   '''MDOP : MULT
           | DIVI
-  '''
-  p[0] = p[1]
-# listo
-def p_ARR(p):
-  '''ARR : DATA_TIPOS LBRA ICTE RBRA
   '''
   p[0] = p[1]
 # listo
@@ -202,8 +203,8 @@ def p_IMPRIMIR(p):
   '''IMPRIMIR : PRINT LBRA EXT  RBRA
   '''
 #listo
-def p_ESCRIBIR(p):
-  '''ESCRIBIR : WRITE LPAR DATA_TIPOS COMMA ID generateRead RPAR
+def p_LEER(p):
+  '''LEER : READ LPAR DATA_TIPOS COMMA ID generateRead RPAR
   '''
 #listo
 def p_FAC(p):
@@ -220,22 +221,32 @@ def p_FACT(p):
   '''
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN BLOQUE RETURN EXPRE END restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
+def p_FUNCIONV(p): 
+  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END restoreScope
+  '''
+
 def p_ACCION(p): 
   '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
   '''
 # listo
 def p_VAR_FUN(p): 
-  ''' VAR_FUN : LPAR VAR_FUNP RPAR
+  '''VAR_FUN : LPAR VAR_FUNP RPAR
   '''
 # listo
 def p_VAR_FUNP(p): 
-  '''VAR_FUNP : DATA_TIPOS ID VAR_FUNZ
+  '''VAR_FUNP : DATA_TIPOS ID VAR_FUNX addVariable updateSize VAR_FUNZ
               | empty
   '''
+
+def p_VAR_FUNX(p):
+  '''VAR_FUNX : LBRA RBRA
+              | empty
+  '''
+  p[0] = p[1]
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
@@ -284,8 +295,8 @@ def p_changeScope(p):
 def p_generateRead(p):
     '''generateRead  :   empty
     '''
-    # rw.read_quad(p[-3], p[-1], sem.scope)
-    print(p[-3],p[-1])
+    # print(p[-3],p[-1])
+    rw.read_quad(p[-3], p[-1], sem.scope)
 
 def p_generatePrint(p):
     '''generatePrint  :   empty
@@ -299,7 +310,11 @@ def p_addDataType(p):
 def p_addVariable(p):
     '''addVariable  :   empty 
     '''
-    sem.fill_symbol_table_variable(p[-1],p[-2])
+    type = p[-3]
+    if(p[-1] != None):
+        type += "[]"
+    sem.fill_symbol_table_variable(p[-2],type)
+    p[0] = type
 
 def p_addFloat(p):
     '''addFloat  :   empty 
@@ -326,6 +341,19 @@ def p_blockFinish(p):
     '''
     # expr.clear_stacks()
     pass
+# Function functions
+def p_seenFunction(p):
+    '''seenFunction  :   empty
+    '''
+    sem.fill_symbol_table_function(p[-3],[p[-4], sem.get_signature(), sem.get_function_size()])
+    sem.clear_signature()
+    sem.clear_function_size
+
+def p_updateSize(p):
+    '''updateSize  :   empty
+    '''
+    sem.update_signature(p[-1])
+    sem.update_function_size(p[-1])
 
 # Math rules
 def p_operandPush(p):
@@ -405,11 +433,18 @@ with open('prueba.txt','r') as f:
     input = f.read()
     pp.pprint(parser.parse(input))
     var_table = sem.var_table
+    func_table = sem.func_table
     for quad in state.quads:
       print(quad.operator, quad.operand1, quad.operand2, quad.result)
     print "Scope\t|Id\t|Type"
     print "--------|-------|--------"
     for k in var_table:
+        sys.stdout.write(k)
+        for k1 in var_table[k]:
+            print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
+        print "--------|-------|--------"
+    print "--------|-------|--------"
+    for k in func_table:
         sys.stdout.write(k)
         for k1 in var_table[k]:
             print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])

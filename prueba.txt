@@ -14,7 +14,7 @@ principal()
   entero z
   entero x
   entero p
-  escribir(entero,x)
+  leer(entero,x)
   u = "h"
   z = 1
   m = 2

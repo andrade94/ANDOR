@@ -6,6 +6,9 @@ global_str = "global"
 constant_str = "constant"
 scope = global_str
 var_table = {scope:{}, constant_str:{}} 
+func_table = {}
+signature = []
+f_size = 0
 
 operation = None
 semantic_cube = {
@@ -297,7 +300,6 @@ semantic_cube = {
 }
 }
                    
-
 def fill_symbol_table_variable(symbol, type):
      #verifica si existe el scope dado
      if(var_table.get(scope) == None):
@@ -308,6 +310,12 @@ def fill_symbol_table_variable(symbol, type):
      else:
          var_table[scope][symbol] = [type]
 
+def fill_symbol_table_function(symbol, attributes):
+    if(func_table.get(symbol) == None):
+         func_table[symbol] = attributes
+    else:
+        raise NameError("Function redeclaration, '{0}' already exists".format(symbol))
+
 def fill_symbol_table_constant(symbol, type):
     if(var_table[constant_str].get(symbol) != None):
         return
@@ -315,6 +323,31 @@ def fill_symbol_table_constant(symbol, type):
         var_table[constant_str][symbol] = [type]
     print var_table
 	
+def update_signature(type):
+    global signature
+    signature.append(type)
+    
+def get_signature():
+    return signature
+    
+def clear_signature():
+    global signature
+    signature = []
+    
+def update_function_size(type):
+    global f_size
+    if(type[0] == "i" or type[0] == "f"):
+        f_size += 4
+    else:
+        f_size += 1
+    
+def get_function_size():
+    return f_size
+    
+def clear_function_size():
+    global size
+    f_size = 0
+
 def get_scope():
 	return scope  
 	

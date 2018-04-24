@@ -13,7 +13,7 @@ reserved = {
     'no' : 'NOT',
     'fin': 'END',
     'imprimir' : 'PRINT',
-    'escribir' : 'WRITE',
+    'leer' : 'READ',
     'defino' : 'DEFINE',
     'mientrast' : 'WHILE',
     'mientras' : 'FOR',
