@@ -6,18 +6,23 @@ def generate_quad(hierarchy):
     # if(hierarchy == 0 and (state.last_operator == 'u+' or state.last_operator == 'u-')):
     #     qd.set_quad(state.operator_stack.pop(), None, state.operand_stack.pop(), state.operand_stack.pop())
     #     state.temp_counter += 1
-    if(hierarchy == 1 and (state.last_operator == '*' or state.last_operator == '/')):
+    #     state.label += 1
+    if(hierarchy == 1 and (state.last_operator == '*' or state.last_operator == '/') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-    elif(hierarchy == 2 and (state.last_operator == '+' or state.last_operator == '-')):
+        state.label += 1
+    elif(hierarchy == 2 and (state.last_operator == '+' or state.last_operator == '-') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-    elif(hierarchy == 3 and (state.last_operator == '==' or state.last_operator == '<=' or state.last_operator == '>=' or state.last_operator == '<>'  or state.last_operator == '<'  or state.last_operator == '>')):
+        state.label += 1
+    elif(hierarchy == 3 and (state.last_operator == '==' or state.last_operator == '<=' or state.last_operator == '>=' or state.last_operator == '<>'  or state.last_operator == '<'  or state.last_operator == '>') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
+        state.label += 1
     elif(hierarchy == 5 and (state.last_operator == '=')):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
+        state.label += 1
     if(qd.operator != None):
         state.quads.append(qd)
         state.operand_stack.append(qd.result)
@@ -42,4 +47,5 @@ def push_expr():
 
 def pop_expr():
     state.operator_stack.pop()
-    state.last_operator = state.operator_stack[-1]
+    if (state.operator_stack):
+        state.last_operator = state.operator_stack[-1]

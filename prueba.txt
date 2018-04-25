@@ -4,7 +4,7 @@ global
   caracter u
 fin
 
-defino flotante yo()
+defino flotante yo(entero x, flotante b)
   entero t
   caracter y
   regresa t

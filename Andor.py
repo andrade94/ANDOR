@@ -13,6 +13,7 @@ import m_semantic as sem
 import m_st as state
 import m_expr as expr
 import m_rd_wrt as rw
+import m_if_wh as il
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -24,7 +25,7 @@ import m_rd_wrt as rw
 # globalFuncs = {}
 # lastFunc = None
 # funcArgs = []
-
+isPrint = False
 # Build the lexer
 file = open('prueba.txt','r')
 lexer.input(file.read())
@@ -129,23 +130,18 @@ def p_PRINCIPAL(p):
 # listo
 def p_CICLO(p):
   '''CICLO  : WHILEF
-            | FORZ
   '''
 # check
 def p_WHILEF(p):
-  '''WHILEF : WHILE LPAR EXPRE RPAR BLOQUE END
-  '''
-# listo
-def p_FORZ(p):
-  '''FORZ : FOR LPAR ICTE COMMA ICTE COMMA ICTE RPAR BLOQUE END
+  '''WHILEF : WHILE LPAR saveLabel EXPRE RPAR pushLabelS BLOQUE goValidate popLabelS END
   '''
 # listo
 def p_CONDICION(p):
-  '''CONDICION : IF LPAR EXPRE RPAR BLOQUE CONDICIONP END
+  '''CONDICION : IF LPAR EXT RPAR pushLabelS BLOQUE CONDICIONP END
   '''
 def p_CONDICIONP(p):
-  '''CONDICIONP : ELSE BLOQUE
-                | empty
+  '''CONDICIONP : ELSE pushElse popLabelS BLOQUE popLabelS
+                | popLabelS empty
   '''
 # listo
 def p_RELOP(p):
@@ -167,6 +163,8 @@ def p_EXPREZ(p):
 def p_EXT(p):
   '''EXT  : EXP genQuad3 EXT_W_RELOP
   '''
+  p[0] = p[1]
+
 def p_EXT_W_RELOP(p):
   '''EXT_W_RELOP  : RELOP operatorPush EXT
         | empty
@@ -175,6 +173,7 @@ def p_EXT_W_RELOP(p):
 def p_EXP(p):
   '''EXP : TERMINO genQuad2 EXP_W_SIGN
   '''
+  p[0] = p[1]
 # listo
 def p_EXP_W_SIGN(p):
   '''EXP_W_SIGN : ASOP operatorPush EXP
@@ -184,6 +183,7 @@ def p_EXP_W_SIGN(p):
 def p_TERMINO(p):
   '''TERMINO : FAC genQuad1 TERMINO_W_SIGN
   '''
+  p[0] = p[1]
 # listo
 def p_TERMINO_W_SIGN(p):
   '''TERMINO_W_SIGN : MDOP operatorPush TERMINO
@@ -200,7 +200,7 @@ def p_VAR_CTE(p):
   p[0] = p[1]
 # listo  
 def p_IMPRIMIR(p):
-  '''IMPRIMIR : PRINT LBRA EXT  RBRA
+  '''IMPRIMIR : PRINT LPAR isOnPrint EXT generatePrint RPAR
   '''
 #listo
 def p_LEER(p):
@@ -215,10 +215,22 @@ def p_FAC(p):
   '''
   #listo
 def p_FACT(p):
-  '''FACT : LBRA EXPRE RBRA
-          | LPAR EXPRE RPAR
+  '''FACT : LBRA EXT RBRA
+          | LPAR PRMS RPAR
           | empty
   '''
+
+#listo
+def p_PRMS(p):
+  '''PRMS   :  EXT PRMSZ
+  '''
+
+#listo
+def p_PRMSZ(p):
+  '''PRMSZ   :  COMMA PRMS
+              | empty
+  '''
+
 # listo
 def p_FUNCION(p): 
   '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END restoreScope
@@ -291,16 +303,27 @@ def p_changeScope(p):
     '''
     sem.scope = p[-1]
     sem.validate_redeclaration_function(p[-1])
-
+# Read
 def p_generateRead(p):
     '''generateRead  :   empty
     '''
     # print(p[-3],p[-1])
     rw.read_quad(p[-3], p[-1], sem.scope)
-
+# Print
 def p_generatePrint(p):
     '''generatePrint  :   empty
     '''
+    global isPrint
+    for e in state.params_list
+      rw.print_quad(e)
+    state.params_list = []
+    isPrint = False
+
+def p_isOnPrint(p):
+  	'''isOnPrint  :  empty
+    '''
+    global isPrint    
+	  isPrint = True
 
 # Data types
 def p_addDataType(p):
@@ -354,6 +377,39 @@ def p_updateSize(p):
     '''
     sem.update_signature(p[-1])
     sem.update_function_size(p[-1])
+
+# conditions
+def p_pushLabelS(p):
+    '''pushLabelS  :   empty
+    '''
+    state.label_stack.append(state.label)
+    il.generate_if_goto_F(state.operand_stack.pop())
+
+def p_popLabelS(p):
+    '''popLabelS  :   empty
+    '''
+    il.put_label_to_goto_F(state.label_stack.pop())
+
+def p_pushElse(p):
+    '''pushElse  :   empty
+    '''
+    temp = state.lable_stack.pop()
+    state.label_stack.append(state.label)
+    state.label_stack.append(temp)
+    il.generate_else_goto()
+
+# Loops
+def p_saveLabel(p):
+	'''saveLabel  :  empty
+  '''
+	state.label_stack.append(state.label)
+	
+def p_goValidate(p):
+	'''goValidate :  empty
+  '''
+	temp = state.label_stack.pop()
+	il.generate_loop_goto(state.label_stack.pop())
+	state.label_stack.append(temp)
 
 # Math rules
 def p_operandPush(p):

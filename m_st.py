@@ -2,6 +2,9 @@
 # Temp pool
 # TODO: Add a pool for each primitive
 
+params_list = []
+label_stack = []
+label = 0
 # Operands stack
 operand_stack = []
 
