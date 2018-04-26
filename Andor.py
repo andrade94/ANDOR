@@ -39,7 +39,7 @@ def p_empty(p):
     pass
 # listo
 def p_PROGRAMA(p):
-  '''PROGRAMA : PROGRAMAZ PROGRAMAB PRINCIPAL
+  '''PROGRAMA : PROGRAMAZ PROGRAMAB PRINCIPAL programEnd
   '''
 # listo
 def p_PROGRAMAB(p):
@@ -242,12 +242,12 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END restoreScope
+  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END functionEnd restoreScope
   '''
 
 def p_ACCION(p): 
@@ -380,6 +380,16 @@ def p_updateSize(p):
     '''
     sem.update_signature(p[-1])
     sem.update_function_size(p[-1])
+
+def p_programEnd(p):
+    '''programEnd  :   empty
+    '''
+    func.generate_end("main");
+
+def p_functionEnd(p):
+    '''functionEnd  :   empty
+    '''
+    func.generate_end(p[-8]);
 
 # conditions
 def p_pushLabelS(p):
