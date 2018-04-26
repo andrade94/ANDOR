@@ -2,11 +2,18 @@
 # Temp pool
 # TODO: Add a pool for each primitive
 
+# Conditions
 params_list = []
 label_stack = []
 label = 0
 # Operands stack
 operand_stack = []
+# Functions
+signature = []
+f_size = 0
+# Param Counter
+param_counter = 0
+param_types = []
 
 # Operator stack
 operator_stack = []
@@ -24,34 +31,14 @@ def clear_stacks():
     del(operand_stack[:])
     last_operator = None
 
-# def push_expr():
-    # global operator_stack, last_operator
-    # operator_stack.append('#')
-    # last_operator = None
+def reset_param_counter():
+    global param_counter
+    param_counter = 0
 
-# # Pops the expression and appends the generated quads
-# def pop_expr():
-    # global operator_stack, last_operator, operand_stack, quads
-    # while(last_operator != '#'):
-        # quad, operator_stack, operand_stack = math.generate_quad(operator_stack, operand_stack, 2)
-        # quads.append(quad)
-        # if(len(operator_stack) > 0):
-            # last_operator = operator_stack[-1]
-    # #operator_stack.pop()
-    # #last_operator = operator_stack[-1]
-    
-# def add_operand(operand):
-    # operand_stack.append(operand)
+def reset_param_types():
+    global param_types
+    param_types = []
 
-# def add_operator(operator):
-    # global last_operator
-    # operator_stack.append(operator)
-    # last_operator = operator_stack[-1]
-
-# def generate_quad(type):
-    # global operator_stack, last_operator, operand_stack, quads
-    # if(type == "math"):
-        # quad, operator_stack, operand_stack = math.generate_quad(operator_stack, operand_stack)
-        # quads.append(quad)
-        # if(len(operator_stack) > 0):
-            # last_operator = operator_stack[-1]
+def reset_call():
+    reset_param_counter()
+    reset_param_types()

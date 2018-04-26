@@ -96,18 +96,6 @@ def p_DATA_TIPOS(p):
                 | VOID addDataType
   '''
   p[0] = p[1]
-# listo 
-def p_ASOP(p):
-  '''ASOP : PLUS
-          | MINUS
-  '''
-  p[0] = p[1]
-# listo
-def p_MDOP(p):
-  '''MDOP : MULT
-          | DIVI
-  '''
-  p[0] = p[1]
 # listo
 def p_LLAMADA_FUNCION(p):
   '''LLAMADA_FUNCION : ID LPAR LLAMADA_FUNCIONP RPAR
@@ -145,13 +133,26 @@ def p_CONDICIONP(p):
   '''
 # listo
 def p_RELOP(p):
-  '''RELOP  : LESSTH 
+  '''RELOP  : LESSTH
             | GREATERTH
             | SEQUAL
             | NOTEQ
             | LESSEQTH
             | GREATEREQTH
   '''
+  p[0] = p[1]
+# listo 
+def p_ASOP(p):
+  '''ASOP : PLUS
+          | MINUS
+  '''
+  p[0] = p[1]
+# listo
+def p_MDOP(p):
+  '''MDOP : MULT
+          | DIVI
+  '''
+  p[0] = p[1]
 # listo
 def p_EXPRE(p):
   '''EXPRE : EXT EXPREZ
@@ -161,7 +162,7 @@ def p_EXPREZ(p):
             | empty
   '''
 def p_EXT(p):
-  '''EXT  : EXP genQuad3 EXT_W_RELOP
+  '''EXT  : EXP EXT_W_RELOP genQuad3
   '''
   p[0] = p[1]
 
@@ -313,18 +314,17 @@ def p_generateRead(p):
 def p_generatePrint(p):
     '''generatePrint  :   empty
     '''
-    global isPrint
-    for e in state.params_list
-      rw.print_quad(e)
-    state.params_list = []
-    isPrint = False
+    # global isPrint
+    # for e in state.params_list
+    #   rw.print_quad(e)
+    # state.params_list = []
+    # isPrint = False
 
 def p_isOnPrint(p):
-  	'''isOnPrint  :  empty
-    '''
-    global isPrint    
-	  isPrint = True
-
+  '''isOnPrint  :   empty
+  '''
+  global isPrint
+  isPrint = True
 # Data types
 def p_addDataType(p):
     ''' addDataType :  empty
@@ -393,7 +393,7 @@ def p_popLabelS(p):
 def p_pushElse(p):
     '''pushElse  :   empty
     '''
-    temp = state.lable_stack.pop()
+    temp = state.label_stack.pop()
     state.label_stack.append(state.label)
     state.label_stack.append(temp)
     il.generate_else_goto()
@@ -490,18 +490,18 @@ with open('prueba.txt','r') as f:
     pp.pprint(parser.parse(input))
     var_table = sem.var_table
     func_table = sem.func_table
-    for quad in state.quads:
-      print(quad.operator, quad.operand1, quad.operand2, quad.result)
-    print "Scope\t|Id\t|Type"
-    print "--------|-------|--------"
-    for k in var_table:
-        sys.stdout.write(k)
-        for k1 in var_table[k]:
-            print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
-        print "--------|-------|--------"
-    print "--------|-------|--------"
-    for k in func_table:
-        sys.stdout.write(k)
-        for k1 in var_table[k]:
-            print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
-        print "--------|-------|--------"
+    for idx, quad in enumerate(state.quads):
+      print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
+    # print "Scope\t|Id\t|Type"
+    # print "--------|-------|--------"
+    # for k in var_table:
+    #     sys.stdout.write(k)
+    #     for k1 in var_table[k]:
+    #         print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
+    #     print "--------|-------|--------"
+    # print "--------|-------|--------"
+    # for k in func_table:
+    #     sys.stdout.write(k)
+    #     for k1 in var_table[k]:
+    #         print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
+    #     print "--------|-------|--------"

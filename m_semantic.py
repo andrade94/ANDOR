@@ -321,7 +321,6 @@ def fill_symbol_table_constant(symbol, type):
         return
     else:
         var_table[constant_str][symbol] = [type]
-    print var_table
 	
 def update_signature(type):
     global signature
@@ -376,7 +375,6 @@ def get_variable(var):
         return [var, var_table[global_str].get(var)]
         
 def get_type(op, op1, op2):
-    print op, op1, op2
     if(isinstance(op1,str)):
         type = semantic_cube[op]["caracter"][op2[1][0]]
     else:

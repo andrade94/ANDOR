@@ -4,21 +4,14 @@ global
   caracter u
 fin
 
-defino flotante yo(entero x, flotante b)
-  entero t
-  caracter y
-  regresa t
-fin
-
 principal()
   entero z
   entero x
   entero p
-  leer(entero,x)
-  u = "h"
-  z = 1
-  m = 2
-  e = 3.0
+  x = 2
+  mientras(x < 3)
+    x = x + 1
+  fin
   entero me 
   me = 2
   x = z + m * 3
