@@ -4,7 +4,7 @@ import m_semantic as sem
 
 def print_quad(printable):
     qd = quad.Quad()
-    qd.set_quad("print", None, printable, "t" + str(state.temp_counter))
+    qd.set_quad("print", None, printable, None)
     # state.operand_stack.append(qd.result)
     state.quads.append(qd)
     state.temp_counter += 1

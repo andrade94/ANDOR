@@ -201,9 +201,17 @@ def p_VAR_CTE(p):
   p[0] = p[1]
 # listo  
 def p_IMPRIMIR(p):
-  '''IMPRIMIR : PRINT LPAR isOnPrint EXT generatePrint RPAR
+  '''IMPRIMIR : PRINT LPAR ARGSIMP RPAR
   '''
 #listo
+def p_ARGSIMP(p):
+  '''ARGSIMP  : EXP generatePrint ARGSIMPX
+              | SCTE generatePrint ARGSIMPX
+  '''
+def p_ARGSIMPX(p):
+  '''ARGSIMPX : COMMA ARGSIMP
+              | empty
+  '''
 def p_LEER(p):
   '''LEER : READ LPAR DATA_TIPOS COMMA ID generateRead RPAR
   '''
@@ -314,17 +322,12 @@ def p_generateRead(p):
 def p_generatePrint(p):
     '''generatePrint  :   empty
     '''
-    # global isPrint
-    # for e in state.params_list
-    #   rw.print_quad(e)
-    # state.params_list = []
-    # isPrint = False
+    if(isinstance(p[-1], str) and p[-1][0] == '"'):
+      param = p[-1]
+    else:
+      param = state.operand_stack.pop()
+    rw.print_quad(param)
 
-def p_isOnPrint(p):
-  '''isOnPrint  :   empty
-  '''
-  global isPrint
-  isPrint = True
 # Data types
 def p_addDataType(p):
     ''' addDataType :  empty

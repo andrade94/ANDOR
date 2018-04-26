@@ -9,6 +9,7 @@ principal()
   entero x
   entero p
   x = 2
+  imprimir(x)
   mientras(x < 3)
     x = x + 1
   fin
