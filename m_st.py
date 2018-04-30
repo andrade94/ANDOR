@@ -1,26 +1,34 @@
 # Module that keeps the state of the parser
 # Temp pool
 # TODO: Add a pool for each primitive
-
-# Conditions
+            
+#list of al the params
 params_list = []
+
+#label stack 
 label_stack = []
-label = 0
+
 # Operands stack
 operand_stack = []
-# Functions
-signature = []
-f_size = 0
-# Param Counter
-param_counter = 0
-param_types = []
 
 # Operator stack
-operator_stack = []
+operator_stack = []  
+
 last_operator = None
 
 # Temp counter
-temp_counter = 0
+temp_counter = 0   
+
+# Function signature
+signature = []
+
+# Function size(bytes)
+f_size = 0
+
+# Param counter
+param_counter = 0
+# Param types of function call
+param_types = []
 
 # Quad list
 quads = []
@@ -31,14 +39,8 @@ def clear_stacks():
     del(operand_stack[:])
     last_operator = None
 
-def reset_param_counter():
-    global param_counter
-    param_counter = 0
-
-def reset_param_types():
-    global param_types
-    param_types = []
-
 def reset_call():
-    reset_param_counter()
-    reset_param_types()
+    global param_counter, param_types, signature
+    param_counter = 0
+    param_types = []
+    signature = []

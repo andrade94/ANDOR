@@ -14,6 +14,8 @@ import m_st as state
 import m_expr as expr
 import m_rd_wrt as rw
 import m_if_wh as il
+import m_fun as func
+import m_main as main
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -39,7 +41,7 @@ def p_empty(p):
     pass
 # listo
 def p_PROGRAMA(p):
-  '''PROGRAMA : PROGRAMAZ PROGRAMAB PRINCIPAL programEnd
+  '''PROGRAMA : seenProgram PROGRAMAZ PROGRAMAB PRINCIPAL programEnd
   '''
 # listo
 def p_PROGRAMAB(p):
@@ -62,7 +64,7 @@ def p_GLOBALEZ(p):
   '''
 # listo
 def p_VART(p):
-  '''VART : DATA_TIPOS ID VARZ addVariable
+  '''VART : DATA_TIPOS ID VARZ addVariable updateSize
   '''
 
 def p_VARZ(p):
@@ -112,7 +114,7 @@ def p_LLAMADA_FUNCIONZ(p):
   '''
 # listo
 def p_PRINCIPAL(p):
-  '''PRINCIPAL : MAIN changeScope LPAR RPAR BLOQUE END
+  '''PRINCIPAL : MAIN changeScope seenMain LPAR RPAR BLOQUE END
   '''
 
 # listo
@@ -224,14 +226,14 @@ def p_FAC(p):
   '''
   #listo
 def p_FACT(p):
-  '''FACT : LBRA EXT RBRA
+  '''FACT : LBRA EXP RBRA
           | LPAR PRMS RPAR
           | empty
   '''
 
 #listo
 def p_PRMS(p):
-  '''PRMS   :  EXT PRMSZ
+  '''PRMS   :  EXP PRMSZ
   '''
 
 #listo
@@ -242,36 +244,44 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END functionEnd restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONR END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE RETURN EXPRE END functionEnd restoreScope
+  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONR END functionEnd restoreScope
   '''
 
-def p_ACCION(p): 
-  '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
-  '''
+def p_FUNCIONR(p):
+    '''FUNCIONR : RETURN EXP
+                | RETURN
+    '''
+
+def p_seenFunction(p):
+    '''seenFunction  :   empty
+    '''
+    function = p[-3]
+    print("state: ", state.signature)
+    sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
+    state.signature = []
+    state.f_size = 0
 # listo
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNP RPAR
   '''
 # listo
 def p_VAR_FUNP(p): 
-  '''VAR_FUNP : DATA_TIPOS ID VAR_FUNX addVariable updateSize VAR_FUNZ
+  '''VAR_FUNP : VART VAR_FUNZ
               | empty
   '''
-
-def p_VAR_FUNX(p):
-  '''VAR_FUNX : LBRA RBRA
-              | empty
-  '''
-  p[0] = p[1]
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
               | empty
+  '''
+# listo
+def p_ACCION(p): 
+  '''ACCION : ID POINT DIBUJA LPAR VAR_CTE RPAR
   '''
 # listo
 def p_DIBUJA(p):
@@ -305,7 +315,7 @@ def p_error(p):
 def p_restoreScope(p):
     '''restoreScope  :   empty
     '''
-    sem.scope = 'global'
+    sem.scope = "global"
 
 def p_changeScope(p):
     '''changeScope  :   empty
@@ -368,34 +378,41 @@ def p_blockFinish(p):
     # expr.clear_stacks()
     pass
 # Function functions
-def p_seenFunction(p):
-    '''seenFunction  :   empty
-    '''
-    sem.fill_symbol_table_function(p[-3],[p[-4], sem.get_signature(), sem.get_function_size()])
-    sem.clear_signature()
-    sem.clear_function_size
 
 def p_updateSize(p):
     '''updateSize  :   empty
     '''
-    sem.update_signature(p[-1])
-    sem.update_function_size(p[-1])
+    state.signature.append(p[-1])
+    if(p[-1][0] == "i" or p[-1][0] == "f"):
+        state.f_size += 4
+    else:
+        state.f_size += 1
+
+def p_seenMain(p):
+    '''seenMain   :   empty
+    '''
+    main.update_goto(len(state.quads) + 1)
+
+def p_seenProgram(p):
+    '''seenProgram  :   empty
+    '''
+    main.generate_main()
 
 def p_programEnd(p):
     '''programEnd  :   empty
     '''
-    func.generate_end("main");
+    func.generate_end("main")
 
 def p_functionEnd(p):
     '''functionEnd  :   empty
     '''
-    func.generate_end(p[-8]);
+    func.generate_end(p[-7])
 
 # conditions
 def p_pushLabelS(p):
     '''pushLabelS  :   empty
     '''
-    state.label_stack.append(state.label)
+    state.label_stack.append(len(state.quads))
     il.generate_if_goto_F(state.operand_stack.pop())
 
 def p_popLabelS(p):
@@ -407,7 +424,7 @@ def p_pushElse(p):
     '''pushElse  :   empty
     '''
     temp = state.label_stack.pop()
-    state.label_stack.append(state.label)
+    state.label_stack.append(len(state.quads))
     state.label_stack.append(temp)
     il.generate_else_goto()
 
@@ -415,7 +432,7 @@ def p_pushElse(p):
 def p_saveLabel(p):
 	'''saveLabel  :  empty
   '''
-	state.label_stack.append(state.label)
+	state.label_stack.append(len(state.quads))
 	
 def p_goValidate(p):
 	'''goValidate :  empty
@@ -475,32 +492,9 @@ parser = yacc.yacc()
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-# def addVarAndType(var, vType):
-#     global globalVars
-#     global localVars
-
-#     if sem.scope == 'local':
-#         if not var in localVars.keys():
-#             localVars[var] = {'name':var, 'type':vType}
-#         else:
-#             print('Var already declared in local scope!')
-#     else:
-#         if not var in globalVars.keys():
-#             globalVars[var] = {'name':var, 'type':vType}
-#         else:
-#             print('Var already declared in global scope!')
-
-# def addFunc(name, fType, params):
-#     global globalFuncs
-#     if not name in globalFuncs.keys():
-#         globalFuncs[name] = {'name':name, 'type':fType, 'parameters':params}
-#         print('Func name: %s and type: %s' % (name, fType))
-#     else:
-#         print('Function already declared before!')
-
 with open('prueba.txt','r') as f:
     input = f.read()
-    pp.pprint(parser.parse(input))
+    pp.pprint(parser.parse(input,0,0))
     var_table = sem.var_table
     func_table = sem.func_table
     for idx, quad in enumerate(state.quads):
@@ -518,3 +512,4 @@ with open('prueba.txt','r') as f:
     #     for k1 in var_table[k]:
     #         print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
     #     print "--------|-------|--------"
+    print func_table

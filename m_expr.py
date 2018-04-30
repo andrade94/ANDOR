@@ -10,19 +10,15 @@ def generate_quad(hierarchy):
     if(hierarchy == 1 and (state.last_operator == '*' or state.last_operator == '/') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-        state.label += 1
     elif(hierarchy == 2 and (state.last_operator == '+' or state.last_operator == '-') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-        state.label += 1
     elif(hierarchy == 3 and (state.last_operator == '==' or state.last_operator == '<=' or state.last_operator == '>=' or state.last_operator == '<>'  or state.last_operator == '<'  or state.last_operator == '>') and state.operator_stack):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-        state.label += 1
     elif(hierarchy == 5 and (state.last_operator == '=')):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-        state.label += 1
     if(qd.operator != None):
         state.quads.append(qd)
         state.operand_stack.append(qd.result)
@@ -30,6 +26,8 @@ def generate_quad(hierarchy):
         del(qd)
     if(len(state.operator_stack) > 0):
         state.last_operator = state.operator_stack[-1]
+    else:
+        state.last_operator = None
 
 def add_operand(operand):
     state.operand_stack.append(operand)

@@ -1,20 +1,39 @@
 global
-  entero m
-  flotante e
-  caracter u
+  entero mee
+  flotante mmm
+fin
+
+defino vacio cinco(entero oo, flotante uu)
+oo = oo * 3
+regresa
+fin
+
+defino entero tres(entero ee, flotante aa)
+aa = aa * 3
+regresa aa
+fin
+
+defino entero cuatro(entero k)
+entero mmme
+mmme = k * 3
+regresa mmme
+fin
+
+defino vacio dos(entero oo, flotante uu)
+oo = oo * 3
+regresa
 fin
 
 principal()
   entero z
   entero x
   entero p
+  flotante mmm
   x = 2
   imprimir(x)
   mientras(x < 3)
     x = x + 1
   fin
-  entero me 
-  me = 2
-  x = z + m * 3
+  x = z * 3
 fin
   
