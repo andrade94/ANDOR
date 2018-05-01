@@ -3,30 +3,16 @@ entero xyxy
 flotante xyxyy
 fin
 
-defino vacio dos(entero c)
+defino vacio dos(entero c, entero x, entero m, entero p)
 c = c * 3
 regresa
-fin
-
-defino vacio cuatro(entero k)
-k = k * 4
-regresa
-fin
-
-defino entero tres(entero a, entero b, flotante g)
-a = a * 3 * 2
-regresa a
 fin
 
 principal()
   entero z
   entero x
   z = 3
-  x = z * 3
-  si (x > 3)
-    z = 4
-  sino
-    z = 5
-  fin
+  x = 4
+  dos(3,3,x,z)
 fin
   

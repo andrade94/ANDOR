@@ -79,6 +79,7 @@ def p_ESTATUTO(p):
               | LLAMADA_FUNCION
               | IMPRIMIR
               | LEER
+              | CALL
   '''
 # listo 
 def p_BLOQUE(p):
@@ -215,30 +216,66 @@ def p_LEER(p):
   '''
 #listo
 def p_FAC(p):
-  '''FAC  : pushExp LPAR EXPRE RPAR popExp
-          | genQuad0 VAR_CTE operandPush
+  '''FAC  : FACAUX
+          | FACAUX2
           | LBRA EXPRE RBRA
           | CALL
           | ARRAY
           | ID operandPush
   '''
+  p[0] = p[1]
+
+def p_FACAUX(p):
+  '''FACAUX : pushExp LPAR EXPRE RPAR popExp
+  '''
+  p[0] = p[3]
+
+def p_FACAUX2(p):
+  '''FACAUX2 : genQuad0 VAR_CTE operandPush
+  '''
+  p[0] = p[2]
 
 def p_CALL(p):
-  '''CALL : ID operandPush LPAR PRMS RPAR
+  '''CALL : ID LPAR addCall PRMS RPAR checkSignature endCall
   '''
+  p[0] = p[1]
 
+def p_checkSignature(p):
+  '''checkSignature : empty
+  '''
+  sem.is_signature_valid(p[-5], state.signature)
+def p_addCall(p):
+  '''addCall : empty
+  '''
+  func.generate_era(p[-2])
+def p_endCall(p):
+  '''endCall : empty
+  '''
+  func.generate_gosub(p[-6])
+  state.reset_call()
+def p_addParamCall(p):
+  '''addParamCall : empty
+  '''
+  param = state.operand_stack.pop()
+  print('perand', state.operand_stack)
+  func.generate_param(param)
+  state.signature.append(param[1][0])
+  
 def p_ARRAY(p):
   '''ARRAY : ID operandPush LBRA EXP RBRA
   '''
+  p[0] = p[1]
 #listo
 def p_PRMS(p):
   '''PRMS   :   PRMC
             |   empty
   '''
+  p[0] = p[1]
 #listo
 def p_PRMC(p):
-  '''PRMC   :  EXP PRMSZ
+  '''PRMC   :  EXP addParamCall PRMSZ
   '''
+  p[0] = p[1]
 
 #listo
 def p_PRMSZ(p):
