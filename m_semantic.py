@@ -1,3 +1,5 @@
+import m_st as state
+
 global_str = "global"
 constant_str = "constant"
 scope = global_str
@@ -293,33 +295,58 @@ semantic_cube = {
 	},
 }
 }
-                   
+
 def fill_symbol_table_function(symbol, attributes): 
     if(func_table.get(symbol) == None):
 		func_table[symbol] = attributes
     else: 
         raise NameError("Function redeclaration, '{0}' already exists".format(symbol))
 
-def fill_symbol_table_variable(symbol, type): 
+def fill_local_variables_table(var, type, size): 
     #verifica si existe el scope dado
     if(var_table.get(scope) == None): 
         var_table[scope] = {}
-
-    if(symbol == scope or var_table[scope].get(symbol) != None): 
-        raise NameError("Variable redeclaration, '{0}' already exists".format(symbol))
+    if(symbol == scope or var_table[scope].get(var) != None): 
+        raise NameError("Variable redeclaration, '{0}' already exists".format(var))
     else: 
-        var_table[scope][symbol] = [type]
+        var_table[scope][var] = [type, state.local_dir, size, 'l']
+        if (type[0] == "i" or type[0] == "f"):
+            state.local_dir += 4 * size
+        else:
+            state.local_dir += 1 * size
     #print("{0} {1} {2} {3} {4}".format(p[-4], p[-3], p[-2], p[-1], p[0]))
 
-def fill_symbol_table_constant(symbol, type): 
-    if(var_table[constant_str].get(symbol) != None): 
-        return
+def fill_global_variables_table(var, type, size): 
+    #verifica si existe el scope dado
+    if(var_table.get(scope) == None): 
+        var_table[scope] = {}
+    if(symbol == scope or var_table[scope].get(var) != None): 
+        raise NameError("Variable redeclaration, '{0}' already exists".format(var))
     else: 
-        var_table[constant_str][symbol] = [type]
+        var_table[scope][var] = [type, state.global_dir, size, 'g']
+        if (type[0] == "i" or type[0] == "f"):
+            state.global_dir += 4 * size
+        else:
+            state.global_dir += 1 * size
+    #print("{0} {1} {2} {3} {4}".format(p[-4], p[-3], p[-2], p[-1], p[0]))
+
+def fill_symbol_table_constant(symbol, type, size): 
+    if(var_table[constant_str].get(symbol) != None): 
+        pass
+    else: 
+        var_table[constant_str][symbol] = [type, state.constant_dir, size, 'c']
+        if (type[0] == "i" or type[0] == "f"):
+            state.constant_dir += 4 * size
+        else:
+            state.constant_dir += 1 * size
     #print var_table
 
 def get_function(func_name): 
-    return func_table.get(func_name)
+    function = func_table.get(func_name)
+    if(function != None):
+        return function
+    else:
+        raise NameError("Undeclared function '{0}'".format(func_name))
 
 def get_scope(): 
     return scope

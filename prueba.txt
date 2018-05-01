@@ -14,5 +14,8 @@ principal()
   z = 3
   x = 4
   dos(3,3,x,z)
+  si(z == 4)
+    imprimir(2)
+  fin
 fin
   

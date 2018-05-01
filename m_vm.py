@@ -1,4 +1,3 @@
-import turtle
 import cPickle as pickle
 
 class VirtualMachine:
@@ -6,6 +5,8 @@ class VirtualMachine:
         self.instr_ptr = 0
         self.obj = self.load_obj(filename)
         self.quads = self.obj["quads"]
+        self.globals = self.obj["globals"]
+        self.functions = self.obj["functions"]
         self.heap = {}
 
     def load_obj(self, filename):
@@ -20,13 +21,7 @@ class VirtualMachine:
         res = quad.result
         while(op != "end" or op1 != "main"):
             if(op == "+"):
-                print "SUMA"
-            if(op == "-"):
-                print "RESTA"
-            if(op == "*"):
-                print "MULTIPLICACION"
-            if(op == "/"):
-                print "DIVISION"
+                print "derP"
             if(op == "goto"):
                 self.instr_ptr = res
             else:
@@ -36,5 +31,4 @@ class VirtualMachine:
             op1 = quad.operand1
             op2 = quad.operand2
             res = quad.result
-        print "Program finished"
-        
+print "Program finished"

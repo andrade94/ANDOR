@@ -3,11 +3,11 @@ import m_quad as quad
 
 def generate_if_goto_F(exp):
 	q = quad.Quad()
-	q.set_quad("gotoF", exp, None, None)
+	q.set_quad("gotoF", None, exp, None)
 	state.quads.append(q)
 
 def put_label_to_goto_F(label):
-    state.quads[label].result = len(state.quads) + 1
+    state.quads[label].result = len(state.quads)
 	
 def generate_else_goto():
 	q = quad.Quad()

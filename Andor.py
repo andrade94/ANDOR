@@ -18,7 +18,7 @@ import m_rd_wrt as rw
 import m_if_wh as il
 import m_fun as func
 import m_main as main
-import m_vm as virtual_machine
+import m_vm as vm
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -572,5 +572,5 @@ with open('prueba.txt','r') as f:
 #         "functions": sem.func_table
 #     }
 #     pickle.dump(obj, out, -1)
-# machine = virtual_machine.VirtualMachine("o.af")
+# machine = vm.VirtualMachine("o.af")
 # machine.run()
