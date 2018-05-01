@@ -306,7 +306,7 @@ def fill_local_variables_table(var, type, size):
     #verifica si existe el scope dado
     if(var_table.get(scope) == None): 
         var_table[scope] = {}
-    if(symbol == scope or var_table[scope].get(var) != None): 
+    if(var == scope or var_table[scope].get(var) != None): 
         raise NameError("Variable redeclaration, '{0}' already exists".format(var))
     else: 
         var_table[scope][var] = [type, state.local_dir, size, 'l']
@@ -320,7 +320,7 @@ def fill_global_variables_table(var, type, size):
     #verifica si existe el scope dado
     if(var_table.get(scope) == None): 
         var_table[scope] = {}
-    if(symbol == scope or var_table[scope].get(var) != None): 
+    if(var == scope or var_table[scope].get(var) != None): 
         raise NameError("Variable redeclaration, '{0}' already exists".format(var))
     else: 
         var_table[scope][var] = [type, state.global_dir, size, 'g']

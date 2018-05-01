@@ -393,35 +393,39 @@ def p_generatePrint(p):
 def p_addDataType(p):
     ''' addDataType :  empty
     '''
-
+# Update variable table
 def p_addVariable(p):
     '''addVariable  :   empty 
     '''
     type = p[-3]
+    d1 = 1
     if(p[-1] != None):
         type += "[]"
-    sem.fill_symbol_table_variable(p[-2],type)
+    if (sem.scope == "global"):
+        sem.fill_global_variables_table(p[-2],type, d1)
+    else:
+        sem.fill_local_variables_table(p[-2],type, d1)
     p[0] = type
 
 def p_addFloat(p):
     '''addFloat  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"flotante")
+    sem.fill_symbol_table_constant(p[-1],"flotante", 4)
 
 def p_addInt(p):
     '''addInt  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"entero")
+    sem.fill_symbol_table_constant(p[-1],"entero", 4)
 
 def p_addString(p):
     '''addString  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"caracter")
+    sem.fill_symbol_table_constant(p[-1],"caracter", 1)
 
 def p_addBooleano(p):
     '''addBooleano  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"booleano")
+    sem.fill_symbol_table_constant(p[-1],"booleano", 1)
 
 def p_blockFinish(p):
     '''finishBlock  :   empty
