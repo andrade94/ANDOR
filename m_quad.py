@@ -25,7 +25,7 @@ class Quad:
 			self.result = [res, [type, state.temp_dir, size, 't']]
 			state.temp_dir += size
 
-	def transform(self, g_offset, c_offset, l_offset, t_offset):
+	def add_offset(self, g_offset, c_offset, l_offset, t_offset):
 		if (isinstance(self.operand1, list)):
 			if (self.operand1[1][3] == 'g'):
 				self.operand1 = self.operand1[1][1] + g_offset
@@ -43,7 +43,7 @@ class Quad:
 			elif (self.operand2[1][3] == 'l'):
 				self.operand2 = self.operand2[1][1] + l_offset
 			else:
-				self.operand1 = self.operand1[1][1] + t_offset
+				self.operand2 = self.operand2[1][1] + t_offset
 		if (isinstance(self.result, list)):
 			if (self.result[1][3] == 'g'):
 				self.result = self.result[1][1] + g_offset
@@ -53,3 +53,33 @@ class Quad:
 				self.result = self.result[1][1] + l_offset
 			else:
 				self.result = self.result[1][1] + t_offset
+
+# Transforms variablesto memory address
+	def transform(self, t_offset):
+		if (isinstance(self.operand1, list)):
+			if (self.operand1[1][3] == 'g'):
+				self.operand1 = self.operand1[1][1]
+			elif (self.operand1[1][3] == 'c'):
+				self.operand1 = self.operand1[1][1]
+			elif (self.operand1[1][3] == 'l'):
+				self.operand1 = self.operand1[1][1]
+			else:
+				self.operand1 = self.operand1[1][1]
+		if (isinstance(self.operand2, list)):
+			if (self.operand2[1][3] == 'g'):
+				self.operand2 = self.operand2[1][1]
+			elif (self.operand2[1][3] == 'c'):
+				self.operand2 = self.operand2[1][1]
+			elif (self.operand2[1][3] == 'l'):
+				self.operand2 = self.operand2[1][1]
+			else:
+				self.operand2 = self.operand2[1][1]
+		if (isinstance(self.result, list)):
+			if (self.result[1][3] == 'g'):
+				self.result = self.result[1][1]
+			elif (self.result[1][3] == 'c'):
+				self.result = self.result[1][1]
+			elif (self.result[1][3] == 'l'):
+				self.result = self.result[1][1]
+			else:
+				self.result = self.result[1][1]

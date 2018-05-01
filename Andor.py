@@ -247,15 +247,18 @@ def p_checkSignature(p):
   '''checkSignature : empty
   '''
   sem.is_signature_valid(p[-5], state.signature)
+
 def p_addCall(p):
   '''addCall : empty
   '''
   func.generate_era(p[-2])
+
 def p_endCall(p):
   '''endCall : empty
   '''
   func.generate_gosub(p[-6])
   state.reset_call()
+
 def p_addParamCall(p):
   '''addParamCall : empty
   '''
@@ -288,12 +291,12 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRN END functionEnd restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRN END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRV END functionEnd restoreScope
+  '''FUNCIONV : DEFINE VOID ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRV END functionEnd restoreScope
   '''
 
 def p_FUNCIONRV(p):
@@ -307,9 +310,11 @@ def p_FUNCIONRN(p):
 def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
-    sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
-    state.signature = []
-    state.f_size = 0
+    # sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
+    # state.signature = []
+    # state.f_size = 0
+    state.local_dir = 0
+    sem.func_table[p[-2]].append(len(state.quads))
 # listo
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNC RPAR
@@ -373,6 +378,8 @@ def p_changeScope(p):
     '''
     sem.scope = p[-1]
     sem.validate_redeclaration_function(p[-1])
+    state.temp_counter = 0
+    state.temp_dir = 0
 # Read
 def p_generateRead(p):
     '''generateRead  :   empty
@@ -462,6 +469,8 @@ def p_functionEnd(p):
     '''functionEnd  :   empty
     '''
     func.generate_end(p[-7])
+    sem.func_table[p[-7]].append(state.f_size)
+    state.f_size = 0
 
 # conditions
 def p_pushLabelS(p):
@@ -552,8 +561,14 @@ with open('prueba.txt','r') as f:
     pp.pprint(parser.parse(input,0,0))
     var_table = sem.var_table
     func_table = sem.func_table
+    #for idx, quad in enumerate(state.quads):
+      #quad.transform(0, state.global_dir, 9000, 43000)
+      #print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
+    for e in sem.var_table[sem.constant_str].items():
+        e[1][1] += state.global_dir
     for idx, quad in enumerate(state.quads):
-      print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
+        quad.transform(0, state.global_dir, 9000, 43000)
+        print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
     # print "Scope\t|Id\t|Type"
     # print "--------|-------|--------"
     # for k in var_table:
@@ -569,12 +584,16 @@ with open('prueba.txt','r') as f:
     #     print "--------|-------|--------"
     print func_table
     # print(state.quads)
+# sorting function
+def sort(element):
+    return element[1][1], element[0]
 
-# with open("o.af", "wb") as out:
-#     obj = {
-#         "quads": state.quads,
-#         "functions": sem.func_table
-#     }
-#     pickle.dump(obj, out, -1)
-# machine = vm.VirtualMachine("o.af")
-# machine.run()
+with open("o.af", "wb") as out:
+    obj = {
+        "quads": state.quads,
+        "functions": sem.func_table,
+        "mem": dict(sorted(swap(sort, sem.var_table[sem.constant_str].items()) + swap(sort, sem.var_table[sem.global_str].items()), key=lambda e: e[0]))
+    }
+    pickle.dump(obj, out, -1)
+machine = vm.VirtualMachine("o.af")
+machine.run()
