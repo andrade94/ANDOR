@@ -51,12 +51,8 @@ def p_PROGRAMAB(p):
   '''
 # listo
 def p_PROGRAMAZ(p):
-  '''PROGRAMAZ  : GLOBALES
+  '''PROGRAMAZ  : GLOBAL GLOBALEZ END
                 | empty
-  '''
-# listo
-def p_GLOBALES(p):
-  '''GLOBALES : GLOBAL GLOBALEZ END
   '''
 def p_GLOBALEZ(p):
   '''GLOBALEZ : VART GLOBALEZ
@@ -64,7 +60,7 @@ def p_GLOBALEZ(p):
   '''
 # listo
 def p_VART(p):
-  '''VART : DATA_TIPOS ID VARZ addVariable updateSize
+  '''VART : DATA_TIPOS ID VARZ addVariable
   '''
 
 def p_VARZ(p):
@@ -244,24 +240,25 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONR END functionEnd restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRN END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONR END functionEnd restoreScope
+  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRV END functionEnd restoreScope
   '''
 
-def p_FUNCIONR(p):
-    '''FUNCIONR : RETURN EXP
-                | RETURN
+def p_FUNCIONRV(p):
+    '''FUNCIONRV : RETURN
+    '''
+
+def p_FUNCIONRN(p):
+    '''FUNCIONRN : RETURN EXP
     '''
 
 def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
-    function = p[-3]
-    print("state: ", state.signature)
     sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
     state.signature = []
     state.f_size = 0
@@ -269,11 +266,23 @@ def p_seenFunction(p):
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNP RPAR
   '''
-# listo
-def p_VAR_FUNP(p): 
-  '''VAR_FUNP : VART VAR_FUNZ
+def p_VAR_FUNC(p):
+  '''VAR_FUNC : VAR_FUNP
               | empty
   '''
+# listo
+def p_VAR_FUNP(p): 
+  '''VAR_FUNP : PARAMS VAR_FUNZ
+  '''
+def p_PARAMS(p):
+  '''PARAMS : DATA_TIPOS ID VARZ addVariable updateSize
+  '''
+#listo
+def p_VARZ(p):
+  '''VARZ : LBRA ICTE RBRA
+          | empty
+  '''
+  p[0] = p[1]
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
@@ -383,7 +392,7 @@ def p_updateSize(p):
     '''updateSize  :   empty
     '''
     state.signature.append(p[-1])
-    if(p[-1][0] == "i" or p[-1][0] == "f"):
+    if(p[-1][0] == "e" or p[-1][0] == "f"):
         state.f_size += 4
     else:
         state.f_size += 1

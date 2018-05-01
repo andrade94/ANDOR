@@ -296,8 +296,8 @@ semantic_cube = {
                    
 def fill_symbol_table_function(symbol, attributes): 
     if(func_table.get(symbol) == None):
-		print(attributes)
 		func_table[symbol] = attributes
+		print("functable", func_table)
     else: 
         raise NameError("Function redeclaration, '{0}' already exists".format(symbol))
 

@@ -1,39 +1,26 @@
 global
-  entero mee
-  flotante mmm
+entero xyxy
+flotante xyxyy
 fin
 
-defino vacio cinco(entero oo, flotante uu)
-oo = oo * 3
+defino vacio dos(entero c)
+c = c * 3
 regresa
 fin
 
-defino entero tres(entero ee, flotante aa)
-aa = aa * 3
-regresa aa
-fin
-
-defino entero cuatro(entero k)
-entero mmme
-mmme = k * 3
-regresa mmme
-fin
-
-defino vacio dos(entero oo, flotante uu)
-oo = oo * 3
+defino vacio cuatro(entero k)
+k = k * 4
 regresa
+fin
+
+defino entero tres(entero a, entero b, flotante g)
+a = a * 3 * 2
+regresa a
 fin
 
 principal()
   entero z
   entero x
-  entero p
-  flotante mmm
-  x = 2
-  imprimir(x)
-  mientras(x < 3)
-    x = x + 1
-  fin
   x = z * 3
 fin
   

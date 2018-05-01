@@ -35,9 +35,9 @@ def add_operand(operand):
 def add_operator(operator):
     state.operator_stack.append(operator)
     if(operator == '#'):
-        last_operator = None
+        state.last_operator = None
     else:
-        last_operator = state.operator_stack[-1]
+        state.last_operator = state.operator_stack[-1]
 
 def push_expr():
     state.operator_stack.append('#')
