@@ -5,6 +5,8 @@ import ply.yacc as yacc
 import sys
 # Import tokens from lexer
 from m_lexer import tokens
+# Module to serialize objects
+import cPickle as pickle
 # Import lexer to parse.
 from m_lexer import lexer
 # Import utility.
@@ -16,6 +18,7 @@ import m_rd_wrt as rw
 import m_if_wh as il
 import m_fun as func
 import m_main as main
+import m_vm as virtual_machine
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -349,7 +352,7 @@ def p_DIBUJA(p):
             | ARCO
             | GROSOR
   '''
-
+  
 # Error rule for syntax errors
 def p_error(p):
     if(p):
@@ -561,3 +564,13 @@ with open('prueba.txt','r') as f:
     #         print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
     #     print "--------|-------|--------"
     print func_table
+    # print(state.quads)
+
+# with open("o.af", "wb") as out:
+#     obj = {
+#         "quads": state.quads,
+#         "functions": sem.func_table
+#     }
+#     pickle.dump(obj, out, -1)
+# machine = virtual_machine.VirtualMachine("o.af")
+# machine.run()
