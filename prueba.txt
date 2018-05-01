@@ -3,7 +3,7 @@ entero xyxy
 flotante xyxyy
 fin
 
-defino vacio dos(entero c, entero x, entero m, entero p)
+defino vacio uno(entero c)
 c = c * 3
 regresa
 fin
@@ -13,9 +13,8 @@ principal()
   entero x
   z = 3
   x = 4
-  dos(3,3,x,z)
+  uno(3)
   si(z == 4)
     imprimir(2)
   fin
 fin
-  

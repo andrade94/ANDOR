@@ -3,6 +3,7 @@
 # ------------------------------------------------------------
 import ply.yacc as yacc
 import sys
+import m_andor_f as func_parser
 # Import tokens from lexer
 from m_lexer import tokens
 # Module to serialize objects
@@ -19,7 +20,6 @@ import m_if_wh as il
 import m_fun as func
 import m_main as main
 import m_vm as vm
-from collections import OrderedDict
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -59,19 +59,48 @@ def p_PROGRAMAZ(p):
                 | empty
   '''
 def p_GLOBALEZ(p):
-  '''GLOBALEZ : VART GLOBALEZ
+  '''GLOBALEZ : VARTG GLOBALEZ
               | empty
   '''
-# listo
-def p_VART(p):
-  '''VART : DATA_TIPOS ID VARZ addVariable
+
+def p_VARTG(p):
+  '''VARTG : DATA_TIPOS ID VARZ seenGlobalV updateSize
   '''
+def p_seenGlobalV(p):
+  '''seenGlobalV : empty
+  '''
+  type = p[-3]
+  d1 = 1
+  if(p[-1] != None):
+      type += "[]"
+      d1 = p[-1]
+  sem.fill_global_variables_table(p[-2], type, d1)
+  p[0] = type
+# listo
+def p_VARTL(p):
+  '''VARTL : DATA_TIPOS ID VARZ seenLocalV updateSize
+  '''
+def p_seenLocalV(p):
+  '''seenLocalV : empty
+  '''
+  type = p[-3]
+  d1 = 1
+  if(p[-1] != None):
+      type += "[]"
+      d1 = p[-1]
+  sem.fill_local_variables_table(p[-2], type, d1)
+  p[0] = type
 
 def p_VARZ(p):
-  '''VARZ : LBRA ICTE RBRA
+  '''VARZ : ARRDIM
           | empty
   '''
   p[0] = p[1]
+
+def p_ARRDIM(p):
+  '''ARRDIM : LBRA ICTE RBRA
+  '''
+  p[0] = p[2]
   #  DRAW ID addVariable EQUAL NEW DRAWI LPAR RPAR
 # listo
 def p_ESTATUTO(p):
@@ -79,8 +108,7 @@ def p_ESTATUTO(p):
               | CONDICION
               | CICLO
               | ACCION
-              | VART
-              | LLAMADA_FUNCION
+              | VARTL
               | IMPRIMIR
               | LEER
               | CALL
@@ -99,21 +127,6 @@ def p_DATA_TIPOS(p):
                 | VOID addDataType
   '''
   p[0] = p[1]
-# listo
-def p_LLAMADA_FUNCION(p):
-  '''LLAMADA_FUNCION : ID LPAR LLAMADA_FUNCIONP RPAR
-  '''
-# listo
-def p_LLAMADA_FUNCIONP(p):
-  '''LLAMADA_FUNCIONP : EXPRE LLAMADA_FUNCIONZ LLAMADA_FUNCIONP
-                      | empty
-  '''
-# listo
-def p_LLAMADA_FUNCIONZ(p):
-  '''LLAMADA_FUNCIONZ : COMMA
-                      | empty
-  '''
-# listo
 def p_PRINCIPAL(p):
   '''PRINCIPAL : MAIN changeScope seenMain LPAR RPAR BLOQUE END
   '''
@@ -222,7 +235,6 @@ def p_LEER(p):
 def p_FAC(p):
   '''FAC  : FACAUX
           | FACAUX2
-          | LBRA EXPRE RBRA
           | CALL
           | ARRAY
           | ID operandPush
@@ -230,7 +242,7 @@ def p_FAC(p):
   p[0] = p[1]
 
 def p_FACAUX(p):
-  '''FACAUX : pushExp LPAR EXPRE RPAR popExp
+  '''FACAUX : LPAR pushExp EXP RPAR popExp
   '''
   p[0] = p[3]
 
@@ -247,6 +259,7 @@ def p_CALL(p):
 def p_checkSignature(p):
   '''checkSignature : empty
   '''
+  print(sem.func_table)
   sem.is_signature_valid(p[-5], state.signature)
 def p_addCall(p):
   '''addCall : empty
@@ -261,7 +274,6 @@ def p_addParamCall(p):
   '''addParamCall : empty
   '''
   param = state.operand_stack.pop()
-  print('perand', state.operand_stack)
   func.generate_param(param)
   state.signature.append(param[1][0])
   
@@ -289,12 +301,12 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRN END functionEnd restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRN END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope VAR_FUN seenFunction BLOQUE FUNCIONRV END functionEnd restoreScope
+  '''FUNCIONV : DEFINE VOID ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRV END functionEnd restoreScope
   '''
 
 def p_FUNCIONRV(p):
@@ -308,10 +320,8 @@ def p_FUNCIONRN(p):
 def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
-    # sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
-    # state.signature = []
-    # state.f_size = 0
-    sem.func_table[p[-3]].append(len(state.quads))
+    state.local_dir = 0
+    sem.func_table[p[-2]].append(len(state.quads))
 # listo
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNC RPAR
@@ -325,8 +335,13 @@ def p_VAR_FUNP(p):
   '''VAR_FUNP : PARAMS VAR_FUNZ
   '''
 def p_PARAMS(p):
-  '''PARAMS : DATA_TIPOS ID VARZ addVariable updateSize
+  '''PARAMS : DATA_TIPOS ID ARR2 seenLocalV updateSize
   '''
+def p_ARR2(p):
+  '''ARR2 : LBRA RBRA
+          | empty
+  '''
+  p[0] = p[1]
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
@@ -397,40 +412,25 @@ def p_generatePrint(p):
 def p_addDataType(p):
     ''' addDataType :  empty
     '''
-# Update variable table
-def p_addVariable(p):
-    '''addVariable  :   empty 
-    '''
-    type = p[-3]
-    d1 = 1
-    if(p[-1] != None):
-        d1 = p[-1]
-        type += "[]"
-    if (sem.scope == "global"):
-        sem.fill_global_variables_table(p[-2],type, d1)
-    else:
-        sem.fill_local_variables_table(p[-2],type, d1)
-    p[0] = type
-
 def p_addFloat(p):
     '''addFloat  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"flotante", 4)
+    sem.fill_symbol_table_constant(p[-1], "flotante", 1)
 
 def p_addInt(p):
     '''addInt  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"entero", 4)
+    sem.fill_symbol_table_constant(p[-1], "entero", 1)
 
 def p_addString(p):
     '''addString  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"caracter", 1)
+    sem.fill_symbol_table_constant(p[-1], "caracter", 1)
 
 def p_addBooleano(p):
     '''addBooleano  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1],"booleano", 1)
+    sem.fill_symbol_table_constant(p[-1], "booleano", 1)
 
 def p_blockFinish(p):
     '''finishBlock  :   empty
@@ -442,11 +442,14 @@ def p_blockFinish(p):
 def p_updateSize(p):
     '''updateSize  :   empty
     '''
-    state.signature.append(p[-1])
-    if(p[-1][0] == "e" or p[-1][0] == "f"):
-        state.f_size += 4
+    d1 = 1
+    if(p[-2] != None):
+      d1 = p[-2]
+    type = p[-1]
+    if(type[0] == "e" or type[0] == "f"):
+        state.f_size += 4 * d1
     else:
-        state.f_size += 1
+        state.f_size += 1 * d1
 
 def p_seenMain(p):
     '''seenMain   :   empty
@@ -467,6 +470,8 @@ def p_functionEnd(p):
     '''functionEnd  :   empty
     '''
     func.generate_end(p[-7])
+    sem.func_table[p[-7]].append(state.f_size)
+    state.f_size = 0
 
 # conditions
 def p_pushLabelS(p):
@@ -548,18 +553,19 @@ def p_genQuad5(p):
     '''
     expr.generate_quad(5)
 
+f_parser = func_parser.parser
 parser = yacc.yacc()
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 with open('prueba.txt','r') as f:
     input = f.read()
-    pp.pprint(parser.parse(input,0,0))
+    preparsing = f_parser.parse(input, 0, 0)
+    result = parser.parse(input, 0, 0)
     var_table = sem.var_table
     func_table = sem.func_table
-    for idx, quad in enumerate(state.quads):
-        quad.transform(0, state.global_dir, 9000, 43000)
-        print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
+    # for idx, quad in enumerate(state.quads):
+        # print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
     # print "Scope\t|Id\t|Type"
     # print "--------|-------|--------"
     # for k in var_table:
@@ -573,18 +579,49 @@ with open('prueba.txt','r') as f:
     #     for k1 in var_table[k]:
     #         print("\t|" + str(k1) + "\t|" + var_table[k][k1][0])
     #     print "--------|-------|--------"
-    print func_table
     # print(state.quads)
 
-def sort(element):
+def add_offset(lst, g_offset, c_offset, l_offset):
+    if(lst[3] == 'g'):
+        lst[1] += + g_offset
+    elif(lst[3] == 'c'):
+        lst[1] += c_offset
+    else:
+        lst[1] += l_offset
+
+# Adds offset to global, local and constant variables
+for okey in sem.var_table:
+    for ikey in sem.var_table[okey].items():
+        add_offset(ikey[1], 0, state.global_dir, 9000)
+
+for func_name in sem.func_table:
+    if(sem.var_table[func_name] != None):
+        sem.func_table[func_name].append(sorted(map(lambda x: [x[1][1], x[0]], sem.var_table[func_name].items())))
+
+# Changes variables to memory addresses and adds temporal offset
+for idx, quad in enumerate(state.quads):
+    quad.transform(43000)
+    #quad.add_offset(0, state.global_dir, 9000, 43000)
+    print idx, (quad.operator, quad.operand1, quad.operand2, quad.result)
+
+#for e in sem.var_table[sem.constant_str].items():
+#    e[1][1] += state.global_dir
+#    for idx, quad in enumerate(state.quads):
+#        quad.transform()
+#        #quad.add_offset(0, state.global_dir, 9000, 43000)
+#        print idx, (quad.operator, quad.operand1, quad.operand2, quad.result)
+
+# Sorting function
+def swap(element):
     return element[1][1], element[0]
 
 with open("o.af", "wb") as out:
     obj = {
         "quads": state.quads,
         "functions": sem.func_table,
-        "mem": OrderedDict(sorted(map(sort, sem.var_table[sem.constant_str].items()) + map(sort, sem.var_table[sem.global_str].items()), key=lambda e: e[0]))
+        "mem": dict(map(swap, sem.var_table[sem.constant_str].items()) + map(swap, sem.var_table[sem.global_str].items()))
     }
     pickle.dump(obj, out, -1)
+
 machine = vm.VirtualMachine("o.af")
 machine.run()

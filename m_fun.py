@@ -3,9 +3,6 @@ import m_quad as quad
 import m_semantic as sem
 
 # Functions quads module   
-def generate_quad(func_name):
-    pass
-    
 def generate_era(func_name):
     q = quad.Quad()
     q.set_quad("era", None, func_name, sem.get_function(func_name)[2])
