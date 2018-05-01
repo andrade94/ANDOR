@@ -19,6 +19,7 @@ import m_if_wh as il
 import m_fun as func
 import m_main as main
 import m_vm as vm
+from collections import OrderedDict
 # ========================  Define global variables ======================
 
 # globalVars = {}
@@ -307,9 +308,10 @@ def p_FUNCIONRN(p):
 def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
-    sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
-    state.signature = []
-    state.f_size = 0
+    # sem.fill_symbol_table_function(p[-3],[p[-4], state.signature, state.f_size])
+    # state.signature = []
+    # state.f_size = 0
+    sem.func_table[p[-3]].append(len(state.quads))
 # listo
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNC RPAR
@@ -373,6 +375,8 @@ def p_changeScope(p):
     '''
     sem.scope = p[-1]
     sem.validate_redeclaration_function(p[-1])
+    state.temp_counter = 0
+    state.temp_dir = 0
 # Read
 def p_generateRead(p):
     '''generateRead  :   empty
@@ -400,6 +404,7 @@ def p_addVariable(p):
     type = p[-3]
     d1 = 1
     if(p[-1] != None):
+        d1 = p[-1]
         type += "[]"
     if (sem.scope == "global"):
         sem.fill_global_variables_table(p[-2],type, d1)
@@ -487,7 +492,7 @@ def p_pushElse(p):
 def p_saveLabel(p):
 	'''saveLabel  :  empty
   '''
-	state.label_stack.append(len(state.quads))
+	state.label_stack.append(len(state.quads)-1)
 	
 def p_goValidate(p):
 	'''goValidate :  empty
@@ -553,7 +558,8 @@ with open('prueba.txt','r') as f:
     var_table = sem.var_table
     func_table = sem.func_table
     for idx, quad in enumerate(state.quads):
-      print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
+        quad.transform(0, state.global_dir, 9000, 43000)
+        print idx + 1, (quad.operator, quad.operand1, quad.operand2, quad.result)
     # print "Scope\t|Id\t|Type"
     # print "--------|-------|--------"
     # for k in var_table:
@@ -570,11 +576,15 @@ with open('prueba.txt','r') as f:
     print func_table
     # print(state.quads)
 
-# with open("o.af", "wb") as out:
-#     obj = {
-#         "quads": state.quads,
-#         "functions": sem.func_table
-#     }
-#     pickle.dump(obj, out, -1)
-# machine = vm.VirtualMachine("o.af")
-# machine.run()
+def sort(element):
+    return element[1][1], element[0]
+
+with open("o.af", "wb") as out:
+    obj = {
+        "quads": state.quads,
+        "functions": sem.func_table,
+        "mem": OrderedDict(sorted(map(sort, sem.var_table[sem.constant_str].items()) + map(sort, sem.var_table[sem.global_str].items()), key=lambda e: e[0]))
+    }
+    pickle.dump(obj, out, -1)
+machine = vm.VirtualMachine("o.af")
+machine.run()

@@ -3,11 +3,14 @@ import cPickle as pickle
 class VirtualMachine:
     def __init__(self, filename):
         self.instr_ptr = 0
+        self.instr_ptr_stack = []
+        self.function_call_stack = []
         self.obj = self.load_obj(filename)
         self.quads = self.obj["quads"]
-        self.globals = self.obj["globals"]
+        #self.globals = self.obj["globals"]
         self.functions = self.obj["functions"]
         self.heap = {}
+        self.mem = self.obj["mem"]
 
     def load_obj(self, filename):
         f = open(filename, "rb")
@@ -21,9 +24,23 @@ class VirtualMachine:
         res = quad.result
         while(op != "end" or op1 != "main"):
             if(op == "+"):
-                print "derP"
+                self.mem[res] = str(self.mem[op1]) + "+" + str(self.mem[op2])
+            elif(op == "-"):
+                self.mem[res] = str(self.mem[op1]) + "-" + str(self.mem[op2])
+            elif(op == "*"):
+                self.mem[res] = str(self.mem[op1]) + "*" + str(self.mem[op2])
+            elif(op == "/"):
+                self.mem[res] = str(self.mem[op1]) + "/" + str(self.mem[op2])
+            
+            # Function operations
+            if(op == "era"):
+                print("ERA")
+
+            # Operators that change the instruction pointer
             if(op == "goto"):
                 self.instr_ptr = res
+            elif(op == "gosub"):
+                self.instr_ptr = self.functions[op1][3]
             else:
                 self.instr_ptr += 1
             quad = self.quads[self.instr_ptr]
@@ -31,4 +48,4 @@ class VirtualMachine:
             op1 = quad.operand1
             op2 = quad.operand2
             res = quad.result
-print "Program finished"
+        print "Program finished"
