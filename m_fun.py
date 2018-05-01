@@ -26,4 +26,3 @@ def generate_end(func_name):
     q = quad.Quad()
     q.set_quad("end", None, func_name, None)
     state.quads.append(q)
-    print('aquiquiqu')

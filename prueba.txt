@@ -21,6 +21,12 @@ fin
 principal()
   entero z
   entero x
+  z = 3
   x = z * 3
+  si (x > 3)
+    z = 4
+  sino
+    z = 5
+  fin
 fin
   

@@ -217,24 +217,32 @@ def p_LEER(p):
 def p_FAC(p):
   '''FAC  : pushExp LPAR EXPRE RPAR popExp
           | genQuad0 VAR_CTE operandPush
-          | LBRA EXPRE RPAR
-          | ID operandPush FACT
-  '''
-  #listo
-def p_FACT(p):
-  '''FACT : LBRA EXP RBRA
-          | LPAR PRMS RPAR
-          | empty
+          | LBRA EXPRE RBRA
+          | CALL
+          | ARRAY
+          | ID operandPush
   '''
 
+def p_CALL(p):
+  '''CALL : ID operandPush LPAR PRMS RPAR
+  '''
+
+def p_ARRAY(p):
+  '''ARRAY : ID operandPush LBRA EXP RBRA
+  '''
 #listo
 def p_PRMS(p):
-  '''PRMS   :  EXP PRMSZ
+  '''PRMS   :   PRMC
+            |   empty
+  '''
+#listo
+def p_PRMC(p):
+  '''PRMC   :  EXP PRMSZ
   '''
 
 #listo
 def p_PRMSZ(p):
-  '''PRMSZ   :  COMMA PRMS
+  '''PRMSZ   :  COMMA PRMC
               | empty
   '''
 
@@ -264,7 +272,7 @@ def p_seenFunction(p):
     state.f_size = 0
 # listo
 def p_VAR_FUN(p): 
-  '''VAR_FUN : LPAR VAR_FUNP RPAR
+  '''VAR_FUN : LPAR VAR_FUNC RPAR
   '''
 def p_VAR_FUNC(p):
   '''VAR_FUNC : VAR_FUNP
@@ -277,12 +285,6 @@ def p_VAR_FUNP(p):
 def p_PARAMS(p):
   '''PARAMS : DATA_TIPOS ID VARZ addVariable updateSize
   '''
-#listo
-def p_VARZ(p):
-  '''VARZ : LBRA ICTE RBRA
-          | empty
-  '''
-  p[0] = p[1]
 # listo
 def p_VAR_FUNZ(p): 
   '''VAR_FUNZ : COMMA VAR_FUNP
