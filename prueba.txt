@@ -3,17 +3,11 @@ entero xyxy
 flotante xyxyy
 fin
 
-defino vacio uno(entero c)
-c = c * 3
-regresa
-fin
-
 principal()
   entero z
   entero x
   z = 3
   x = 4
-  uno(3)
   si(z == 4)
     imprimir(2)
   fin

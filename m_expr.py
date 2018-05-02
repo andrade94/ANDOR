@@ -3,17 +3,16 @@ import m_quad as quad
         
 def generate_quad(hierarchy):
     qd = quad.Quad()
-    # if(hierarchy == 0 and (state.last_operator == 'u+' or state.last_operator == 'u-')):
-    #     qd.set_quad(state.operator_stack.pop(), None, state.operand_stack.pop(), state.operand_stack.pop())
-    #     state.temp_counter += 1
-    #     state.label += 1
-    if(hierarchy == 1 and (state.last_operator == '*' or state.last_operator == '/') and state.operator_stack):
+    if(hierarchy == 0 and (state.last_operator == 's+' or state.last_operator == 's-')):
+        qd.set_quad(state.operator_stack.pop(), None, state.operand_stack.pop(), state.operand_stack.pop())
+        state.temp_counter += 1
+    elif(hierarchy == 1 and (state.last_operator == '*' or state.last_operator == '/')):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-    elif(hierarchy == 2 and (state.last_operator == '+' or state.last_operator == '-') and state.operator_stack):
+    elif(hierarchy == 2 and (state.last_operator == '+' or state.last_operator == '-')):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
-    elif(hierarchy == 3 and (state.last_operator == '==' or state.last_operator == '<=' or state.last_operator == '>=' or state.last_operator == '<>'  or state.last_operator == '<'  or state.last_operator == '>') and state.operator_stack):
+    elif(hierarchy == 3 and (state.last_operator == '==' or state.last_operator == '<=' or state.last_operator == '>=' or state.last_operator == '<>'  or state.last_operator == '<'  or state.last_operator == '>')):
         qd.set_quad(state.operator_stack.pop(), state.operand_stack.pop(), state.operand_stack.pop(), "t" + str(state.temp_counter))
         state.temp_counter += 1
     elif(hierarchy == 5 and (state.last_operator == '=')):
@@ -26,6 +25,8 @@ def generate_quad(hierarchy):
         del(qd)
     if(len(state.operator_stack) > 0):
         state.last_operator = state.operator_stack[-1]
+        if(state.last_operator == '#'):
+            state.last_operator = None
     else:
         state.last_operator = None
 
@@ -45,5 +46,5 @@ def push_expr():
 
 def pop_expr():
     state.operator_stack.pop()
-    if (state.operator_stack):
-        state.last_operator = state.operator_stack[-1]
+    if(state.operator_stack):
+       state.last_operator = state.operator_stack[-1]

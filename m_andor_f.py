@@ -42,10 +42,14 @@ def p_GLOBALEZ(p):
               | empty
   '''
 def p_VARTG(p):
-  '''VARTG : DATA_TIPOS ID VARZ seenVariable
+  '''VARTG : DATA_TIPOS ID VARTG2
+  '''
+def p_VARTG2(p):
+  '''VARTG2   : VARZ seenVariable
+              | VAR_FUN seenFunction BLOQUE FUNCIONRN
   '''
 def p_VARTL(p):
-  '''VARTL : DATA_TIPOS ID VARZ seenVariable
+  '''VARTL : DATA_TIPOS ID VARZ seenVariable 
   '''
 def p_VARZ(p):
   '''VARZ : ARRDIM
@@ -301,7 +305,7 @@ def p_DIBUJA(p):
 def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
-    sem.fill_symbol_table_function(p[-2], [p[-3], state.signature])
+    sem.fill_symbol_table_function(p[-2], [[p[-3]], state.signature])
     state.signature = []
 
 def p_updateSize(p):

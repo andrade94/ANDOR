@@ -64,7 +64,11 @@ def p_GLOBALEZ(p):
   '''
 
 def p_VARTG(p):
-  '''VARTG : DATA_TIPOS ID VARZ seenGlobalV updateSize
+  '''VARTG : DATA_TIPOS ID VARTG2
+  '''
+def p_VARTG2(p):
+  '''VARTG2   : VARZ seenGlobalV
+              | addReturnFunction changeScope VAR_FUN BLOQUE FUNCIONRN addReturnFunctionEnd restoreScope
   '''
 def p_seenGlobalV(p):
   '''seenGlobalV : empty
@@ -74,7 +78,11 @@ def p_seenGlobalV(p):
   if(p[-1] != None):
       type += "[]"
       d1 = p[-1]
-  sem.fill_global_variables_table(p[-2], type, d1)
+  if(type[0] == "e" or type[0] == "f"):
+      size = 4
+  else:
+      size = 1
+  sem.fill_global_variables_table(p[-2], type, d1 * size)
   p[0] = type
 # listo
 def p_VARTL(p):
@@ -88,7 +96,11 @@ def p_seenLocalV(p):
   if(p[-1] != None):
       type += "[]"
       d1 = p[-1]
-  sem.fill_local_variables_table(p[-2], type, d1)
+  if(type[0] == "e" or type[0] == "f"):
+      size = 4
+  else:
+      size = 1
+  sem.fill_local_variables_table(p[-2], type, d1 * size)
   p[0] = type
 
 def p_VARZ(p):
@@ -111,7 +123,6 @@ def p_ESTATUTO(p):
               | VARTL
               | IMPRIMIR
               | LEER
-              | CALL
   '''
 # listo 
 def p_BLOQUE(p):
@@ -208,13 +219,31 @@ def p_TERMINO_W_SIGN(p):
   '''
 # listo
 def p_VAR_CTE(p):
-  '''VAR_CTE  : ICTE addInt
-              | FCTE addFloat
+  '''VAR_CTE  : VAR_CTE2
               | SCTE addString
               | TRUE addBooleano
               | FALSE addBooleano
   '''
   p[0] = p[1]
+
+def p_VAR_CTE2(p):
+  '''VAR_CTE2   : W_SIGN addSign ICTE addInt genQuad0
+                | W_SIGN addSign FCTE addFloat genQuad0
+  '''
+  p[0] = p[3]
+
+def p_W_SIGN(p):
+  '''W_SIGN   : PLUS
+              | MINUS
+              | empty
+  '''
+  p[0] = p[1]
+
+def p_addSign(p):
+  '''addSign   :  empty
+  '''
+  expr.add_operator("s" + str(p[-1]))
+  p[0] = p[-1]
 # listo  
 def p_IMPRIMIR(p):
   '''IMPRIMIR : PRINT LPAR ARGSIMP RPAR
@@ -259,15 +288,28 @@ def p_CALL(p):
 def p_checkSignature(p):
   '''checkSignature : empty
   '''
-  print(sem.func_table)
   sem.is_signature_valid(p[-5], state.signature)
 def p_addCall(p):
   '''addCall : empty
   '''
-  func.generate_era(p[-2])
+  expr.add_operator("#")
+  state.return_dir_stack.append(state.temp_dir)
+  func_name = p[-2]
+  type = sem.func_table[func_name][0][0]  # [[primitive, dir, size, scope], dir, size]
+  if(type != "vacio"):  # Function has a return value
+      if(type[0] == "e" or type[0] == "f"):
+          size = 4
+      else:
+          size = 1
+      # Creates a temporal to save return value
+      func.generate_era(func_name, [func_name, [type, state.temp_dir, size, 't']])
+      state.temp_dir += size
+  else:
+      func.generate_era(func_name, None)
 def p_endCall(p):
   '''endCall : empty
   '''
+  state.operator_stack.pop()
   func.generate_gosub(p[-6])
   state.reset_call()
 def p_addParamCall(p):
@@ -301,12 +343,12 @@ def p_PRMSZ(p):
 
 # listo
 def p_FUNCION(p): 
-  '''FUNCION : DEFINE DATA_TIPOS ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRN END functionEnd restoreScope
+  '''FUNCION : DEFINE DATA_TIPOS ID seenFunction changeScope VAR_FUN BLOQUE FUNCIONRN END functionEnd restoreScope
   '''
   # sem.redeclaredFunction(p[3])
 # listo
 def p_FUNCIONV(p): 
-  '''FUNCIONV : DEFINE VOID ID changeScope seenFunction VAR_FUN BLOQUE FUNCIONRV END functionEnd restoreScope
+  '''FUNCIONV : DEFINE VOID ID addReturnFunction changeScope VAR_FUN BLOQUE FUNCIONRV END addReturnFunctionEnd restoreScope
   '''
 
 def p_FUNCIONRV(p):
@@ -321,7 +363,26 @@ def p_seenFunction(p):
     '''seenFunction  :   empty
     '''
     state.local_dir = 0
-    sem.func_table[p[-2]].append(len(state.quads))
+    sem.func_table[p[-1]].append(len(state.quads))
+
+def p_addReturnFunction(p):
+    '''addReturnFunction  :   empty
+    '''
+    state.local_dir = 0
+    #state.return_dir_stack.append(state.temp_dir)
+    sem.func_table[p[-1]].append(len(state.quads))
+def p_addReturnFunctionEnd(p):
+    '''addReturnFunctionEnd  :   empty
+    '''
+    func_name = p[-7]
+    return_var = state.operand_stack.pop()
+    func.generate_return(func_name, return_var)
+    func.generate_end(func_name)
+    sem.func_table[func_name].append(state.f_size)
+    sem.func_table[func_name][0] = return_var[1]
+    #state.return_dir_stack.pop()
+    #state.return_var_stack.pop()
+    state.f_size = 0
 # listo
 def p_VAR_FUN(p): 
   '''VAR_FUN : LPAR VAR_FUNC RPAR
@@ -384,12 +445,18 @@ def p_restoreScope(p):
     '''restoreScope  :   empty
     '''
     sem.scope = "global"
+    #addresses = state.address_stack.pop()
+    #state.global_dir = addresses[0]
+    #state.constant_dir = addresses[1]
+    #state.local_dir = addresses[2]
+    #state.temp_dir = addresses[3]
 
 def p_changeScope(p):
     '''changeScope  :   empty
     '''
-    sem.scope = p[-1]
-    sem.validate_redeclaration_function(p[-1])
+    sem.scope = p[-2]
+    sem.validate_redeclaration_function(p[-2])
+    #state.address_stack.append([state.global_dir, state.constant_dir, state.local_dir, state.temp_dir])
     state.temp_counter = 0
     state.temp_dir = 0
 # Read
@@ -415,12 +482,12 @@ def p_addDataType(p):
 def p_addFloat(p):
     '''addFloat  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1], "flotante", 1)
+    sem.fill_symbol_table_constant(p[-1], "flotante", 4)
 
 def p_addInt(p):
     '''addInt  :   empty 
     '''
-    sem.fill_symbol_table_constant(p[-1], "entero", 1)
+    sem.fill_symbol_table_constant(p[-1], "entero", 4)
 
 def p_addString(p):
     '''addString  :   empty 
@@ -478,12 +545,12 @@ def p_pushLabelS(p):
     '''pushLabelS  :   empty
     '''
     state.label_stack.append(len(state.quads))
-    il.generate_if_goto_F(state.operand_stack.pop())
+    il.generate_if_goto_f(state.operand_stack.pop())
 
 def p_popLabelS(p):
     '''popLabelS  :   empty
     '''
-    il.put_label_to_goto_F(state.label_stack.pop())
+    il.put_label_to_goto_f(state.label_stack.pop())
 
 def p_pushElse(p):
     '''pushElse  :   empty
@@ -532,6 +599,7 @@ def p_popExp(p):
 def p_genQuad0(p):
     '''genQuad0   :    empty 
     '''
+    expr.generate_quad(0)
 
 def p_genQuad1(p):
     '''genQuad1  :    empty   
@@ -592,7 +660,14 @@ def add_offset(lst, g_offset, c_offset, l_offset):
 # Adds offset to global, local and constant variables
 for okey in sem.var_table:
     for ikey in sem.var_table[okey].items():
-        add_offset(ikey[1], 0, state.global_dir, 9000)
+        add_offset(ikey[1], state.g_offset, state.c_offset + state.global_dir, state.l_offset)
+
+# Counts global and constant variables to pass the starting stack address to the VM
+stack_dir = 0
+for var in sem.var_table[sem.global_str].items():
+    stack_dir += var[1][2]
+for var in sem.var_table[sem.constant_str].items():
+    stack_dir += var[1][2]
 
 for func_name in sem.func_table:
     if(sem.var_table[func_name] != None):
@@ -600,7 +675,7 @@ for func_name in sem.func_table:
 
 # Changes variables to memory addresses and adds temporal offset
 for idx, quad in enumerate(state.quads):
-    quad.transform(43000)
+    quad.transform(state.t_offset)
     #quad.add_offset(0, state.global_dir, 9000, 43000)
     print idx, (quad.operator, quad.operand1, quad.operand2, quad.result)
 
@@ -623,5 +698,5 @@ with open("o.af", "wb") as out:
     }
     pickle.dump(obj, out, -1)
 
-machine = vm.VirtualMachine("o.af")
+machine = vm.VirtualMachine("o.af", stack_dir)
 machine.run()

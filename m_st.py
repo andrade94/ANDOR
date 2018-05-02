@@ -1,15 +1,22 @@
+# Module that keeps the state of the parser
+
 #list of al the params
 params_list = []
 
 #label stack 
 label_stack = []
 
+# Maintains the addresses references when changing scopes
+#address_stack = []  # [global, constant, local, temp]
+
+# Return values of functions
+return_dir_stack = []
+return_var_stack = []
+
 # Operands stack
 operand_stack = []
-
 # Operator stack
-operator_stack = []  
-
+operator_stack = []
 last_operator = None
 
 # Temp counter
@@ -23,7 +30,6 @@ temp_dir = 0
 
 # Function signature
 signature = []
-
 # Function size(bytes)
 f_size = 0
 
@@ -34,6 +40,13 @@ param_types = []
 
 # Quad list
 quads = []
+
+# Offsets
+g_offset = 0      # Global
+c_offset = 0      # Constant
+l_offset = 3000   # Local
+t_offset = 40000  # Temporal
+s_offset = 0      # Stack
 
 def clear_stacks():
     global operator_stack, operand_stack, last_operator

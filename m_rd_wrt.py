@@ -7,7 +7,6 @@ def print_quad(printable):
     qd.set_quad("print", None, printable, None)
     # state.operand_stack.append(qd.result)
     state.quads.append(qd)
-    state.temp_counter += 1
 
 def read_quad(type, var, scope):
     if(type == sem.var_table[scope][var][0]):
